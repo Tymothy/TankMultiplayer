@@ -115,9 +115,9 @@ function sendEvent(_ws, _event, _data) {
 	console.log("WS: " + _ws);
 	console.log("==endSendEvent==");
 	_data.socketObject = undefined; //Do not send websocket data to player
-	
+	_data.event = _event;
 	var packet = JSON.stringify({
-		event: _event,
+		//event: _event,
 		data: _data,
 	})
 	console.log(packet);
