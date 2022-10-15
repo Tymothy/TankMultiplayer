@@ -1,3 +1,10 @@
+#region Networking
+#macro SERVER_IP "54.245.7.200"
+#macro SERVER_PORT 10027
+
+
+#endregion
+
 //Direction
 #macro NO_DIRECTION -1
 #macro EAST 0
