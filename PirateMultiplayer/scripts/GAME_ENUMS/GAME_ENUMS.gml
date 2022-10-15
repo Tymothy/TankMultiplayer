@@ -1,0 +1,6 @@
+enum TEAM{
+	RED,
+	BLUE,
+	GREEN,
+	YELLOW,
+}

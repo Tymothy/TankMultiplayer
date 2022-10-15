@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "NETWORK_ENUMS",
+  "name": "Ship_Constructors",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Macros and Enums",
-    "path": "folders/Scripts/Macros and Enums.yy",
+    "name": "Scripts",
+    "path": "folders/Scripts.yy",
   },
 }

@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "NETWORK_ENUMS",
+  "name": "GAME_ENUMS",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {

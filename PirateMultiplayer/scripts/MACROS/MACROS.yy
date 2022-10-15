@@ -5,7 +5,7 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Scripts",
-    "path": "folders/Scripts.yy",
+    "name": "Macros and Enums",
+    "path": "folders/Scripts/Macros and Enums.yy",
   },
 }
