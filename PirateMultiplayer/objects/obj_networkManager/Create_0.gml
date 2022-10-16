@@ -2,4 +2,4 @@
 
 clientID = -1;
 
-clientSocket = connect_to_server();
+clientSocket = net_server_connect();

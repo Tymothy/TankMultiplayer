@@ -1,14 +1,20 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_ssave_demo",
-  "spriteId": null,
+  "name": "obj_other",
+  "spriteId": {
+    "name": "spr_dinghy_large",
+    "path": "sprites/spr_dinghy_large/spr_dinghy_large.yy",
+  },
   "solid": false,
   "visible": true,
   "managed": true,
   "spriteMaskId": null,
   "persistent": false,
-  "parentObjectId": null,
+  "parentObjectId": {
+    "name": "obj_player",
+    "path": "objects/obj_player/obj_player.yy",
+  },
   "physicsObject": false,
   "physicsSensor": false,
   "physicsShape": 1,
@@ -27,7 +33,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "SSave",
-    "path": "folders/z_Templates/SSave.yy",
+    "name": "Entities",
+    "path": "folders/Objects/Entities.yy",
   },
 }

@@ -1,11 +1,6 @@
 /// @description 
 
 //Put this into a constructor
-playerData = {
-	clientID : -1,
-	name: "",
-	team: "",
-	hp: "",
-}
+playerData = new create_player();
 
 image_speed = 0;

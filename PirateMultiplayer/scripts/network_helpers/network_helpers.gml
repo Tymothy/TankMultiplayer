@@ -6,31 +6,31 @@ function <NAME>(_var1, _var2, _var3...) {
 //CODE
 }
 */
-function connect_to_server() {
+function net_server_connect() {
 	var _ret= network_create_socket(network_socket_ws);
 	network_connect_raw_async(_ret, SERVER_IP, SERVER_PORT);
 	return _ret;
 }
 
-function create_event(_string) constructor{
+function net_create_event(_string) constructor{
 	eventName = _string;
 }
 
-function create_player(_name) constructor {
-	event = S_EVENT.CREATE_PLAYER;
+function net_create_self(_name) constructor {
+	event = S_EVENT.CREATE_SELF;
 	name = _name;
 	//x = _x;
 	//y = _y;
 }
 
-function create_packet(_data) constructor {
+function net_create_packet(_data) constructor {
 	//event = _event;
 	data = _data;
 
 }
 
-function server_send(data) {
-	var _packet = new create_packet(data);
+function net_server_send(data) {
+	var _packet = new net_create_packet(data);
 	var _packet = json_stringify(_packet);
 	
 	var _buffer = buffer_create(1, buffer_grow, 1);
@@ -42,19 +42,18 @@ function server_send(data) {
 }
 
 
-function server_create_player() {
-	//var _event = new create_event(S_EVENT.CREATE_PLAYER);
-	var _data = new create_player("Lucidi");
-	server_send(_data);
+function net_helper_create_player() {
+	var _data = new net_create_self("Lucidi");
+	net_server_send(_data);
 }
 
-function handle_data(_asyncLoad) {
+function net_handle_data(_asyncLoad) {
 	var _buffer_raw = async_load[? "buffer"];
 	var _buffer_processed = buffer_read(_buffer_raw, buffer_text);
 	var _data = json_parse(_buffer_processed);
 	//_data = variable_struct_get_names(_data.data);
 	
-	return(_data.data);
+	return(_data);
 	
 	
 	

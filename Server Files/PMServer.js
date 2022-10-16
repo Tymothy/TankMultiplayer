@@ -8,14 +8,14 @@ const wss = new WebSocketServer.Server({ port: serverPort})
 //Create network event enum objects.  This should match GameMaker's NET_EVENT enum
 //Server Events
 const S_EVENT = {
-	CREATE_PLAYER : 0,
+	CREATE_SELF: 0,
 	POSITION_UPDATE : 1,
 }
 
 //Cleint events
 const C_EVENT = {
-	CREATE_PLAYER: 0,
-	CREATE_ENEMY: 1,
+	CREATE_SELF: 0,
+	CREATE_OTHER: 1,
 }
 
 const TEAM = {
@@ -43,6 +43,18 @@ function generateClientID() {
 	return clientID;
 }
 
+function getPlayer(_clientID){
+//Returns the object held in playersData given a clientID
+	for(let i = 0; i < playersData.length; i++) {
+		let item = playersData[i];
+		
+		if(item.clientID == _clientID){
+			return playersData[i];
+		}
+	}
+
+}
+
 function sendPositionUpdates(){
 	for(let i in players){ //Players we are sending data to
 		for(let j in players){ //Players we are sending data about
@@ -62,35 +74,38 @@ function sendPositionUpdates(){
 	}
 	setTimeout(sendPositionUpdates, 30);
 }
+
 // #region Game Functions
 function getWorldSpawnCoords(team){
 	
+	let randY = Math.floor(Math.random() * 50 - 25);
+	let randX = Math.floor(Math.random() * 50 - 25);
 	switch(team){
 		case TEAM.RED:
 			var _ret = {
-				x : 400,
-				y: 400,
+				x : 400 + randX,
+				y: 400 + randY,
 			}		
 		break;
 		
 		case TEAM.BLUE:
 			var _ret = {
-				x : 800,
-				y: 400,
+				x : 800 + randX,
+				y: 400 + randY,
 			}			
 		break;
 		
 		case TEAM.GREEN:
 			var _ret = {
-				x : 400,
-				y:  800,
+				x : 400 + randX,
+				y:  800 + randY,
 			}				
 		break;
 		
 		case TEAM.YELLOW:
 			var _ret = {
-				x : 800,
-				y:  800,
+				x : 800+ randX,
+				y:  800+ randY,
 			}			
 		break;
 				
@@ -113,22 +128,53 @@ function sendEvent(_ws, _event, _data) {
 	//_ws = The socket object of the client we want to send to
 	//_event = the event name we want to send to client
 	// _data = the data object we want to sent client
-	let  dataToSend = _data;
+	
+	//Disconnected the object from each in memory so changes are only made to dataToSend
+	//let  dataToSend = JSON.parse(JSON.stringify(_data)); 
 
-	dataToSend.socketObject = undefined; //Do not send websocket data to player
-	dataToSend.event = _event;
-	var packet = JSON.stringify({
-		//event: _event,
-		data: dataToSend,
-	})
-	console.log("==sendEvent==");
-	console.log("Event: " + _event);
-	console.log("Data: " + dataToSend);
-	console.log("WS: " + _ws);
-	console.log("==endSendEvent==");
-	console.log(packet);
-	_ws.send(packet);
-	console.log("==endSendEvent==");
+	//dataToSend.socketObject = undefined; //Do not send websocket data to player
+	var packet = 0;
+	
+	switch(_event) {
+		case C_EVENT.CREATE_SELF:
+			packet = JSON.stringify({
+				event: _event,
+				data: _data.clientID,
+				name: _data.name,
+				x: _data.x,
+				y: _data.y
+			});
+			
+			_ws.send(packet);
+		break;
+		
+		case C_EVENT.CREATE_OTHER:
+			packet = JSON.stringify({
+				event: _event,
+				data: _data.clientID,
+				name: _data.name,
+				x: _data.x,
+				y: _data.y
+			});
+			
+			_ws.send(packet);		
+		break;
+		
+	}
+	
+	
+	
+	//dataToSend.event = _event;
+	//var packet = JSON.stringify({
+	//	//event: _event,
+	//	data: dataToSend,
+	//})
+	//console.log("==sendEvent==");
+	//console.log("Event: " + _event);
+	//console.log("Data: " + dataToSend);
+	//console.log("==endSendEvent==");
+	//console.log(packet);
+	//_ws.send(packet);
 }
 // #endregion
 
@@ -145,11 +191,11 @@ wss.on("connection", ws => {
 		
 		//console.log("Event Name var: ");
 		//console.log(eventName);
-		console.log("=== JSON DATA ===");
-		console.log(jsonData);
-		console.log("=== END OF JSON DATA ===");
+		//console.log("=== JSON DATA ===");
+		//console.log(jsonData);
+		//console.log("=== END OF JSON DATA ===");
 		switch(event) {
-			case S_EVENT.CREATE_PLAYER:
+			case S_EVENT.CREATE_SELF:
 				console.log("Create event");
 				//We want to create the player on the server and tell the client where they are created at
 				team = assignTeam(); //Testing value, needs a function later
@@ -161,23 +207,42 @@ wss.on("connection", ws => {
 						team : team,
 						x: spawnCoords.x,
 						y: spawnCoords.y,
-						health: 3,
+						hp: 3,
 						socketObject: ws,
 					};
 					playersData.push(curPlayer);
 
-				sendEvent(curPlayer.socketObject, C_EVENT.CREATE_PLAYER, curPlayer);	
-				console.log("Checking socket object value");
-				console.log(curPlayer.socketObject);
+				sendEvent(curPlayer.socketObject, C_EVENT.CREATE_SELF, curPlayer);	
+				
 				//Tell the player about other existing players in world	
-				for(let i in playersData) {
-					var item = playersData[i];
+				for(let i = 0; i < playersData.length; i++) {
+					let item = playersData[i];
 					// Don't send data about self
 					if(item.clientID != curPlayer.clientID){
-						console.log("Sending information about enemy " + item.name + " to " + curPlayer.name);
-						sendEvent(curPlayer.socketObject, C_EVENT.CREATE_ENEMY, playersData[i]);
+						//console.log("Sending information about enemy " + item.name + " to " + curPlayer.name);
+						sendEvent(curPlayer.socketObject, C_EVENT.CREATE_OTHER, playersData[i]);
+						
+						//Also send the data about the new player to existing players
+						//console.log("Sending info about " + curPlayer.clientID +_" to " + playersData[i].clientID + ".");
+						
+						//console.log(playersData[i].clientID);
+						//console.log(curPlayer.clientID);
+						//console.log("===DEBUGGING===");
+						//console.log("");
+						//console.log("");
+						//console.log("PlayersData[i]:");
+						//console.log(playersData[i]);
+						//console.log("");
+						//console.log("curPlayer");
+						//console.log(curPlayer);
+						//console.log("");
+						//console.log("");
+						//console.log("===END DEBUG====");
+						//let temp = getPlayer(curPlayer.clientID);
+						sendEvent(playersData[i].socketObject, C_EVENT.CREATE_OTHER, curPlayer);
 					}
 				}
+			
 
 				
 			break;

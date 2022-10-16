@@ -4,4 +4,4 @@
 
 
 show_debug_message("Manually reconnecting to server");
-clientSocket = connect_to_server();
+clientSocket = net_server_connect();

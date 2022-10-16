@@ -1,14 +1,20 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_networkManager",
-  "spriteId": null,
+  "name": "obj_self",
+  "spriteId": {
+    "name": "spr_hull_large",
+    "path": "sprites/spr_hull_large/spr_hull_large.yy",
+  },
   "solid": false,
   "visible": true,
   "managed": true,
   "spriteMaskId": null,
-  "persistent": true,
-  "parentObjectId": null,
+  "persistent": false,
+  "parentObjectId": {
+    "name": "obj_player",
+    "path": "objects/obj_player/obj_player.yy",
+  },
   "physicsObject": false,
   "physicsSensor": false,
   "physicsShape": 1,
@@ -23,13 +29,11 @@
   "physicsShapePoints": [],
   "eventList": [
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,},
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":17,"eventType":9,"collisionObjectId":null,},
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":68,"eventType":7,"collisionObjectId":null,},
   ],
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Managers",
-    "path": "folders/Objects/Managers.yy",
+    "name": "Entities",
+    "path": "folders/Objects/Entities.yy",
   },
 }

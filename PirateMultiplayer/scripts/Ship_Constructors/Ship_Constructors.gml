@@ -6,6 +6,15 @@ function <NAME>(_var1, _var2, _var3...) {
 //CODE
 }
 */
+function create_player() constructor{
+	
+	clientID = -1;
+	name = "";
+	team = "";
+	hp = "";
+}
+
+
 function Ship_Constructors(){
 
 }
