@@ -15,6 +15,7 @@ const S_EVENT = {
 //Cleint events
 const C_EVENT = {
 	CREATE_PLAYER: 0,
+	CREATE_ENEMY: 1,
 }
 
 const TEAM = {
@@ -109,20 +110,25 @@ function assignTeam() {
 
 // #region Server to Client
 function sendEvent(_ws, _event, _data) {
-	console.log("==sendEvent==");
-	console.log("Event: " + _event);
-	console.log("Data: " + _data);
-	console.log("WS: " + _ws);
-	console.log("==endSendEvent==");
-	_data.socketObject = undefined; //Do not send websocket data to player
-	_data.event = _event;
+	//_ws = The socket object of the client we want to send to
+	//_event = the event name we want to send to client
+	// _data = the data object we want to sent client
+	let  dataToSend = _data;
+
+	dataToSend.socketObject = undefined; //Do not send websocket data to player
+	dataToSend.event = _event;
 	var packet = JSON.stringify({
 		//event: _event,
-		data: _data,
+		data: dataToSend,
 	})
+	console.log("==sendEvent==");
+	console.log("Event: " + _event);
+	console.log("Data: " + dataToSend);
+	console.log("WS: " + _ws);
+	console.log("==endSendEvent==");
 	console.log(packet);
 	_ws.send(packet);
-	console.log("Sent player " + _data.name + " data");
+	console.log("==endSendEvent==");
 }
 // #endregion
 
@@ -149,7 +155,7 @@ wss.on("connection", ws => {
 				team = assignTeam(); //Testing value, needs a function later
 				var spawnCoords = getWorldSpawnCoords(team);
 				
-				var playerData = {
+				var curPlayer= {
 						clientID: generateClientID(),
 						name: data.name,
 						team : team,
@@ -158,9 +164,20 @@ wss.on("connection", ws => {
 						health: 3,
 						socketObject: ws,
 					};
-					playersData.push(playerData);
+					playersData.push(curPlayer);
 
-				sendEvent(playerData.socketObject, C_EVENT.CREATE_PLAYER, playerData);		
+				sendEvent(curPlayer.socketObject, C_EVENT.CREATE_PLAYER, curPlayer);	
+				console.log("Checking socket object value");
+				console.log(curPlayer.socketObject);
+				//Tell the player about other existing players in world	
+				for(let i in playersData) {
+					var item = playersData[i];
+					// Don't send data about self
+					if(item.clientID != curPlayer.clientID){
+						console.log("Sending information about enemy " + item.name + " to " + curPlayer.name);
+						sendEvent(curPlayer.socketObject, C_EVENT.CREATE_ENEMY, playersData[i]);
+					}
+				}
 
 				
 			break;

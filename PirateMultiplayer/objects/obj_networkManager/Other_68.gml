@@ -26,7 +26,7 @@ switch(_type) {
 					playerData.team = _data.team;
 					
 				}
-				show_message("Creating player in game world");
+				show_debug_message("Creating player in game world");
 			break;
 			
 			default:

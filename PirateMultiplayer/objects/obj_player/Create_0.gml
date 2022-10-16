@@ -5,7 +5,7 @@ playerData = {
 	clientID : -1,
 	name: "",
 	team: "",
-	health: "",
+	hp: "",
 }
 
 image_speed = 0;

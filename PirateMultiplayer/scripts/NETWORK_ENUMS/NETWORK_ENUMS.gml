@@ -8,4 +8,5 @@ enum S_EVENT {
 //Client events (Server to Client)
 enum C_EVENT {
 	CREATE_PLAYER,
+	CREATE_ENEMY,
 }
