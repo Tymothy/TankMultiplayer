@@ -2,17 +2,17 @@
 /// @param Text_Enum
 /// @param <Color>
 function draw_set_text_alignment() {
-	enum Text
+	enum TEXT
 	{
-		left_bottom=1,
-		center_bottom=2,
-		right_bottom=3,
-		left_middle=4,
-		center_middle=5,
-		right_middle=6,
-		left_top=7,
-		center_top=8,
-		right_top=9
+		LEFT_BOTTOM = 1,
+		CENTER_BOTTOM = 2,
+		RIGHT_BOTTOM = 3,
+		LEFT_MIDDLE = 4,
+		CENTER_MIDDLE = 5,
+		RIGHT_MIDDLE = 6,
+		LEFT_TOP = 7,
+		CENTER_TOP = 8,
+		RIGHT_TOP = 9,
 	}
 	//Why the above values?  Look at your numpad.
 

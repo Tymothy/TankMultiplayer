@@ -150,7 +150,7 @@ wss.on("connection", ws => {
 				var spawnCoords = getWorldSpawnCoords(team);
 				
 				var playerData = {
-						id: generateClientID(),
+						clientID: generateClientID(),
 						name: data.name,
 						team : team,
 						x: spawnCoords.x,

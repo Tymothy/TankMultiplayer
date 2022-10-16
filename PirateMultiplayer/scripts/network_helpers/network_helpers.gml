@@ -47,3 +47,15 @@ function server_create_player() {
 	var _data = new create_player("Lucidi");
 	server_send(_data);
 }
+
+function handle_data(_asyncLoad) {
+	var _buffer_raw = async_load[? "buffer"];
+	var _buffer_processed = buffer_read(_buffer_raw, buffer_text);
+	var _data = json_parse(_buffer_processed);
+	//_data = variable_struct_get_names(_data.data);
+	
+	return(_data.data);
+	
+	
+	
+}
