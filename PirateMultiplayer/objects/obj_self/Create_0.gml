@@ -3,13 +3,12 @@
 
 
 
-
-
 // Inherit the parent event
 event_inherited();
 
-input = new add_controls();
+components.controls = true;
+
+
+if(components.controls == true) input = new add_controls();
 
 var breakpoint = 0;
-
-read_input(input);
