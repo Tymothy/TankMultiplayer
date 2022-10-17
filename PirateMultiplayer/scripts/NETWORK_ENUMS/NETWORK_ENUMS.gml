@@ -9,4 +9,5 @@ enum S_EVENT {
 enum C_EVENT {
 	CREATE_SELF,
 	CREATE_OTHER,
+	DESTROY_OTHER,
 }

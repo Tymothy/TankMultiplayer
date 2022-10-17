@@ -16,6 +16,7 @@ const S_EVENT = {
 const C_EVENT = {
 	CREATE_SELF: 0,
 	CREATE_OTHER: 1,
+	DESTROY_OTHER: 2,
 }
 
 const TEAM = {
@@ -156,10 +157,18 @@ function sendEvent(_ws, _event, _data) {
 				hp: _data.hp,
 				team: _data.team
 			});
-			
+					
 			_ws.send(packet);		
 		break;
 		
+		case C_EVENT.DESTROY_OTHER:
+			packet = JSON.stringify({
+				event: _event,
+				clientID: _data.clientID,
+				
+			});
+			_ws.send(packet);
+		break;
 	}
 	
 	
@@ -236,11 +245,25 @@ wss.on("connection", ws => {
 			break;
 		} //End switch event
 					
-		});
+		});//End message 
 	
 		ws.on("close", () => {
+			//Remove a client from the game world
+			let deadIndex = 0;
+			let deadClientID = 0;
+			for(let i = 0; i < playersData.length; i++) {
+				if(playersData[i].socketObject == ws) {
+					deadIndex = i;
+					deadClient = playersData[i];
+				}
+			}	
+			playersData.splice(deadIndex, 1);	
+			for(let i = 0; i < playersData.length; i++) {
+				console.log("Sending destroy other event to " + playersData[i].clientID);
+				sendEvent(playersData[i].socketObject, C_EVENT.DESTROY_OTHER, deadClient)
+				}
 			
-		});	
+		});// End close	
 		
 		ws.oneerror = function() {
 			console.log("Some error occured");

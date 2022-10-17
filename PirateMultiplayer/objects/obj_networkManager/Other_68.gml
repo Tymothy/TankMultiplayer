@@ -43,8 +43,19 @@ switch(_type) {
 					playerData.name = _data.name;
 					playerData.team = _data.team;
 					
-				}				
+				}								
+				break;
 				
+			case C_EVENT.DESTROY_OTHER:
+						show_message("Destroy other event");		
+						var _destroyID = _data.clientID;
+						show_message("Destroying client with ID" + string(_destroyID));
+				with(obj_other) {
+					if(playerData.clientID == _destroyID) {
+						show_message("Destroyed client with client ID " + string(playerData.clientID));
+						instance_destroy();
+					}
+				}
 				
 				break;
 			
