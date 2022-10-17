@@ -19,13 +19,20 @@ switch(_type) {
 		switch(_data.event) {
 			case C_EVENT.CREATE_SELF:
 				//Create player in game world
-				with(instance_create_layer(_data.x, _data.y, "lay_players", obj_self)){
+				var inst = instance_create_layer(_data.x, _data.y, "lay_players", obj_self);
+				with (inst){
 					playerData.clientID = _data.clientID;
 					playerData.hp = _data.hp;
 					playerData.name = _data.name;
-					playerData.team = _data.team;
-					
+					playerData.team = _data.team;				
 				}
+				//with(instance_create_layer(_data.x, _data.y, "lay_players", obj_self)){
+				//	playerData.clientID = _data.clientID;
+				//	playerData.hp = _data.hp;
+				//	playerData.name = _data.name;
+				//	playerData.team = _data.team;
+					
+				//}
 				show_debug_message("Creating player in game world");
 			break;
 			

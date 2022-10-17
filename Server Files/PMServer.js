@@ -78,8 +78,8 @@ function sendPositionUpdates(){
 // #region Game Functions
 function getWorldSpawnCoords(team){
 	
-	let randY = Math.floor(Math.random() * 50 - 25);
-	let randX = Math.floor(Math.random() * 50 - 25);
+	let randY = Math.floor(Math.random() * 200 - 100);
+	let randX = Math.floor(Math.random() * 200 - 100);
 	switch(team){
 		case TEAM.RED:
 			var _ret = {
@@ -128,21 +128,19 @@ function sendEvent(_ws, _event, _data) {
 	//_ws = The socket object of the client we want to send to
 	//_event = the event name we want to send to client
 	// _data = the data object we want to sent client
-	
-	//Disconnected the object from each in memory so changes are only made to dataToSend
-	//let  dataToSend = JSON.parse(JSON.stringify(_data)); 
 
-	//dataToSend.socketObject = undefined; //Do not send websocket data to player
 	var packet = 0;
 	
 	switch(_event) {
 		case C_EVENT.CREATE_SELF:
 			packet = JSON.stringify({
 				event: _event,
-				data: _data.clientID,
+				clientID: _data.clientID,
 				name: _data.name,
 				x: _data.x,
-				y: _data.y
+				y: _data.y,
+				hp: _data.hp,
+				team: _data.team
 			});
 			
 			_ws.send(packet);
@@ -151,10 +149,12 @@ function sendEvent(_ws, _event, _data) {
 		case C_EVENT.CREATE_OTHER:
 			packet = JSON.stringify({
 				event: _event,
-				data: _data.clientID,
+				clientID: _data.clientID,
 				name: _data.name,
 				x: _data.x,
-				y: _data.y
+				y: _data.y,
+				hp: _data.hp,
+				team: _data.team
 			});
 			
 			_ws.send(packet);		
@@ -223,22 +223,6 @@ wss.on("connection", ws => {
 						sendEvent(curPlayer.socketObject, C_EVENT.CREATE_OTHER, playersData[i]);
 						
 						//Also send the data about the new player to existing players
-						//console.log("Sending info about " + curPlayer.clientID +_" to " + playersData[i].clientID + ".");
-						
-						//console.log(playersData[i].clientID);
-						//console.log(curPlayer.clientID);
-						//console.log("===DEBUGGING===");
-						//console.log("");
-						//console.log("");
-						//console.log("PlayersData[i]:");
-						//console.log(playersData[i]);
-						//console.log("");
-						//console.log("curPlayer");
-						//console.log(curPlayer);
-						//console.log("");
-						//console.log("");
-						//console.log("===END DEBUG====");
-						//let temp = getPlayer(curPlayer.clientID);
 						sendEvent(playersData[i].socketObject, C_EVENT.CREATE_OTHER, curPlayer);
 					}
 				}
