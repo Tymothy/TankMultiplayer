@@ -24,15 +24,9 @@ switch(_type) {
 					playerData.clientID = _data.clientID;
 					playerData.hp = _data.hp;
 					playerData.name = _data.name;
-					playerData.team = _data.team;				
+					playerData.team = _data.team;
 				}
-				//with(instance_create_layer(_data.x, _data.y, "lay_players", obj_self)){
-				//	playerData.clientID = _data.clientID;
-				//	playerData.hp = _data.hp;
-				//	playerData.name = _data.name;
-				//	playerData.team = _data.team;
-					
-				//}
+				event_notify(C_EVENT.CREATE_SELF);
 				show_debug_message("Creating player in game world");
 			break;
 			
@@ -44,19 +38,34 @@ switch(_type) {
 					playerData.team = _data.team;
 					
 				}								
+				event_notify(C_EVENT.CREATE_OTHER);
 				break;
 				
 			case C_EVENT.DESTROY_OTHER:
-						show_message("Destroy other event");		
+						//show_message("Destroy other event");		
 						var _destroyID = _data.clientID;
-						show_message("Destroying client with ID" + string(_destroyID));
+						//show_message("Destroying client with ID" + string(_destroyID));
 				with(obj_other) {
 					if(playerData.clientID == _destroyID) {
-						show_message("Destroyed client with client ID " + string(playerData.clientID));
+						//show_message("Destroyed client with client ID " + string(playerData.clientID));
 						instance_destroy();
 					}
 				}
-				
+				event_notify(C_EVENT.DESTROY_OTHER);
+				break;
+			
+			case C_EVENT.UPDATE_POSITION:
+				var _clientID = _data.clientID;				
+				with(obj_other) {
+					if(playerData.clientID == _clientID) {
+						playerData.xTo = _data.x;
+						playerData.yTo = _data.y;
+						playerData.aTo = _data.a;
+						playerData.framesSinceLastUpdate = 0;
+						//x = lerp(x, _data.x, .2);
+						//y = lerp(y, _data.y, .2);
+					}
+				}					
 				break;
 			
 			default:

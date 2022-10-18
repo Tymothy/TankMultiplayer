@@ -1,7 +1,7 @@
 //Server events (Client to Sever)
 enum S_EVENT {
 	CREATE_SELF,
-	POSITION_UPDATE, //Updates the server with current position
+	UPDATE_POSITION, //Updates the server with current position
 	
 }
 
@@ -10,4 +10,5 @@ enum C_EVENT {
 	CREATE_SELF,
 	CREATE_OTHER,
 	DESTROY_OTHER,
+	UPDATE_POSITION
 }

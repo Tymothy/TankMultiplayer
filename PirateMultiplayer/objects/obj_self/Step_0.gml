@@ -1,6 +1,12 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+event_inherited();
+
+if(event_watch(C_EVENT.CREATE_SELF)) {
+	//Wait for player to be created to create the ship
+	shipData = new create_ship(playerData.ship, playerData.team);
+}
 
 if(components.controls == true) {
 		
@@ -8,18 +14,18 @@ if(components.controls == true) {
 
 	//TODO: Make these all vectors and steering behaviors for release
 	if(input.left.held > 0) {
-		image_angle += ship.move.turnRadius;
+		image_angle += shipData.move.turnRadius;
 	}
 	
 	if(input.right.held > 0) {
-		image_angle -= ship.move.turnRadius;
+		image_angle -= shipData.move.turnRadius;
 	}
 	
 	if(input.forward.held > 0) {
-		var xTo = x + lengthdir_x(ship.move.maxSpeed, image_angle -90);
-		var yTo = y + lengthdir_y(ship.move.maxSpeed, image_angle -90);
-		x = lerp(x, xTo, ship.move.maxSpeed * ship.move.acc);
-		y = lerp(y, yTo, ship.move.maxSpeed * ship.move.acc);
+		var xTo = x + lengthdir_x(shipData.move.maxSpeed, image_angle -90);
+		var yTo = y + lengthdir_y(shipData.move.maxSpeed, image_angle -90);
+		x = lerp(x, xTo, shipData.move.maxSpeed * shipData.move.acc);
+		y = lerp(y, yTo, shipData.move.maxSpeed * shipData.move.acc);
 	}
 }
 

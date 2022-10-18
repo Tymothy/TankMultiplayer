@@ -2,6 +2,7 @@
 #macro SERVER_IP "54.245.7.200"
 #macro SERVER_PORT 10027
 
+#macro UPDATE_RATE 2 //Rate at which we send updates about player to server
 
 #endregion
 

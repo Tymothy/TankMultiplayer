@@ -9,7 +9,7 @@ const wss = new WebSocketServer.Server({ port: serverPort})
 //Server Events
 const S_EVENT = {
 	CREATE_SELF: 0,
-	POSITION_UPDATE : 1,
+	UPDATE_POSITION : 1,
 }
 
 //Cleint events
@@ -17,6 +17,7 @@ const C_EVENT = {
 	CREATE_SELF: 0,
 	CREATE_OTHER: 1,
 	DESTROY_OTHER: 2,
+	UPDATE_POSITION: 3,
 }
 
 const TEAM = {
@@ -31,8 +32,8 @@ clientID = 0;
 
 function logPlayerState() {
 	console.log("Player positions:");
-	for(let i in players){
-		console.log(players[i].id, players[i].name, players[i].x, players[i].y, players[i].A);
+	for(let i = 0; i < playersData.length; i++) {
+		console.log(playersData[i].clientID, playersData[i].name, playersData[i].x, playersData[i].y, playersData[i].a);
 	}
 
 	setTimeout(logPlayerState, 5000);
@@ -57,20 +58,9 @@ function getPlayer(_clientID){
 }
 
 function sendPositionUpdates(){
-	for(let i in players){ //Players we are sending data to
-		for(let j in players){ //Players we are sending data about
-			//if(players[j].id != players[i].id)
-			//{
-				stringToSend = JSON.stringify({
-					//Info about every other player
-					eventName: "position_update",
-					id: players[j].id,
-					x: players[j].x,
-					y: players[j].y,
-					A: players[j].A,
-				});
-				players[i].socketObject.send(stringToSend);				
-			//}
+	for(let i = 0; i < playersData.length; i++) { //Players we are sending data to
+		for(let j = 0; j < playersData.length; j++) { //Players we are sending data about
+			sendEvent(playersData[i].socketObject, C_EVENT.UPDATE_POSITION, playersData[j]);
 		}
 	}
 	setTimeout(sendPositionUpdates, 30);
@@ -140,6 +130,7 @@ function sendEvent(_ws, _event, _data) {
 				name: _data.name,
 				x: _data.x,
 				y: _data.y,
+				a: _data.a,
 				hp: _data.hp,
 				team: _data.team
 			});
@@ -154,6 +145,7 @@ function sendEvent(_ws, _event, _data) {
 				name: _data.name,
 				x: _data.x,
 				y: _data.y,
+				a: _data.a,
 				hp: _data.hp,
 				team: _data.team
 			});
@@ -166,6 +158,17 @@ function sendEvent(_ws, _event, _data) {
 				event: _event,
 				clientID: _data.clientID,
 				
+			});
+			_ws.send(packet);
+		break;
+		
+		case C_EVENT.UPDATE_POSITION:
+			packet = JSON.stringify({
+				event: _event,
+				clientID: _data.clientID,
+				x: _data.x,
+				y: _data.y,
+				a: _data.a,
 			});
 			_ws.send(packet);
 		break;
@@ -188,10 +191,12 @@ function sendEvent(_ws, _event, _data) {
 // #endregion
 
 if(playersData.length != 0) {
-	logPlayerState();
+	//logPlayerState();
 	//sendPostionUpdates();
 }
-
+	logPlayerState();
+	sendPositionUpdates();
+	
 wss.on("connection", ws => {
 		ws.on("message", data => {
 		var jsonData = JSON.parse(data);
@@ -216,6 +221,7 @@ wss.on("connection", ws => {
 						team : team,
 						x: spawnCoords.x,
 						y: spawnCoords.y,
+						a: data.a,
 						hp: 3,
 						socketObject: ws,
 					};
@@ -240,6 +246,18 @@ wss.on("connection", ws => {
 				
 			break;
 			
+			case S_EVENT.UPDATE_POSITION:
+				//Update the players position on server
+				for(let i = 0; i < playersData.length; i++) {
+						let item = playersData[i];
+						if(item.clientID == data.clientID) {
+							playersData[i].x = Math.floor(data.x);
+							playersData[i].y = Math.floor(data.y);
+							playersData[i].a = Math.floor(data.a);
+						}
+					}
+			break;
+						
 			default:
 				console.log("No event matching");
 			break;

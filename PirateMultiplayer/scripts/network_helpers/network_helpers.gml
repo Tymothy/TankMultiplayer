@@ -19,8 +19,20 @@ function net_create_event(_string) constructor{
 function net_create_self(_name) constructor {
 	event = S_EVENT.CREATE_SELF;
 	name = _name;
+	a = 0;
+	
 	//x = _x;
 	//y = _y;
+}
+
+function net_update_position() constructor {
+	//Send current position to sever
+	event = S_EVENT.UPDATE_POSITION;
+	
+	clientID = other.playerData.clientID;
+	x = other.x;
+	y = other.y;
+	a = other.image_angle;
 }
 
 function net_create_packet(_data) constructor {
@@ -42,8 +54,13 @@ function net_server_send(data) {
 }
 
 
-function net_helper_create_player() {
+function net_send_create_player() {
 	var _data = new net_create_self("Lucidi");
+	net_server_send(_data);
+}
+
+function net_send_update_position() {
+	var _data = new net_update_position();
 	net_server_send(_data);
 }
 

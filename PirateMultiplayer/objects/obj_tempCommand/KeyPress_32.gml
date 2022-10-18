@@ -1,3 +1,3 @@
 /// @description Ask server to create player
 
-net_helper_create_player();
+net_send_create_player();

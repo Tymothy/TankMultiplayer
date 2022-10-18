@@ -5,7 +5,6 @@
 
 // Inherit the parent event
 event_inherited();
-
 components.controls = true;
 
 
