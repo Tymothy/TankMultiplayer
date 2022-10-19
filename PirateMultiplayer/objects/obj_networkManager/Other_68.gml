@@ -52,7 +52,7 @@ switch(_type) {
 				with(obj_other) {
 					if(playerData.clientID == _destroyID) {
 						//show_message("Destroyed client with client ID " + string(playerData.clientID));
-						instance_destroy();
+						destroy_self();
 					}
 				}
 				event_notify(G_EVENT.DESTROY_OTHER);
