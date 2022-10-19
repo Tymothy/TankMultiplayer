@@ -26,6 +26,11 @@ if(components.controls == true) {
 		x = lerp(x, xTo, shipData.move.maxSpeed * shipData.move.acc);
 		y = lerp(y, yTo, shipData.move.maxSpeed * shipData.move.acc);
 	}
+	
+	if(input.fire.released > 0) {
+		event_notify(G_EVENT.WEAPON_FIRE);	
+		net_send_weapon_fire();
+	}
 }
 
 

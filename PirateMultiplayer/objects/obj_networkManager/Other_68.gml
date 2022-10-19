@@ -69,7 +69,23 @@ switch(_type) {
 					}
 				}					
 				break;
-			
+
+			case C_EVENT.WEAPON_FIRE:
+				var _clientID = _data.clientID;				
+				with(obj_player) {
+					if(playerData.clientID == _clientID) {
+						playerData.xTo = _data.x;
+						playerData.yTo = _data.y;
+						playerData.mx = _data.mx;
+						playerData.my = _data.my;
+						
+						fire = true;
+						//y = lerp(y, _data.y, .2)wad;
+					}
+				event_notify(G_EVENT.WEAPON_FIRE);					
+				}					
+				break;
+
 			default:
 				show_message("Recevied data with an unknown event");
 			break;

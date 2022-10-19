@@ -8,7 +8,7 @@ window_set_size(curWindowWidth, curWindowHeight);
 surface_resize(application_surface, curWindowWidth, curWindowHeight);
 camera_set_view_size(VIEW, curWindowWidth / 2, curWindowHeight / 2);
 
-zoomLevel = 1;
+zoomLevel = 2;
 
 updateViewSize = function(){
   var _ww = os_browser == browser_not_a_browser ? WIN_W : browser_width;

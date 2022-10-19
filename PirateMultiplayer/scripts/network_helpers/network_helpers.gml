@@ -12,6 +12,23 @@ function net_server_connect() {
 	return _ret;
 }
 
+function net_send_create_player() {
+	var _data = new net_create_self("Lucidi");
+	net_server_send(_data);
+}
+
+function net_send_update_position() {
+	var _data = new net_update_position();
+	net_server_send(_data);
+}
+
+function net_send_weapon_fire() {
+	var _data = new net_weapon_fire();
+	net_server_send(_data);
+}
+
+
+
 function net_create_event(_string) constructor{
 	eventName = _string;
 }
@@ -37,6 +54,18 @@ function net_update_position() constructor {
 	my = other.playerData.my;
 }
 
+function net_weapon_fire() constructor {
+	event = S_EVENT.WEAPON_FIRE;
+	
+	clientID = other.playerData.clientID;
+	x = other.x;
+	y = other.y;
+	mx = other.playerData.mx;
+	my = other.playerData.my;
+	
+	
+}
+
 function net_create_packet(_data) constructor {
 	//event = _event;
 	data = _data;
@@ -53,17 +82,6 @@ function net_server_send(data) {
 	
 	network_send_raw(obj_networkManager.clientSocket, _buffer, buffer_tell(_buffer));
 	buffer_delete(_buffer);
-}
-
-
-function net_send_create_player() {
-	var _data = new net_create_self("Lucidi");
-	net_server_send(_data);
-}
-
-function net_send_update_position() {
-	var _data = new net_update_position();
-	net_server_send(_data);
 }
 
 function net_handle_data(_asyncLoad) {

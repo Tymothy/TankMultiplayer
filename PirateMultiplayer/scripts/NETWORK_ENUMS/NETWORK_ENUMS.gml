@@ -2,6 +2,7 @@
 enum S_EVENT {
 	CREATE_SELF,
 	UPDATE_POSITION, //Updates the server with current position
+	WEAPON_FIRE,
 	
 }
 
@@ -10,5 +11,6 @@ enum C_EVENT {
 	CREATE_SELF,
 	CREATE_OTHER,
 	DESTROY_OTHER,
-	UPDATE_POSITION
+	UPDATE_POSITION,
+	WEAPON_FIRE,
 }

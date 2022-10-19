@@ -6,6 +6,6 @@ if(event_watch(G_EVENT.CREATE_SELF) || event_watch(G_EVENT.CREATE_OTHER)) {
 	shipData = new create_ship(playerData.ship, playerData.team);
 	var _inst = instance_create_layer(x, y, "instances", obj_cannon);
 	with (_inst) {
-		attachedInstance = other;
+		property.inst = other;
 	}
 }

@@ -8,7 +8,7 @@ if(curWindowWidth != (os_browser == browser_not_a_browser ? WIN_W : browser_widt
   var _wh = os_browser == browser_not_a_browser ? WIN_H : browser_height; 
   
   zoomLevel += (mouse_wheel_up() - mouse_wheel_down()) * .1;
-  zoomLevel = clamp(zoomLevel, .7, 2);
+  zoomLevel = clamp(zoomLevel, .7, 3);
   
   camera_set_view_size(VIEW, (_ww / 2)* zoomLevel, (_wh / 2) * zoomLevel);
   

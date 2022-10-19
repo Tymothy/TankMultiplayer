@@ -2,21 +2,33 @@
 // You can write your code in this editor
 if (live_call()) return live_result;
 
+event_inherited();
 
-
-if(attachedInstance != noone) {
+if(property.inst != noone) {
 	var _len = 20;
-	var _xl = lengthdir_x(_len, attachedInstance.image_angle - 90);
-	var _yl = lengthdir_y(_len, attachedInstance.image_angle - 90);
+	var _xl = lengthdir_x(_len, property.inst.image_angle - 90);
+	var _yl = lengthdir_y(_len, property.inst.image_angle - 90);
 
-	x = attachedInstance.x + _xl;
-	y = attachedInstance.y + _yl;
+	x = property.inst.x + _xl;
+	y = property.inst.y + _yl;
 
-	var _mx = attachedInstance.playerData.mx;
-	var _my = attachedInstance.playerData.my;		
+	var _mx = property.inst.playerData.mx;
+	var _my = property.inst.playerData.my;		
 	
 	var _angle = point_direction(x, y, _mx, _my);
 	image_angle = _angle;
 }
 
-
+if(property.inst.fire == true) {
+	//Fire a projectile
+	var _mx = property.inst.playerData.mx;
+	var _my = property.inst.playerData.my;	
+	var _dir = point_direction(x, y, _mx, _my);
+	
+	var _inst = instance_create_layer(x, y, "lay_projectiles", obj_cannonBall);
+	with (_inst) {
+		property.dir = _dir;
+	}
+	
+	property.inst.fire = false;
+}

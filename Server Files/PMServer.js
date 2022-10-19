@@ -10,6 +10,7 @@ const wss = new WebSocketServer.Server({ port: serverPort})
 const S_EVENT = {
 	CREATE_SELF: 0,
 	UPDATE_POSITION : 1,
+	WEAPON_FIRE: 2,
 }
 
 //Cleint events
@@ -18,6 +19,7 @@ const C_EVENT = {
 	CREATE_OTHER: 1,
 	DESTROY_OTHER: 2,
 	UPDATE_POSITION: 3,
+	WEAPON_FIRE: 4,
 }
 
 const TEAM = {
@@ -178,6 +180,19 @@ function sendEvent(_ws, _event, _data) {
 			});
 			_ws.send(packet);
 		break;
+		
+		case C_EVENT.WEAPON_FIRE:
+			packet = JSON.stringify({
+				event: _event,
+				clientID: _data.clientID,
+				x: _data.x,
+				y: _data.y,				
+				mx: _data.mx,
+				my: _data.my,
+			});
+			_ws.send(packet);
+		break;		
+		
 	}
 	
 	
@@ -267,6 +282,27 @@ wss.on("connection", ws => {
 						}
 					}
 			break;
+					
+			case S_EVENT.WEAPON_FIRE:
+			let firingClient = 0;
+				for(let i = 0; i < playersData.length; i++) {
+						let item = playersData[i];
+						if(item.clientID == data.clientID) {
+							playersData[i].x = Math.floor(data.x);
+							playersData[i].y = Math.floor(data.y);							
+							playersData[i].mx= Math.floor(data.mx);	
+							playersData[i].my= Math.floor(data.my);	
+							firingClient = playersData[i];
+							console.log("Client ID: " + playersData[i].clientID + "/ " + playersData[i].name );
+						}
+					}
+					
+					//Imediately send the fire event to all clients
+					for(let i = 0; i < playersData.length; i++) {
+						sendEvent(playersData[i].socketObject, C_EVENT.WEAPON_FIRE, firingClient);
+					}
+					
+			break;		
 						
 			default:
 				console.log("No event matching");
