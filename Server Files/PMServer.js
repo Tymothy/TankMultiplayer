@@ -115,11 +115,8 @@ function assignTeam() {
 	return _ret;
 }
 
-
 // #endregion
 
-
-// #region Server to Client
 function sendEvent(_ws, _event, _data) {
 	//_ws = The socket object of the client we want to send to
 	//_event = the event name we want to send to client
@@ -197,33 +194,21 @@ function sendEvent(_ws, _event, _data) {
 		break;
 
 		case C_EVENT.DAMAGE:
+		let item = getPlayer(_data.hurtID);
 			packet = JSON.stringify({
 				event: _event,
 				hurtID: _data.hurtID,
+				hurtHP : item.hp,
 				attackerID: _data.attackerID,
-				type: _data.typek,
+				type: _data.type,
 				damage: _data.damage,
+
 			});
-			console.log("Damage packet sent");
 			_ws.send(packet);
 		break;
 	}
 
-
-
-	//dataToSend.event = _event;
-	//var packet = JSON.stringify({
-	//	//event: _event,
-	//	data: dataToSend,
-	//})
-	//console.log("==sendEvent==");
-	//console.log("Event: " + _event);
-	//console.log("Data: " + dataToSend);
-	//console.log("==endSendEvent==");
-	//console.log(packet);
-	//_ws.send(packet);
 }
-// #endregion
 
 	logPlayerState();
 	sendPositionUpdates();
@@ -235,11 +220,6 @@ wss.on("connection", ws => {
 		var event = jsonData.data.event;
 		var data = jsonData.data;
 
-		//console.log("Event Name var: ");
-		//console.log(eventName);
-		//console.log("=== JSON DATA ===");
-		//console.log(jsonData);
-		//console.log("=== END OF JSON DATA ===");
 		switch(event) {
 			//Goes directly to the message
 			case S_EVENT.CREATE_SELF:
@@ -332,13 +312,13 @@ wss.on("connection", ws => {
 								type : data.type,
 								damage : data.damage,
 							}
-							console.log("received an atack from client");
 							attacksData.push(attack);
 
 							//Reduce attacked player's health by damage
 							playersData[i].hp -= attack.damage;
 							if(playersData[i] <= 0) {
-								//TODO: We want to tell the player they are out of HP
+								playersData[i].hp = 0;
+								console.log("ClientID " + playersData[i].hp + " has lost all hp!");
 							}
 						}
 					}
@@ -370,7 +350,7 @@ wss.on("connection", ws => {
 			playersData.splice(deadIndex, 1);
 			for(let i = 0; i < playersData.length; i++) {
 				console.log("Sending destroy other event to " + playersData[i].clientID);
-				sendEvent(playersData[i].socketObject, C_EVENT.DESTROY_OTHER, deadClient)
+				sendEvent(playersData[i].socketObject, C_EVENT.DESTROY_OTHER, deadClient);
 				}
 
 		});// End close

@@ -95,12 +95,13 @@ switch(_type) {
 			#region DAMAGE
 			case C_EVENT.DAMAGE:
 				var _hurtID = _data.hurtID;				
-				with(obj_self) {
+				with(obj_player) {
 					if(playerData.clientID == _hurtID) {
-						playerData.hp -= _data.damage;
+						playerData.hp = _data.hurtHP;
 					}
-				event_notify(G_EVENT.DAMAGE);					
-				}					
+				
+				}		
+				event_notify(G_EVENT.DAMAGE);	
 				break;			
 			#endregion
 			default:

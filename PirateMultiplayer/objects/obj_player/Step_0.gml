@@ -19,7 +19,7 @@ if( _inst != noone) {
 			damageSelf(_inst.property.inst.playerData.clientID, 
 				_inst.property.type,  
 				_inst.property.damage);
-			_inst.damaged = true;
+			_inst.damageApplied = true;
 			_inst.hit();
 		}	
 		
