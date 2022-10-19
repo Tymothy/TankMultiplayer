@@ -12,10 +12,10 @@ addEvent = function(_event) {
 
 watchEvent = function(_event) {
 	var _frameToCheck = global.frameCounter -1;
-	for(var i = array_length(eventArray) -1; i > 0; i--) {
+	for(var i = array_length(eventArray) - 1 ; i >= 0; i--) {
 	//Go through the array backwards, retrieving most recent events first
 	//searches for events that occured on last frame
-		if(eventArray[i][$ "event"] == _event && eventArray[i][$ "frame"] == _frameToCheck) {
+		if(eventArray[i][$ "event"] == _event && eventArray[i][$ "frame"] >= _frameToCheck) {
 			return true;	
 		}
 		if(eventArray[i][$ "frame"] < _frameToCheck) {
