@@ -8,7 +8,9 @@ event_inherited();
 if(components.controls == true) {
 		
 	read_input(input);
-
+	playerData.mx = mouse_x;
+	playerData.my = mouse_y;
+	
 	//TODO: Make these all vectors and steering behaviors for release
 	if(input.left.held > 0) {
 		image_angle += shipData.move.turnRadius;

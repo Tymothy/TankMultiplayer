@@ -13,6 +13,8 @@ function create_player() constructor{
 	team = "";
 	hp = "";
 	ship = SHIP.LARGE;
+	mx = 0;
+	my = 0;
 }
 
 

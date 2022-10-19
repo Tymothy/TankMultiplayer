@@ -132,6 +132,8 @@ function sendEvent(_ws, _event, _data) {
 				y: _data.y,
 				a: _data.a,
 				hp: _data.hp,
+				mx: 0,
+				my: 0,
 				team: _data.team
 			});
 			
@@ -147,6 +149,8 @@ function sendEvent(_ws, _event, _data) {
 				y: _data.y,
 				a: _data.a,
 				hp: _data.hp,
+				mx: _data.mx,
+				my: _data.my,				
 				team: _data.team
 			});
 					
@@ -169,6 +173,8 @@ function sendEvent(_ws, _event, _data) {
 				x: _data.x,
 				y: _data.y,
 				a: _data.a,
+				mx: _data.mx,
+				my: _data.my,
 			});
 			_ws.send(packet);
 		break;
@@ -223,6 +229,8 @@ wss.on("connection", ws => {
 						y: spawnCoords.y,
 						a: data.a,
 						hp: 3,
+						mx: 0,
+						my: 0,
 						socketObject: ws,
 					};
 					playersData.push(curPlayer);
@@ -254,6 +262,8 @@ wss.on("connection", ws => {
 							playersData[i].x = Math.floor(data.x);
 							playersData[i].y = Math.floor(data.y);
 							playersData[i].a = Math.floor(data.a);
+							playersData[i].mx= Math.floor(data.mx);	
+							playersData[i].my= Math.floor(data.my);	
 						}
 					}
 			break;

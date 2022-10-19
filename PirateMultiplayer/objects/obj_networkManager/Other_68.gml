@@ -61,9 +61,11 @@ switch(_type) {
 						playerData.xTo = _data.x;
 						playerData.yTo = _data.y;
 						playerData.aTo = _data.a;
-						playerData.framesSinceLastUpdate = 0;
-						//x = lerp(x, _data.x, .2);
-						//y = lerp(y, _data.y, .2);
+						playerData.mx = _data.mx;
+						playerData.my = _data.my;
+						
+						playerData.framesSinceLastUpdate = 0;						
+						//y = lerp(y, _data.y, .2)wad;
 					}
 				}					
 				break;

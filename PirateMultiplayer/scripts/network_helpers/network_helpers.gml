@@ -33,6 +33,8 @@ function net_update_position() constructor {
 	x = other.x;
 	y = other.y;
 	a = other.image_angle;
+	mx = other.playerData.mx;
+	my = other.playerData.my;
 }
 
 function net_create_packet(_data) constructor {
