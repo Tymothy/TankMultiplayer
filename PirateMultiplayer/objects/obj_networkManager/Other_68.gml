@@ -17,6 +17,7 @@ switch(_type) {
 		var _data = net_handle_data(async_load);
 		
 		switch(_data.event) {
+			#region CREATE_SELF
 			case C_EVENT.CREATE_SELF:
 				//Create player in game world
 				var inst = instance_create_layer(_data.x, _data.y, "lay_players", obj_self);
@@ -29,7 +30,9 @@ switch(_type) {
 				event_notify(G_EVENT.CREATE_SELF);
 				show_debug_message("Creating player in game world");
 			break;
+			#endregion
 			
+			#region CREATE_OTHER
 			case C_EVENT.CREATE_OTHER:
 				with(instance_create_layer(_data.x, _data.y, "lay_players", obj_other)){
 					playerData.clientID = _data.clientID;
@@ -40,7 +43,8 @@ switch(_type) {
 				}								
 				event_notify(G_EVENT.CREATE_OTHER);
 				break;
-				
+			#endregion
+			#region DESTROY_OTHER
 			case C_EVENT.DESTROY_OTHER:
 						//show_message("Destroy other event");		
 						var _destroyID = _data.clientID;
@@ -53,7 +57,8 @@ switch(_type) {
 				}
 				event_notify(G_EVENT.DESTROY_OTHER);
 				break;
-			
+			#endregion
+			#region UPDATE_POSITION
 			case C_EVENT.UPDATE_POSITION:
 				var _clientID = _data.clientID;				
 				with(obj_other) {
@@ -69,7 +74,8 @@ switch(_type) {
 					}
 				}					
 				break;
-
+			#endregion
+			#region WEAPON_FIRE
 			case C_EVENT.WEAPON_FIRE:
 				var _clientID = _data.clientID;				
 				with(obj_player) {
@@ -85,7 +91,18 @@ switch(_type) {
 				event_notify(G_EVENT.WEAPON_FIRE);					
 				}					
 				break;
-
+			#endregion WEAPON_FIRE
+			#region DAMAGE
+			case C_EVENT.DAMAGE:
+				var _hurtID = _data.hurtID;				
+				with(obj_self) {
+					if(playerData.clientID == _hurtID) {
+						playerData.hp -= _data.damage;
+					}
+				event_notify(G_EVENT.DAMAGE);					
+				}					
+				break;			
+			#endregion
 			default:
 				show_message("Recevied data with an unknown event");
 			break;

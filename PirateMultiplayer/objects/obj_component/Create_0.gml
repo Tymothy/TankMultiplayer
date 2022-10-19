@@ -4,6 +4,3 @@ property = {
 	inst : noone,
 	
 }
-
-
-

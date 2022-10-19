@@ -3,7 +3,7 @@ enum G_EVENT {
 	CREATE_OTHER,
 	DESTROY_OTHER,
 	WEAPON_FIRE,
-	
+	DAMAGE,
 }
 
 function event_notify(_event) {

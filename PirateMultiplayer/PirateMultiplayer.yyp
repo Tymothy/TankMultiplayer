@@ -86,7 +86,6 @@
     {"id":{"name":"spr_hull_small","path":"sprites/spr_hull_small/spr_hull_small.yy",},"order":1,},
     {"id":{"name":"spr_sail_large_white","path":"sprites/spr_sail_large_white/spr_sail_large_white.yy",},"order":4,},
     {"id":{"name":"GMLive_parser","path":"scripts/GMLive_parser/GMLive_parser.yy",},"order":4,},
-    {"id":{"name":"NETWORK_ENUMS","path":"scripts/NETWORK_ENUMS/NETWORK_ENUMS.yy",},"order":1,},
     {"id":{"name":"obj_displayManager","path":"objects/obj_displayManager/obj_displayManager.yy",},"order":0,},
     {"id":{"name":"GMLive_new","path":"scripts/GMLive_new/GMLive_new.yy",},"order":2,},
     {"id":{"name":"spr_sail_large_green","path":"sprites/spr_sail_large_green/spr_sail_large_green.yy",},"order":2,},

@@ -23,7 +23,6 @@ yTo = ystart;
 
 if (instance_exists(obj_player))
 {
-	
 	xTo = obj_player.x;
 	yTo = obj_player.y;
 	xOld = obj_player.x

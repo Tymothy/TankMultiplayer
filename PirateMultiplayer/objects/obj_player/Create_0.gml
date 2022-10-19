@@ -15,3 +15,16 @@ components = {
 
 
 alarm[0] = 1;
+
+destroy_self = function () {
+	//Find attached instances and destroy them	
+	
+	instance_destroy();
+	
+}
+
+damageSelf = function (_attacker, _type, _damage) {
+	//playerData.hp = clamp(playerData.hp - 1, 0, 3);
+	net_send_damage_self(_attacker, _type, _damage)
+	
+}

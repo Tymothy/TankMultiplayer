@@ -1,11 +1,37 @@
+#region Adding an event flow
 /*
-function <NAME>(_var1, _var2, _var3...) {
-/// @desc ...
-/// @arg ....
-/// @arg ....
-//CODE
-}
+//Add function in client to send data to server
+//Add event to S_EVENT in client so client can send to server
+//Add event to S_EVENT in server to allow server to listen to client
+//Add event to C_EVENT in server so server can send to client
+//Add event to C_EVENT in client to allow client to listen to client
+//Handle incoming data with obj_networkManager
 */
+#endregion
+
+#region Enums
+//Server events (Client to Sever)
+enum S_EVENT {
+	CREATE_SELF,
+	UPDATE_POSITION, //Updates the server with current position
+	WEAPON_FIRE,
+	DAMAGE_SELF
+	
+}
+
+//Client events (Server to Client)
+enum C_EVENT {
+	CREATE_SELF,
+	CREATE_OTHER,
+	DESTROY_OTHER,
+	UPDATE_POSITION,
+	WEAPON_FIRE,
+	DAMAGE,
+}
+
+#endregion
+
+#region functions called by game
 function net_server_connect() {
 	var _ret= network_create_socket(network_socket_ws);
 	network_connect_raw_async(_ret, SERVER_IP, SERVER_PORT);
@@ -27,8 +53,15 @@ function net_send_weapon_fire() {
 	net_server_send(_data);
 }
 
+function net_send_damage_self(_attacker, _type, _damage) {
+	var _data = new net_damage_self(_attacker, _type, _damage);
+	net_server_send(_data);	
+}
+
+#endregion
 
 
+#region Event constructors
 function net_create_event(_string) constructor{
 	eventName = _string;
 }
@@ -62,10 +95,21 @@ function net_weapon_fire() constructor {
 	y = other.y;
 	mx = other.playerData.mx;
 	my = other.playerData.my;
+}
+
+function net_damage_self(_attacker, _type, _damage) constructor {
+	event = S_EVENT.DAMAGE_SELF;
 	
+	hurtID = other.playerData.clientID;
+	attackerID = _attacker;
+	type = _type;
+	damage = _damage;
 	
 }
 
+#endregion
+
+#region Helper functions
 function net_create_packet(_data) constructor {
 	//event = _event;
 	data = _data;
@@ -91,7 +135,6 @@ function net_handle_data(_asyncLoad) {
 	//_data = variable_struct_get_names(_data.data);
 	
 	return(_data);
-	
-	
-	
 }
+
+#endregion

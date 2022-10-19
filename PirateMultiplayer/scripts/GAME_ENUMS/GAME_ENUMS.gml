@@ -18,3 +18,9 @@ enum DIR {
 	STERN, //Back of ship
 	PORT //Left of ship
 }
+
+//Types of cannon balls
+enum BALL {
+	NORMAL,	
+	
+}
