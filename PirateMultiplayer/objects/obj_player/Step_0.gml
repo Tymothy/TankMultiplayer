@@ -12,17 +12,15 @@ if(event_watch(G_EVENT.CREATE_SELF) || event_watch(G_EVENT.CREATE_OTHER)) {
 
 var _inst = instance_place(x, y, obj_cannonBall);
 if( _inst != noone) {
-		//Determine if instance is created by cannonball
-		//if(_inst.property.team != playerData.team) {
-		//	playerData.hp--;	
-			
-		//}
-		
+
 		
 		//Allow friendly fire
-		if(_inst.property.inst != id) {
+		if(_inst.property.inst != id && _inst.damaged != true) {
 			damageSelf(_inst.property.inst.playerData.clientID, 
 				_inst.property.type,  
 				_inst.property.damage);
-		}		
+			_inst.damaged = true;
+			_inst.hit();
+		}	
+		
 }

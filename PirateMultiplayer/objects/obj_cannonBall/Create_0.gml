@@ -15,4 +15,10 @@ property.type = BALL.NORMAL
 property.damage = 1;
 property.team = property.inst.playerData.team;
 
+damaged = false; //Set to true when damage is applied to prevent duplicate damage
+
 alarm [0] = 500; //Destroy after 500 frames
+
+hit = function() {
+	instance_destroy();	
+}

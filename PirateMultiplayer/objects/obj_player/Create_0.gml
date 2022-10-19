@@ -25,6 +25,6 @@ destroy_self = function () {
 
 damageSelf = function (_attacker, _type, _damage) {
 	//playerData.hp = clamp(playerData.hp - 1, 0, 3);
-	net_send_damage_self(_attacker, _type, _damage)
+		net_send_damage_self(_attacker, _type, _damage)
 	
 }

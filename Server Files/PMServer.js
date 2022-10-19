@@ -204,6 +204,7 @@ function sendEvent(_ws, _event, _data) {
 				type: _data.typek,
 				damage: _data.damage,
 			});
+			console.log("Damage packet sent");
 			_ws.send(packet);
 		break;
 	}
@@ -331,7 +332,7 @@ wss.on("connection", ws => {
 								type : data.type,
 								damage : data.damage,
 							}
-
+							console.log("received an atack from client");
 							attacksData.push(attack);
 
 							//Reduce attacked player's health by damage
@@ -339,32 +340,31 @@ wss.on("connection", ws => {
 							if(playersData[i] <= 0) {
 								//TODO: We want to tell the player they are out of HP
 							}
-
-
 						}
 					}
 
 					//Imediately send the fire event to all clients
 					for(let i = 0; i < playersData.length; i++) {
 						sendEvent(playersData[i].socketObject, C_EVENT.DAMAGE, attack);
+						console.log("Sending information to " + playersData[i].clientID + "that " + attack.hurtID + " was damaged by " + attack.attackerID);
 					}
 			break;
 
 			default:
 				console.log("No event matching");
 			break;
-		} //End switch event
+			} //End switch event
 
-		});//End message
+			});//End message
 
-		ws.on("close", () => {
-			//Remove a client from the game world
-			let deadIndex = 0;
-			let deadClientID = 0;
-			for(let i = 0; i < playersData.length; i++) {
-				if(playersData[i].socketObject == ws) {
-					deadIndex = i;
-					deadClient = playersData[i];
+			ws.on("close", () => {
+				//Remove a client from the game world
+				let deadIndex = 0;
+				let deadClientID = 0;
+				for(let i = 0; i < playersData.length; i++) {
+					if(playersData[i].socketObject == ws) {
+						deadIndex = i;
+						deadClient = playersData[i];
 				}
 			}
 			playersData.splice(deadIndex, 1);
