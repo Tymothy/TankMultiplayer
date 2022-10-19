@@ -10,10 +10,13 @@ if(attachedInstance != noone) {
 	x = attachedInstance.x + _xl;
 	y = attachedInstance.y + _yl;
 	
-	var _xm = window_mouse_get_x();
-	var _ym = window_mouse_get_y();
-	var _angle = point_direction( x, y, mouse_x, mouse_y);
-	image_angle = _angle;
+	//Only allo cannon to move if it's part of the player
+	if("obj_self" == object_get_name(attachedInstance.object_index)) {
+		var _xm = window_mouse_get_x();
+		var _ym = window_mouse_get_y();
+		var _angle = point_direction( x, y, mouse_x, mouse_y);
+		image_angle = _angle;
+	}
 }
 
 

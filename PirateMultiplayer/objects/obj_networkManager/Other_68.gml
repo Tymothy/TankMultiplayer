@@ -26,7 +26,7 @@ switch(_type) {
 					playerData.name = _data.name;
 					playerData.team = _data.team;
 				}
-				event_notify(C_EVENT.CREATE_SELF);
+				event_notify(G_EVENT.CREATE_SELF);
 				show_debug_message("Creating player in game world");
 			break;
 			
@@ -38,7 +38,7 @@ switch(_type) {
 					playerData.team = _data.team;
 					
 				}								
-				event_notify(C_EVENT.CREATE_OTHER);
+				event_notify(G_EVENT.CREATE_OTHER);
 				break;
 				
 			case C_EVENT.DESTROY_OTHER:
@@ -51,7 +51,7 @@ switch(_type) {
 						instance_destroy();
 					}
 				}
-				event_notify(C_EVENT.DESTROY_OTHER);
+				event_notify(G_EVENT.DESTROY_OTHER);
 				break;
 			
 			case C_EVENT.UPDATE_POSITION:

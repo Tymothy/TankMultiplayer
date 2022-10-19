@@ -1,3 +1,10 @@
+enum G_EVENT {
+	CREATE_SELF,
+	CREATE_OTHER,
+	DESTROY_OTHER,
+	
+}
+
 function event_notify(_event) {
 	//Adds an event to the came
 	obj_gameEvents.addEvent(_event);
