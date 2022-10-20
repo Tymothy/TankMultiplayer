@@ -31,4 +31,5 @@ if(property.inst.fire == true) {
 	}
 	
 	property.inst.fire = false;
+	property.inst.fireCooldown = property.inst.vehData.weapon.cooldown;
 }

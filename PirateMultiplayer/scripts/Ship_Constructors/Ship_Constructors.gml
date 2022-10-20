@@ -11,7 +11,7 @@ function create_player() constructor{
 	clientID = -1;
 	name = "";
 	team = "";
-	hp = "";
+	hp = 3;
 	ship = SHIP.LARGE;
 	mx = 0;
 	my = 0;
@@ -25,6 +25,9 @@ function create_ship(_ship = SHIP.SMALL, _team = TEAM.WHITE) constructor {
 		maxSpeed : 1,
 		turnSpeed : .3,
 		turnRadius : 1,	
+	}
+	weapon = {
+		cooldown : 100,	
 	}
 	
 	

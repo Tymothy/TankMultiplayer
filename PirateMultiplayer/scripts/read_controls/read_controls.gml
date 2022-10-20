@@ -8,6 +8,7 @@ function add_controls() constructor{
 	left =		new add_controls_ext(ord("A"));
 	right =		new add_controls_ext(ord("D"));
 	forward =	new add_controls_ext(ord("W"));
+	backward =	new add_controls_ext(ord("S"));
 	fire =		new add_controls_ext(vk_space);
 	interact =	new add_controls_ext(ord("E"));	
 }
