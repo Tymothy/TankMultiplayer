@@ -2,7 +2,7 @@
 
 //Put this into a constructor
 playerData = new create_player();
-vehData = new create_ship();
+vehData = new create_vehicle();
 
 attachedInstances = [];
 

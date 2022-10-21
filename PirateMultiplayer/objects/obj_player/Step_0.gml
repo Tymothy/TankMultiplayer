@@ -3,7 +3,7 @@
 
 if(event_watch(G_EVENT.CREATE_SELF) || event_watch(G_EVENT.CREATE_OTHER)) {
 	//Wait for player to be created to create the ship
-	vehData = new create_ship(playerData.ship, playerData.team);
+	vehData = new create_vehicle(playerData.ship, playerData.team);
 	var _inst = instance_create_layer(x, y, "instances", obj_cannon);
 	
 	attachInst(_inst);
