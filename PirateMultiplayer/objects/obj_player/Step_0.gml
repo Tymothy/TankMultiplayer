@@ -2,9 +2,9 @@
 // You can write your code in this editor
 
 if(event_watch(G_EVENT.CREATE_SELF) || event_watch(G_EVENT.CREATE_OTHER)) {
-	//Wait for player to be created to create the ship
-	vehData = new create_vehicle(playerData.ship, playerData.team);
-	var _inst = instance_create_layer(x, y, "instances", obj_cannon);
+	//Wait for player to be created to create the vehicle
+	vehData = new create_vehicle(playerData.vehicle, playerData.team);
+	var _inst = instance_create_layer(x, y, "instances", obj_gun);
 	
 	attachInst(_inst);
 	//with (_inst) {
@@ -12,8 +12,8 @@ if(event_watch(G_EVENT.CREATE_SELF) || event_watch(G_EVENT.CREATE_OTHER)) {
 	//}
 }
 
-//Damage collision for cannon ball
-var _inst = instance_place(x, y, obj_cannonBall);
+//Damage collision for projectile
+var _inst = instance_place(x, y, obj_projectile);
 if( _inst != noone) {	
 		//Allow friendly fire
 		if(_inst.property.inst != id && _inst.damaged != true) {

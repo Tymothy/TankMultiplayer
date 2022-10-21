@@ -1,22 +1,43 @@
 enum TEAM{
-	RED,
 	BLUE,
+	BROWN,
 	GREEN,
-	YELLOW,
-	WHITE,
-	BLACK,
+	TEAL,
 }
 
-enum SHIP {
+enum HULL {
+	A,
+	B,
+	C,
+	D,
+	E,
+	F,
+	G,
+	H		
+}
+
+enum GUN {
+	A,
+	B,
+	C,
+	D,
+	E,
+	F,
+	G,
+	H		
+}
+
+
+enum VEHICLE {
 	SMALL,
 	LARGE
 }
 
 enum DIR {
-	FORWARD, //Front of ship
-	STARBOARD, //Right of ship
-	STERN, //Back of ship
-	PORT //Left of ship
+	FORWARD, //Front of vehicle
+	STARBOARD, //Right of vehicle
+	STERN, //Back of vehicle
+	PORT //Left of vehicle
 }
 
 //Types of cannon balls

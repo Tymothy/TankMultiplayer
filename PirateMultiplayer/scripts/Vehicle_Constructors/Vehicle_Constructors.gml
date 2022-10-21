@@ -12,14 +12,14 @@ function create_player() constructor{
 	name = "";
 	team = "";
 	hp = 3;
-	ship = SHIP.LARGE;
+	vehicle = VEHICLE.LARGE;
 	mx = 0;
 	my = 0;
 }
 
 
-function create_vehicle(_ship = SHIP.SMALL, _team = TEAM.WHITE) constructor {
-	sprites = new get_vehicle_sprites(_ship, _team);
+function create_vehicle(_team = TEAM.BROWN, _vehicle = HULL.A) constructor {
+	sprites = new get_vehicle_sprites(_vehicle, _team);
 	move = {
 		acc : .5,
 		maxSpeed : 1,
@@ -33,58 +33,31 @@ function create_vehicle(_ship = SHIP.SMALL, _team = TEAM.WHITE) constructor {
 	
 }
 
-//function update_ship() constructor{
-//	sprites = new get_vehicle_sprites(playerData.ship, playerData.team);
-	
-//}
 
-function get_vehicle_sprites(_ship = SHIP.SMALL, _team = TEAM.WHITE) constructor{
-	switch(_ship) {
-		case SHIP.LARGE: 
-			hull = spr_hull_large;
-			break;
-			
-		case SHIP.SMALL:
-			hull = spr_hull_small;
-			break;
-	}
-	
+function get_vehicle_sprites(_team = TEAM.BROWN, _vehicle = HULL.A) constructor{
 	switch(_team) {
-		case TEAM.RED:
-			sailLarge = spr_sail_large_red;
-			sailSmall = spr_sail_small_red;
-			flag = spr_flag_red;
-		break;
+
 		
 		case TEAM.BLUE:
-			sailLarge = spr_sail_large_blue;
-			sailSmall = spr_sail_small_blue;
-			flag = spr_flag_blue;		
+			hull = spr_hull_blue;
+			gun = spr_gun_blue;
 		break;
 		
 		case TEAM.GREEN:
-			sailLarge = spr_sail_large_green;
-			sailSmall = spr_sail_small_green;
-			flag = spr_flag_green;			
+			hull = spr_hull_green;	
+			gun = spr_gun_green;
+		break;
+
+		case TEAM.TEAL:
+			hull = spr_hull_teal;
+			gun = spr_gun_teal;
 		break;
 		
-		case TEAM.YELLOW:
-			sailLarge = spr_sail_large_yellow;
-			sailSmall = spr_sail_small_yellow;
-			flag = spr_flag_yellow;			
+		case TEAM.BROWN:
+			hull = spr_hull_brown;
+			gun = spr_gun_brown;
 		break;
 		
-		case TEAM.WHITE:
-			sailLarge = spr_sail_large_white;
-			sailSmall = spr_error;
-			flag = spr_flag_white;			
-		break;
-		
-		case TEAM.BLACK:
-			sailLarge = spr_sail_large_black;
-			sailSmall = spr_error;
-			flag = spr_flag_black;		
-		break;
 		
 	}
 }

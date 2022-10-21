@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "obj_self",
   "spriteId": {
-    "name": "spr_hull_large",
-    "path": "sprites/spr_hull_large/spr_hull_large.yy",
+    "name": "spr_hull_blue_01",
+    "path": "sprites/spr_hull_blue_01/spr_hull_blue_01.yy",
   },
   "solid": false,
   "visible": true,
