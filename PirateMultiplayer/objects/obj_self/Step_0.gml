@@ -8,6 +8,8 @@ event_inherited();
 if(components.controls == true && playerData.hp > 0) {
 		
 	read_input(input);
+	dir = image_angle -90;
+	
 	playerData.mx = mouse_x;
 	playerData.my = mouse_y;
 	
@@ -21,17 +23,20 @@ if(components.controls == true && playerData.hp > 0) {
 	}
 	
 	if(input.forward.held > 0) {
-		var xTo = x + lengthdir_x(vehData.move.maxSpeed, image_angle -90);
-		var yTo = y + lengthdir_y(vehData.move.maxSpeed, image_angle -90);
-		x = lerp(x, xTo, vehData.move.maxSpeed * vehData.move.acc);
-		y = lerp(y, yTo, vehData.move.maxSpeed * vehData.move.acc);
+		//var xTo = x + lengthdir_x(vehData.move.maxSpeed, image_angle -90);
+		//var yTo = y + lengthdir_y(vehData.move.maxSpeed, image_angle -90);
+		//x = lerp(x, xTo, vehData.move.maxSpeed * vehData.move.acc);
+		//y = lerp(y, yTo, vehData.move.maxSpeed * vehData.move.acc);
+		
+		move.spdDir(vehData.move.maxSpeed, dir);
 	}
 
 	if(input.backward.held > 0) {
-		var xTo = x - lengthdir_x(vehData.move.maxSpeed, image_angle -90);
-		var yTo = y - lengthdir_y(vehData.move.maxSpeed, image_angle -90);
-		x = lerp(x, xTo, vehData.move.maxSpeed * vehData.move.acc);
-		y = lerp(y, yTo, vehData.move.maxSpeed * vehData.move.acc);
+		//var xTo = x - lengthdir_x(vehData.move.maxSpeed, dir);
+		//var yTo = y - lengthdir_y(vehData.move.maxSpeed, dir);
+		//x = lerp(x, xTo, vehData.move.maxSpeed * vehData.move.acc);
+		//y = lerp(y, yTo, vehData.move.maxSpeed * vehData.move.acc);
+		move.spdDir(-vehData.move.maxSpeed, dir);
 	}
 	
 	if(input.fire.released > 0 && fireCooldown == 0) {

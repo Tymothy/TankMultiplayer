@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "obj_player",
   "spriteId": {
-    "name": "spr_hull_blue_01",
-    "path": "sprites/spr_hull_blue_01/spr_hull_blue_01.yy",
+    "name": "spr_collide_hull",
+    "path": "sprites/spr_collide_hull/spr_collide_hull.yy",
   },
   "solid": false,
   "visible": true,

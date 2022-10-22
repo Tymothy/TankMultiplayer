@@ -11,3 +11,5 @@ components.controls = true;
 if(components.controls == true) input = new add_controls();
 
 var breakpoint = 0;
+
+move = use_tdmc();

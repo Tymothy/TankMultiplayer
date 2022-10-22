@@ -16,18 +16,27 @@ function create_player() constructor{
 	mx = 0;
 	my = 0;
 }
-
-
+function add_physics() constructor {
+		xSpeed = 0;
+		ySpeed = 0;
+		dir = 0;
+	}	
+	
 function create_vehicle(_team = TEAM.BROWN, _vehicle = HULL.A) constructor {
 	sprites = new get_vehicle_sprites(_vehicle, _team);
+	
+	physics = new add_physics();
+	
 	move = {
-		acc : .5,
-		maxSpeed : 1,
+		acc : 1,
+		maxSpeed : 4,
 		turnSpeed : .3,
 		turnRadius : 1,	
 	}
 	weapon = {
-		cooldown : 100,	
+		spd	:		3,
+		cooldown :	100,	
+		damage :	1,
 	}
 	
 	
