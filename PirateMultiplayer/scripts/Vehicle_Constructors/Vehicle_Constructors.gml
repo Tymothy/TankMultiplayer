@@ -37,7 +37,7 @@ function create_vehicle(_team = TEAM.BROWN, _vehicle = HULL.A) constructor {
 		turnRadius :	1,	
 	}
 	weapon = {
-		spd	:		3,
+		spd :		5,
 		cooldown :	100,	
 		damage :	1,
 	}

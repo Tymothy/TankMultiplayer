@@ -27,7 +27,8 @@ if(property.inst.fire == true) {
 	
 	var _inst = instance_create_layer(x, y, "lay_projectiles", obj_projectile);
 	with (_inst) {
-		property.dir = _dir;
+		property.physics.dir = _dir;
+		apply_physics();
 	}
 	
 	property.inst.fire = false;

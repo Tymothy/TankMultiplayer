@@ -19,17 +19,24 @@ property.sprite = {
 	type : 1,
 }
 
-//Match x/y speed of player
-property.physics.xSpeed = property.inst.vehData.physics.xSpeed;
-property.physics.ySpeed = property.inst.vehData.physics.ySpeed;
-
-//Add projectile speed
-property.physics.xSpeed += lengthdir_x(property.inst.vehData.weapon.spd, property.inst.vehData.physics.dir);
-property.physics.ySpeed += lengthdir_y(property.inst.vehData.weapon.spd, property.inst.vehData.physics.dir);
 
 damageApplied = false; //Set to true when damage is applied to prevent duplicate damage
 
 alarm [0] = 500; //Destroy after 500 frames
+apply_physics = function() {
+	//Match velocity of tank
+	//property.physics.velocity.add(property.inst.vehData.physics.velocity);
+
+
+	//Add projectile speed
+	var _vecX = lengthdir_x(property.inst.vehData.weapon.spd, property.physics.dir);
+	var _vecY = lengthdir_y(property.inst.vehData.weapon.spd, property.physics.dir);
+	var _gunVec = new vector(_vecX, _vecY);
+	property.physics.velocity.add(_gunVec);	
+	
+	//TODO: Set bullet position to end of barrel
+	 
+}
 
 hit = function() {
 	instance_destroy();	
