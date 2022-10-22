@@ -20,6 +20,8 @@ function add_physics() constructor {
 		xSpeed = 0;
 		ySpeed = 0;
 		dir = 0;
+		velocity = new vector(0, 0);
+		acceleration = new vector(0, 0);
 	}	
 	
 function create_vehicle(_team = TEAM.BROWN, _vehicle = HULL.A) constructor {
@@ -28,10 +30,11 @@ function create_vehicle(_team = TEAM.BROWN, _vehicle = HULL.A) constructor {
 	physics = new add_physics();
 	
 	move = {
-		acc : 1,
-		maxSpeed : 4,
-		turnSpeed : .3,
-		turnRadius : 1,	
+		acc :			.5,
+		backAcc :		.25,
+		maxSpeed :		4,
+		turnSpeed :		.3,
+		turnRadius :	1,	
 	}
 	weapon = {
 		spd	:		3,
