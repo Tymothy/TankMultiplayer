@@ -30,16 +30,16 @@ function create_vehicle(_team = TEAM.BROWN, _vehicle = HULL.A) constructor {
 	physics = new add_physics();
 	
 	move = {
-		acc :			.5,
-		backAcc :		.25,
-		maxSpeed :		4,
-		turnSpeed :		.3,
-		turnRadius :	1,	
+		acc :			0.75,		//How fast the tank can accerlate
+		backAcc :		0.25,
+		maxSpeed :		4,			//Not sued
+		turnSpeed :		.5,			//How fast the vehicle can turn
+		turnRadius :	1,			//Not used
 	}
 	weapon = {
-		spd :		5,
-		cooldown :	100,	
-		damage :	1,
+		spd :			15,			//Speed of the projectile
+		cooldown :		100,		//Time between shots
+		damage :		1,			//How much damage a shot does
 	}
 	
 	

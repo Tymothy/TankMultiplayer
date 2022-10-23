@@ -19,11 +19,11 @@ if(components.controls == true && playerData.hp > 0) {
 	
 	//Apply controls
 	if(input.left.held > 0) {
-		_dirChange += vehData.move.turnRadius;
+		_dirChange += vehData.move.turnSpeed;
 	}
 	
 	if(input.right.held > 0) {
-		_dirChange -= vehData.move.turnRadius;
+		_dirChange -= vehData.move.turnSpeed;
 	}
 	vehData.physics.dir += _dirChange;
 	
