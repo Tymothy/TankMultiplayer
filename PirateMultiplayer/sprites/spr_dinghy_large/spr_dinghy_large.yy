@@ -73,6 +73,6 @@
   "nineSlice": null,
   "parent": {
     "name": "Dinghy",
-    "path": "folders/Sprites/Z_Old Ship Sprites/Ship Parts/Dinghy.yy",
+    "path": "folders/Sprites/Hulls/Single/Z_Old Ship Sprites/Ship Parts/Dinghy.yy",
   },
 }

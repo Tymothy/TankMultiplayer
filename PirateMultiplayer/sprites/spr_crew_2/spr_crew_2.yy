@@ -69,6 +69,6 @@
   "nineSlice": null,
   "parent": {
     "name": "Crew",
-    "path": "folders/Sprites/Z_Old Ship Sprites/Ship Parts/Crew.yy",
+    "path": "folders/Sprites/Hulls/Single/Z_Old Ship Sprites/Ship Parts/Crew.yy",
   },
 }

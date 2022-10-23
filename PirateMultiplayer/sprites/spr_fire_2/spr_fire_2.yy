@@ -69,6 +69,6 @@
   "nineSlice": null,
   "parent": {
     "name": "Effects",
-    "path": "folders/Sprites/Z_Old Ship Sprites/Effects.yy",
+    "path": "folders/Sprites/Hulls/Single/Z_Old Ship Sprites/Effects.yy",
   },
 }

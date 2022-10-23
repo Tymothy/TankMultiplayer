@@ -34,7 +34,7 @@ const TEAM = {
 playersData = []; //Players array to hold data sent to clients
 attacksData = []; //Array to hold successful attacks against players
 clientID = 0;
-var serverCounter = 0;
+var timeStep = 0;
 function incrementServerCounter() {
 	serverCounter++;
 	setTimeout(incrementServerCounter, 10);
@@ -76,7 +76,6 @@ function sendPositionUpdates(){
 			}
 		}
 	}
-	setTimeout(sendPositionUpdates, 50); //Send updates 20 times a second
 }
 
 // #region Game Functions
@@ -136,7 +135,7 @@ function sendEvent(_ws, _event, _data) {
 		case C_EVENT.CREATE_SELF:
 			packet = JSON.stringify({
 				event: _event,
-				serverCounter : serverCounter,
+				timeStep : timeStep,
 				clientID: _data.clientID,
 				name: _data.name,
 				x: _data.x,
@@ -154,7 +153,7 @@ function sendEvent(_ws, _event, _data) {
 		case C_EVENT.CREATE_OTHER:
 			packet = JSON.stringify({
 				event: _event,
-				serverCounter : serverCounter,
+				timeStep : timeStep,
 				clientID: _data.clientID,
 				name: _data.name,
 				x: _data.x,
@@ -173,7 +172,7 @@ function sendEvent(_ws, _event, _data) {
 			packet = JSON.stringify({
 				event: _event,
 				clientID: _data.clientID,
-				serverCounter : serverCounter,
+				timeStep : timeStep,
 
 			});
 			_ws.send(packet);
@@ -183,7 +182,7 @@ function sendEvent(_ws, _event, _data) {
 			packet = JSON.stringify({
 				event: _event,
 				clientID: _data.clientID,
-				serverCounter : serverCounter,
+				timeStep : timeStep,
 				x: _data.x,
 				y: _data.y,
 				a: _data.a,
@@ -198,7 +197,7 @@ function sendEvent(_ws, _event, _data) {
 		case C_EVENT.WEAPON_FIRE:
 			packet = JSON.stringify({
 				event: _event,
-				serverCounter : serverCounter,
+				timeStep : timeStep,
 				clientID: _data.clientID,
 				x: _data.x,
 				y: _data.y,
@@ -214,7 +213,7 @@ function sendEvent(_ws, _event, _data) {
 		let item = getPlayer(_data.hurtID);
 			packet = JSON.stringify({
 				event: _event,
-				serverCounter : serverCounter,
+				timeStep : timeStep,
 				hurtID: _data.hurtID,
 				hurtHP : item.hp,
 				attackerID: _data.attackerID,
@@ -228,9 +227,18 @@ function sendEvent(_ws, _event, _data) {
 
 }
 
-	logPlayerState();
+function serverTimeStep() {
+	//Executes functions on regular intervals
 	sendPositionUpdates();
-	incrementServerCounter();
+	//console.log("Sending update" + Math.floor(Math.random() * 1000));
+	timeStep++;
+	setTimeout(serverTimeStep, 50); //Steps every 50 ms, or 20 times a second
+
+}
+
+	serverTimeStep();
+	logPlayerState();
+
 
 wss.on("connection", ws => {
 	//Runs when a message is sent to server
