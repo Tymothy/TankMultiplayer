@@ -16,11 +16,13 @@ if(property.inst != noone) {
 	var _my = property.inst.playerData.my;		
 	
 	var _angle = point_direction(x, y, _mx, _my);
+	
+
 	image_angle = _angle;
 }
 
 if(property.inst.fire == true) {
-	//Fire a projectile
+	//Fire a projectile e 
 	var _mx = property.inst.playerData.mx;
 	var _my = property.inst.playerData.my;	
 	var _dir = point_direction(x, y, _mx, _my);

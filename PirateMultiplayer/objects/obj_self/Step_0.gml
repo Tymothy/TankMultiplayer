@@ -57,13 +57,13 @@ if(components.controls == true && playerData.hp > 0) {
 	//Friction
 	vehData.physics.velocity.multiply(.9);
 	
-	var _xTo = x + vehData.physics.velocity.x;
-	var _yTo = y + vehData.physics.velocity.y;
+	var _xTo = x + vehData.physics.velocity.vx;
+	var _yTo = y + vehData.physics.velocity.vy;
 	var _spd = point_distance(x, y, _xTo, _yTo);
 	var _dir = point_direction(x, y, _xTo, _yTo);
 	move.spdDir(_spd, _dir);
-	//x += vehData.physics.velocity.x;
-	//y += vehData.physics.velocity.y;
+	//x += vehData.physics.velocity.vx;
+	//y += vehData.physics.velocity.vy;
 	image_angle = vehData.physics.dir + 90;
 	
 }

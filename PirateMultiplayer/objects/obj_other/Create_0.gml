@@ -12,4 +12,10 @@ event_inherited();
 playerData.xTo = x;
 playerData.yTo = y;
 playerData.aTo = image_angle;
-playerData.framesSinceLastUpdate = 0;
+vehData.physics.velocity.vx = 0;
+vehData.physics.velocity.vy = 0;
+
+framesSinceLastUpdate = 0;
+aliveFrames = 0;
+lastUpdatePacket = 0;
+show_debug_message("Created obj_other");

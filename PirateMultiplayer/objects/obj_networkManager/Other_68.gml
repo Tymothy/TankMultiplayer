@@ -39,7 +39,6 @@ switch(_type) {
 					playerData.hp = _data.hp;
 					playerData.name = _data.name;
 					playerData.team = _data.team;
-					
 				}								
 				event_notify(G_EVENT.CREATE_OTHER);
 				break;
@@ -61,17 +60,33 @@ switch(_type) {
 			#region UPDATE_POSITION
 			case C_EVENT.UPDATE_POSITION:
 				var _clientID = _data.clientID;				
-				with(obj_other) {
-					if(playerData.clientID == _clientID) {
-						playerData.xTo = _data.x;
-						playerData.yTo = _data.y;
-						playerData.aTo = _data.a;
-						playerData.mx = _data.mx;
-						playerData.my = _data.my;
-						
-						playerData.framesSinceLastUpdate = 0;						
-						//y = lerp(y, _data.y, .2)wad;
-					}
+				with(obj_other) {					
+						//If the packet received was older that one we already got
+						//Discard it					
+						if(playerData.clientID == _clientID){
+							if(_data.serverCounter > lastUpdatePacket) {
+							
+								playerData.xTo = _data.x;
+								playerData.yTo = _data.y;
+								playerData.aTo = _data.a;
+								playerData.mx = _data.mx;
+								playerData.my = _data.my;
+								//vehData.physics.velocity.set(_data.vx, _data.vy);
+								vehData.physics.velocity.vx = _data.vx;
+								vehData.physics.velocity.vy = _data.vy;
+								vehData.physics.dir = _data.a;
+							
+
+								lastUpdatePacket = _data.serverCounter;
+							
+								framesSinceLastUpdate = 0;
+								show_debug_message("Update position event");
+								//y = lerp(y, _data.y, .2)wad;
+							}
+							else {
+								show_debug_message("Old packet - Dropped");
+							}
+						}	
 				}					
 				break;
 			#endregion
@@ -84,7 +99,8 @@ switch(_type) {
 						playerData.yTo = _data.y;
 						playerData.mx = _data.mx;
 						playerData.my = _data.my;
-						
+						vehData.physics.velocity.vx = _data.vx;
+						vehData.physics.velocity.vy = _data.vy;						
 						fire = true;
 						//y = lerp(y, _data.y, .2)wad;
 					}

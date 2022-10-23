@@ -34,6 +34,11 @@ const TEAM = {
 playersData = []; //Players array to hold data sent to clients
 attacksData = []; //Array to hold successful attacks against players
 clientID = 0;
+var serverCounter = 0;
+function incrementServerCounter() {
+	serverCounter++;
+	setTimeout(incrementServerCounter, 10);
+}
 
 function logPlayerState() {
 	console.log("Player positions:");
@@ -65,17 +70,20 @@ function getPlayer(_clientID){
 function sendPositionUpdates(){
 	for(let i = 0; i < playersData.length; i++) { //Players we are sending data to
 		for(let j = 0; j < playersData.length; j++) { //Players we are sending data about
-			sendEvent(playersData[i].socketObject, C_EVENT.UPDATE_POSITION, playersData[j]);
+			if(playersData[i].clientID != playersData[j].clientID){
+				//console.log("Oldest player: " + playersData[0].clientID + " X:" + playersData[0].vx + " Y:" + playersData[0].vy);
+				sendEvent(playersData[i].socketObject, C_EVENT.UPDATE_POSITION, playersData[j]);
+			}
 		}
 	}
-	setTimeout(sendPositionUpdates, 30);
+	setTimeout(sendPositionUpdates, 50); //Send updates 20 times a second
 }
 
 // #region Game Functions
 function getWorldSpawnCoords(team){
 
-	let randY = Math.floor(Math.random() * 200 - 100);
-	let randX = Math.floor(Math.random() * 200 - 100);
+	let randY = Math.floor(Math.random() * 500 - 250);
+	let randX = Math.floor(Math.random() * 500 - 250);
 	switch(team){
 		case TEAM.RED:
 			var _ret = {
@@ -128,6 +136,7 @@ function sendEvent(_ws, _event, _data) {
 		case C_EVENT.CREATE_SELF:
 			packet = JSON.stringify({
 				event: _event,
+				serverCounter : serverCounter,
 				clientID: _data.clientID,
 				name: _data.name,
 				x: _data.x,
@@ -145,6 +154,7 @@ function sendEvent(_ws, _event, _data) {
 		case C_EVENT.CREATE_OTHER:
 			packet = JSON.stringify({
 				event: _event,
+				serverCounter : serverCounter,
 				clientID: _data.clientID,
 				name: _data.name,
 				x: _data.x,
@@ -163,6 +173,7 @@ function sendEvent(_ws, _event, _data) {
 			packet = JSON.stringify({
 				event: _event,
 				clientID: _data.clientID,
+				serverCounter : serverCounter,
 
 			});
 			_ws.send(packet);
@@ -172,9 +183,12 @@ function sendEvent(_ws, _event, _data) {
 			packet = JSON.stringify({
 				event: _event,
 				clientID: _data.clientID,
+				serverCounter : serverCounter,
 				x: _data.x,
 				y: _data.y,
 				a: _data.a,
+				vx: _data.vx,
+				vy: _data.vy,
 				mx: _data.mx,
 				my: _data.my,
 			});
@@ -184,9 +198,12 @@ function sendEvent(_ws, _event, _data) {
 		case C_EVENT.WEAPON_FIRE:
 			packet = JSON.stringify({
 				event: _event,
+				serverCounter : serverCounter,
 				clientID: _data.clientID,
 				x: _data.x,
 				y: _data.y,
+				vx: _data.vx,
+				vy: _data.vy,
 				mx: _data.mx,
 				my: _data.my,
 			});
@@ -197,6 +214,7 @@ function sendEvent(_ws, _event, _data) {
 		let item = getPlayer(_data.hurtID);
 			packet = JSON.stringify({
 				event: _event,
+				serverCounter : serverCounter,
 				hurtID: _data.hurtID,
 				hurtHP : item.hp,
 				attackerID: _data.attackerID,
@@ -212,6 +230,7 @@ function sendEvent(_ws, _event, _data) {
 
 	logPlayerState();
 	sendPositionUpdates();
+	incrementServerCounter();
 
 wss.on("connection", ws => {
 	//Runs when a message is sent to server
@@ -238,6 +257,8 @@ wss.on("connection", ws => {
 						hp: 3,
 						mx: 0,
 						my: 0,
+						vx: 0,
+						vy: 0,
 						socketObject: ws,
 					};
 					playersData.push(curPlayer);
@@ -266,11 +287,13 @@ wss.on("connection", ws => {
 				for(let i = 0; i < playersData.length; i++) {
 						let item = playersData[i];
 						if(item.clientID == data.clientID) {
-							playersData[i].x = Math.floor(data.x);
-							playersData[i].y = Math.floor(data.y);
-							playersData[i].a = Math.floor(data.a);
-							playersData[i].mx= Math.floor(data.mx);
-							playersData[i].my= Math.floor(data.my);
+							playersData[i].x = Math.round(data.x * 100) / 100;
+							playersData[i].y = Math.round(data.y * 100) / 100;
+							playersData[i].a = Math.round(data.a * 100) / 100;
+							playersData[i].vx = Math.round(data.vx * 100) / 100;
+							playersData[i].vy = Math.round(data.vy * 100) / 100;
+							playersData[i].mx= Math.round(data.mx * 100) / 100;
+							playersData[i].my= Math.round(data.my * 100) / 100;
 						}
 					}
 			break;
@@ -280,10 +303,12 @@ wss.on("connection", ws => {
 				for(let i = 0; i < playersData.length; i++) {
 						let item = playersData[i];
 						if(item.clientID == data.clientID) {
-							playersData[i].x = Math.floor(data.x);
-							playersData[i].y = Math.floor(data.y);
-							playersData[i].mx= Math.floor(data.mx);
-							playersData[i].my= Math.floor(data.my);
+							playersData[i].x = Math.round(data.x * 100) / 100;
+							playersData[i].y = Math.round(data.y * 100) / 100;
+							playersData[i].vx = Math.round(data.vx * 100) / 100;
+							playersData[i].vy = Math.round(data.vy * 100) / 100;
+							playersData[i].mx= Math.round(data.mx * 100) / 100;
+							playersData[i].my= Math.round(data.my * 100) / 100;
 							firingClient = playersData[i];
 							console.log("Client ID: " + playersData[i].clientID + "/ " + playersData[i].name );
 						}

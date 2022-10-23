@@ -83,6 +83,8 @@ function net_update_position() constructor {
 	x = other.x;
 	y = other.y;
 	a = other.image_angle;
+	vx = other.vehData.physics.velocity.vx;
+	vy = other.vehData.physics.velocity.vy;
 	mx = other.playerData.mx;
 	my = other.playerData.my;
 }
@@ -93,6 +95,8 @@ function net_weapon_fire() constructor {
 	clientID = other.playerData.clientID;
 	x = other.x;
 	y = other.y;
+	vx = other.vehData.physics.velocity.vx;
+	vy = other.vehData.physics.velocity.vy;	
 	mx = other.playerData.mx;
 	my = other.playerData.my;
 }

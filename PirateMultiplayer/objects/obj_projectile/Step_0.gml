@@ -9,8 +9,8 @@
 event_inherited();
 
 
-var _xTo = x + property.physics.velocity.x;
-var _yTo = y + property.physics.velocity.y;
+var _xTo = x + property.physics.velocity.vx;
+var _yTo = y + property.physics.velocity.vy;
 
 
 property.angle = point_direction(x, y, _xTo, _yTo) - 90;
