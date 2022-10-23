@@ -7,6 +7,9 @@ if(event_watch(G_EVENT.CREATE_SELF) || event_watch(G_EVENT.CREATE_OTHER)) {
 	var _inst = instance_create_layer(x, y, "instances", obj_gun);
 	
 	attachInst(_inst);
+	
+	_inst = instance_create_layer(x, y, "lay_playerInfo", obj_player_overlay);
+	attachInst(_inst);
 	//with (_inst) {
 	//	property.inst = other;
 	//}

@@ -56,12 +56,7 @@ net.yArray = array_create(20, 0);
 net.mxArray = array_create(20, 0);
 net.myArray = array_create(20, 0);
 net.aArray = array_create(20, 0);
-//the values we want to lerp to
-//playerData.xTo = x;
-//playerData.yTo = y;
-//playerData.aTo = image_angle;
-//vehData.physics.velocity.vx = 0;
-//vehData.physics.velocity.vy = 0;
+
 
 framesSinceLastUpdate = 0;
 aliveFrames = 0;

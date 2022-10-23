@@ -13,6 +13,7 @@ property.physics = new add_physics();
 property.type = BALL.NORMAL
 property.damage = property.inst.vehData.weapon.damage;
 property.team = property.inst.playerData.team;
+property.bounce = property.inst.vehData.weapon.bounce;
 property.angle = 0;
 property.sprite = {
 	shell : spr_projectile,
@@ -22,7 +23,7 @@ property.sprite = {
 
 damageApplied = false; //Set to true when damage is applied to prevent duplicate damage
 
-alarm [0] = 500; //Destroy after 500 frames
+alarm [0] = 5000; //Destroy after 500 frames.  It should be destroyed in other methods, but this is a failsafe
 apply_physics = function() {
 	//Match velocity of tank
 	//property.physics.velocity.add(property.inst.vehData.physics.velocity);
@@ -39,5 +40,10 @@ apply_physics = function() {
 }
 
 hit = function() {
-	instance_destroy();	
+	destroyProjectile();	
+}
+
+destroyProjectile = function() {
+	//Put some animation or other feedback here
+	instance_destroy();
 }

@@ -40,6 +40,7 @@ function create_vehicle(_team = TEAM.BROWN, _vehicle = HULL.A) constructor {
 		spd :			15,			//Speed of the projectile
 		cooldown :		100,		//Time between shots
 		damage :		1,			//How much damage a shot does
+		bounce :		1,			//How many times can the projectile bounce
 	}
 	
 	

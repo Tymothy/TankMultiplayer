@@ -9,4 +9,4 @@ if (live_call()) return live_result;
 event_inherited();
 
 draw_set_text_alignment(TEXT.CENTER_BOTTOM, c_black);
-draw_text(x, y +40, "Team: " + string(playerData.team));
+//draw_text(x, y +40, "Team: " + string(playerData.team));wd
