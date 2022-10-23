@@ -77,6 +77,8 @@ event_inherited();
 			x = net.xArray[net.stepsSinceLastUpdate];
 			y = net.yArray[net.stepsSinceLastUpdate];
 			image_angle = net.a1;
+			net.mx = net.mxArray[net.stepsSinceLastUpdate];
+			net.my = net.myArray[net.stepsSinceLastUpdate];
 		}
 		net.stepsSinceLastUpdate++;
 	
