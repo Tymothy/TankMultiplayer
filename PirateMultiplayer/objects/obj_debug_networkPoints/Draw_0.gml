@@ -13,6 +13,8 @@ if(instance_exists(obj_other)){
 	draw_sprite(spr_debug_point, 1, _x1, _y1 );
 	draw_sprite(spr_debug_point, 2, _x2, _y2 );
 	draw_sprite(spr_debug_point, 3, obj_other.x, obj_other.y);
+	
+	draw_sprite(spr_debug_point, 3, obj_other.net.mx, obj_other.net.my)
 } else {
 	instance_destroy();	
 }

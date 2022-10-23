@@ -146,8 +146,8 @@ updatePos = function(_data) {
 		net.xArray[i] = round(net.xArray[i-1] + lengthdir_x(_targStepDist, _cdir));
 		net.yArray[i] = round(net.yArray[i-1] + lengthdir_y(_targStepDist, _cdir));
 		net.aArray[i] = round(net.aArray[i-1] + _targStepA);
-		net.mxArray[i] = round(net.mxArray[i-1] + lengthdir_x(_targStepDist, _mdir));
-		net.myArray[i] = round(net.myArray[i-1] + lengthdir_y(_targStepDist, _mdir));
+		net.mxArray[i] = round(net.mxArray[i-1] + lengthdir_x(_targMStepDist, _mdir));
+		net.myArray[i] = round(net.myArray[i-1] + lengthdir_y(_targMStepDist, _mdir));
 	}
 	//if(net.newServerStep % 10 == 0) show_debug_message(string(net.xArray));
 }

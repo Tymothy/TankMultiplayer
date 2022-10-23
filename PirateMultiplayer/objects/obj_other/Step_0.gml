@@ -79,6 +79,9 @@ event_inherited();
 			image_angle = net.a1;
 			net.mx = net.mxArray[net.stepsSinceLastUpdate];
 			net.my = net.myArray[net.stepsSinceLastUpdate];
+			playerData.mx = net.mx;
+			playerData.my = net.my;
+			show_debug_message("MX: " + string(net.mx) + " MY: " + string(net.my));
 		}
 		net.stepsSinceLastUpdate++;
 	
