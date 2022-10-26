@@ -1,5 +1,6 @@
 #region Networking
-#macro SERVER_IP "54.245.7.200"
+//#macro SERVER_IP "54.245.7.200"
+#macro SERVER_IP "tanks.tymsgames.com"
 #macro SERVER_PORT 10027
 
 #macro UPDATE_RATE 4 //Rate at which we send updates about player to server

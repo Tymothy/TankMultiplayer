@@ -1,244 +1,269 @@
+//Prep the server
+/*
+const WebSocketServer = require('ws');
+const http = require("http")
+const https = require("https")
+const fs = require("fs")
+var express = require("express")
+var app = express()
+
+const secure = false
+
+//Launch the server up
+var port = process.env.PORT || 10567;
+app.use(express.static(__dirname + "/"))
+if (!secure){
+    var httpserver = http.createServer(app)
+}else{
+    var options = {cert: fs.readFileSync('ssl/SSL_Cert.crt'),
+                   key: fs.readFileSync('ssl/SSL_Key.key')}
+    var httpserver = https.createServer(options, app)
+}
+httpserver.listen(port)
+var server = new WebSocketServer.Server({server: httpserver });
+*/
+//OLD CODE BELOW
 // Using websocket for HTML5 game
 //Import the required module
 const WebSocketServer = require('ws');
-const serverPort = 10027
+const serverPort = 10027;
 //Creating a new websocket server
 const wss = new WebSocketServer.Server({ port: serverPort})
 
-//Create network event enum objects.  This should match GameMaker's NET_EVENT enum
-//Server Events
-const S_EVENT = {
-	CREATE_SELF: 0,
-	UPDATE_POSITION : 1,
-	WEAPON_FIRE: 2,
-	DAMAGE_SELF : 3,
-}
 
-//Cleint events
-const C_EVENT = {
-	CREATE_SELF: 0,
-	CREATE_OTHER: 1,
-	DESTROY_OTHER: 2,
-	UPDATE_POSITION: 3,
-	WEAPON_FIRE: 4,
-	DAMAGE: 5,
-}
-
-const TEAM = {
-	RED : 0,
-	BLUE: 1,
-	GREEN: 2,
-	YELLOW: 3,
-}
-
-playersData = []; //Players array to hold data sent to clients
-attacksData = []; //Array to hold successful attacks against players
-clientID = 0;
-var timeStep = 0;
-function incrementServerCounter() {
-	serverCounter++;
-	setTimeout(incrementServerCounter, 10);
-}
-
-function logPlayerState() {
-	console.log("Player positions:");
-	for(let i = 0; i < playersData.length; i++) {
-		console.log(playersData[i].clientID, playersData[i].name, playersData[i].x, playersData[i].y, playersData[i].a);
+	//Create network event enum objects.  This should match GameMaker's NET_EVENT enum
+	//Server Events
+	const S_EVENT = {
+		CREATE_SELF: 0,
+		UPDATE_POSITION : 1,
+		WEAPON_FIRE: 2,
+		DAMAGE_SELF : 3,
 	}
 
-	setTimeout(logPlayerState, 5000);
-}
+	//Cleint events
+	const C_EVENT = {
+		CREATE_SELF: 0,
+		CREATE_OTHER: 1,
+		DESTROY_OTHER: 2,
+		UPDATE_POSITION: 3,
+		WEAPON_FIRE: 4,
+		DAMAGE: 5,
+	}
 
-function generateClientID() {
-	clientID++
-	var _ret = clientID;
-	return clientID;
-}
+	const TEAM = {
+		RED : 0,
+		BLUE: 1,
+		GREEN: 2,
+		YELLOW: 3,
+	}
 
-function getPlayer(_clientID){
-//Returns the object held in playersData given a clientID
-	for(let i = 0; i < playersData.length; i++) {
-		let item = playersData[i];
+	playersData = []; //Players array to hold data sent to clients
+	attacksData = []; //Array to hold successful attacks against players
+	clientID = 0;
+	var timeStep = 0;
+	function incrementServerCounter() {
+		serverCounter++;
+		setTimeout(incrementServerCounter, 10);
+	}
 
-		if(item.clientID == _clientID){
-			return playersData[i];
+	function logPlayerState() {
+		console.log("Player positions:");
+		for(let i = 0; i < playersData.length; i++) {
+			console.log(playersData[i].clientID, playersData[i].name, playersData[i].x, playersData[i].y, playersData[i].a);
+		}
+
+		setTimeout(logPlayerState, 5000);
+	}
+
+	function generateClientID() {
+		clientID++
+		var _ret = clientID;
+		return clientID;
+	}
+
+	function getPlayer(_clientID){
+	//Returns the object held in playersData given a clientID
+		for(let i = 0; i < playersData.length; i++) {
+			let item = playersData[i];
+
+			if(item.clientID == _clientID){
+				return playersData[i];
+			}
+		}
+
+	}
+
+	function sendPositionUpdates(){
+		for(let i = 0; i < playersData.length; i++) { //Players we are sending data to
+			for(let j = 0; j < playersData.length; j++) { //Players we are sending data about
+				if(playersData[i].clientID != playersData[j].clientID){
+					//console.log("Oldest player: " + playersData[0].clientID + " X:" + playersData[0].vx + " Y:" + playersData[0].vy);
+					sendEvent(playersData[i].socketObject, C_EVENT.UPDATE_POSITION, playersData[j]);
+				}
+			}
 		}
 	}
 
-}
+	// #region Game Functions
+	function getWorldSpawnCoords(team){
 
-function sendPositionUpdates(){
-	for(let i = 0; i < playersData.length; i++) { //Players we are sending data to
-		for(let j = 0; j < playersData.length; j++) { //Players we are sending data about
-			if(playersData[i].clientID != playersData[j].clientID){
-				//console.log("Oldest player: " + playersData[0].clientID + " X:" + playersData[0].vx + " Y:" + playersData[0].vy);
-				sendEvent(playersData[i].socketObject, C_EVENT.UPDATE_POSITION, playersData[j]);
-			}
+		let randY = Math.floor(Math.random() * 500 - 250);
+		let randX = Math.floor(Math.random() * 500 - 250);
+		switch(team){
+			case TEAM.RED:
+				var _ret = {
+					x : 400 + randX,
+					y: 400 + randY,
+				}
+			break;
+
+			case TEAM.BLUE:
+				var _ret = {
+					x : 800 + randX,
+					y: 400 + randY,
+				}
+			break;
+
+			case TEAM.GREEN:
+				var _ret = {
+					x : 400 + randX,
+					y:  800 + randY,
+				}
+			break;
+
+			case TEAM.YELLOW:
+				var _ret = {
+					x : 800+ randX,
+					y:  800+ randY,
+				}
+			break;
+
 		}
-	}
-}
 
-// #region Game Functions
-function getWorldSpawnCoords(team){
-
-	let randY = Math.floor(Math.random() * 500 - 250);
-	let randX = Math.floor(Math.random() * 500 - 250);
-	switch(team){
-		case TEAM.RED:
-			var _ret = {
-				x : 400 + randX,
-				y: 400 + randY,
-			}
-		break;
-
-		case TEAM.BLUE:
-			var _ret = {
-				x : 800 + randX,
-				y: 400 + randY,
-			}
-		break;
-
-		case TEAM.GREEN:
-			var _ret = {
-				x : 400 + randX,
-				y:  800 + randY,
-			}
-		break;
-
-		case TEAM.YELLOW:
-			var _ret = {
-				x : 800+ randX,
-				y:  800+ randY,
-			}
-		break;
-
+		return _ret;
 	}
 
-	return _ret;
-}
-
-function assignTeam() {
-	var _ret = TEAM.BLUE;
-	return _ret;
-}
-
-// #endregion
-
-function sendEvent(_ws, _event, _data) {
-	//_ws = The socket object of the client we want to send to
-	//_event = the event name we want to send to client
-	// _data = the data object we want to sent client
-
-	var packet = 0;
-
-	switch(_event) {
-		case C_EVENT.CREATE_SELF:
-			packet = JSON.stringify({
-				event: _event,
-				timeStep : timeStep,
-				clientID: _data.clientID,
-				name: _data.name,
-				x: _data.x,
-				y: _data.y,
-				a: _data.a,
-				hp: _data.hp,
-				mx: 0,
-				my: 0,
-				team: _data.team
-			});
-
-			_ws.send(packet);
-		break;
-
-		case C_EVENT.CREATE_OTHER:
-			packet = JSON.stringify({
-				event: _event,
-				timeStep : timeStep,
-				clientID: _data.clientID,
-				name: _data.name,
-				x: _data.x,
-				y: _data.y,
-				a: _data.a,
-				hp: _data.hp,
-				mx: _data.mx,
-				my: _data.my,
-				team: _data.team
-			});
-
-			_ws.send(packet);
-		break;
-
-		case C_EVENT.DESTROY_OTHER:
-			packet = JSON.stringify({
-				event: _event,
-				clientID: _data.clientID,
-				timeStep : timeStep,
-
-			});
-			_ws.send(packet);
-		break;
-
-		case C_EVENT.UPDATE_POSITION:
-			packet = JSON.stringify({
-				event: _event,
-				clientID: _data.clientID,
-				timeStep : timeStep,
-				x: _data.x,
-				y: _data.y,
-				a: _data.a,
-				vx: _data.vx,
-				vy: _data.vy,
-				mx: _data.mx,
-				my: _data.my,
-			});
-			_ws.send(packet);
-		break;
-
-		case C_EVENT.WEAPON_FIRE:
-			packet = JSON.stringify({
-				event: _event,
-				timeStep : timeStep,
-				clientID: _data.clientID,
-				x: _data.x,
-				y: _data.y,
-				vx: _data.vx,
-				vy: _data.vy,
-				mx: _data.mx,
-				my: _data.my,
-			});
-			_ws.send(packet);
-		break;
-
-		case C_EVENT.DAMAGE:
-		let item = getPlayer(_data.hurtID);
-			packet = JSON.stringify({
-				event: _event,
-				timeStep : timeStep,
-				hurtID: _data.hurtID,
-				hurtHP : item.hp,
-				attackerID: _data.attackerID,
-				type: _data.type,
-				damage: _data.damage,
-
-			});
-			_ws.send(packet);
-		break;
+	function assignTeam() {
+		var _ret = TEAM.BLUE;
+		return _ret;
 	}
 
-}
+	// #endregion
 
-function serverTimeStep() {
-	//Executes functions on regular intervals
-	sendPositionUpdates();
-	//console.log("Sending update" + Math.floor(Math.random() * 1000));
-	timeStep++;
-	setTimeout(serverTimeStep, 50); //Steps every 50 ms, or 20 times a second
+	function sendEvent(_ws, _event, _data) {
+		//_ws = The socket object of the client we want to send to
+		//_event = the event name we want to send to client
+		// _data = the data object we want to sent client
 
-}
+		var packet = 0;
 
-	serverTimeStep();
-	logPlayerState();
+		switch(_event) {
+			case C_EVENT.CREATE_SELF:
+				packet = JSON.stringify({
+					event: _event,
+					timeStep : timeStep,
+					clientID: _data.clientID,
+					name: _data.name,
+					x: _data.x,
+					y: _data.y,
+					a: _data.a,
+					hp: _data.hp,
+					mx: 0,
+					my: 0,
+					team: _data.team
+				});
 
+				_ws.send(packet);
+			break;
+
+			case C_EVENT.CREATE_OTHER:
+				packet = JSON.stringify({
+					event: _event,
+					timeStep : timeStep,
+					clientID: _data.clientID,
+					name: _data.name,
+					x: _data.x,
+					y: _data.y,
+					a: _data.a,
+					hp: _data.hp,
+					mx: _data.mx,
+					my: _data.my,
+					team: _data.team
+				});
+
+				_ws.send(packet);
+			break;
+
+			case C_EVENT.DESTROY_OTHER:
+				packet = JSON.stringify({
+					event: _event,
+					clientID: _data.clientID,
+					timeStep : timeStep,
+
+				});
+				_ws.send(packet);
+			break;
+
+			case C_EVENT.UPDATE_POSITION:
+				packet = JSON.stringify({
+					event: _event,
+					clientID: _data.clientID,
+					timeStep : timeStep,
+					x: _data.x,
+					y: _data.y,
+					a: _data.a,
+					vx: _data.vx,
+					vy: _data.vy,
+					mx: _data.mx,
+					my: _data.my,
+				});
+				_ws.send(packet);
+			break;
+
+			case C_EVENT.WEAPON_FIRE:
+				packet = JSON.stringify({
+					event: _event,
+					timeStep : timeStep,
+					clientID: _data.clientID,
+					x: _data.x,
+					y: _data.y,
+					vx: _data.vx,
+					vy: _data.vy,
+					mx: _data.mx,
+					my: _data.my,
+				});
+				_ws.send(packet);
+			break;
+
+			case C_EVENT.DAMAGE:
+			let item = getPlayer(_data.hurtID);
+				packet = JSON.stringify({
+					event: _event,
+					timeStep : timeStep,
+					hurtID: _data.hurtID,
+					hurtHP : item.hp,
+					attackerID: _data.attackerID,
+					type: _data.type,
+					damage: _data.damage,
+
+				});
+				_ws.send(packet);
+			break;
+		}
+
+	}
+
+	function serverTimeStep() {
+		//Executes functions on regular intervals
+		sendPositionUpdates();
+		//console.log("Sending update" + Math.floor(Math.random() * 1000));
+		timeStep++;
+		setTimeout(serverTimeStep, 50); //Steps every 50 ms, or 20 times a second
+
+	}
+
+		serverTimeStep();
+		logPlayerState();
 
 wss.on("connection", ws => {
 	//Runs when a message is sent to server
