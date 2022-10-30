@@ -27,14 +27,15 @@ enum C_EVENT {
 	UPDATE_POSITION,
 	WEAPON_FIRE,
 	DAMAGE,
-}
+}										
 
 #endregion
 
 #region functions called by game
 function net_server_connect() {
-	var _ret= network_create_socket(network_socket_ws);
-	network_connect_raw_async(_ret, SERVER_IP, SERVER_PORT);
+	var _ret= network_create_socket(SOCKET);
+	var _connection = network_connect_raw_async(_ret,SERVER_IP, SERVER_PORT);
+	show_debug_message("_connection" + string(_connection));
 	return _ret;
 }
 

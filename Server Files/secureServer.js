@@ -1,5 +1,6 @@
+
 //Prep the server
-/*
+
 const WebSocketServer = require('ws');
 const http = require("http")
 const https = require("https")
@@ -10,28 +11,30 @@ var app = express()
 const secure = false
 
 //Launch the server up
-var port = process.env.PORT || 10027;
+var port = process.env.PORT || 3000;
 app.use(express.static(__dirname + "/"))
-if (!secure){
-    var httpserver = http.createServer(app)
-}else{
-    var options = {cert: fs.readFileSync('ssl/cattailgames.crt'),
-                   key: fs.readFileSync('ssl/cattailgames.key')}
-    var httpserver = https.createServer(options, app)
-}
-httpserver.listen(port)
+//if (!secure){
+//    var httpserver = http.createServer(app)
+//}else{
+    var options = {cert: fs.readFileSync('/home/bitnami/certs/cattailgames-crt.pem'),
+                   key: fs.readFileSync('/home/bitnami/certs/cattailgames-key.pem')}
+    var server = https.createServer(options, app).listen(port);
+//}
+//server.listen(port)
 
 console.log(options);
-var wss = new WebSocketServer.Server({server: httpserver });
-*/
+var wss = new WebSocketServer.Server({server: server });
+
+
+/*
 //OLD CODE BELOW
 // Using websocket for HTML5 game
 //Import the required module
 const WebSocketServer = require('ws');
-const port = 10028;
+const port = 10027;
 //Creating a new websocket server
 const wss = new WebSocketServer.Server({ port: port})
-
+*/
 
 	//Create network event enum objects.  This should match GameMaker's NET_EVENT enum
 	//Server Events
@@ -267,7 +270,9 @@ const wss = new WebSocketServer.Server({ port: port})
 		serverTimeStep();
 		logPlayerState();
 
+
 wss.on("connection", ws => {
+	console.log("A packet was sent to server");
 	//Runs when a message is sent to server
 		ws.on("message", data => {
 		var jsonData = JSON.parse(data);
