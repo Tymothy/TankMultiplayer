@@ -1,0 +1,21 @@
+===LOBBY===
+
+Requirements
+	Players in lobby must be able to navigate back to main menu
+	Players in lobby must be able to press ready
+	Game must start a count down when all players are ready
+	Players should be able to see usernames of all others in lobby
+	Players in lobby must be able to switch teams
+	
+	Lobby should be an actual map and players shoot targets to change modes
+	Players ready up by clicking on their map
+		Speach bubble appears above tank with green check mark
+	
+	
+Technical
+	Players should already have an open websocket connection before joining lobby
+	
+	
+===LOBBY SETUP===
+Requirements
+	Players must decide if they want to host

@@ -1,0 +1,4 @@
+===SERVER FLOW===
+Player starts up game and goes to main menu
+Player selects a username at main menu
+Player decides if they want to host a game, or
