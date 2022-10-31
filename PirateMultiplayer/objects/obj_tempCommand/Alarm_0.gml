@@ -1,3 +1,3 @@
 /// @description Go to arena 1
-room_goto(rm_lobby);
+room_goto(rm_mainMenu);
 

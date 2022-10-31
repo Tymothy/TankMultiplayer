@@ -2,10 +2,13 @@
 
 
 switch(room) {
-	case rm_lobby:
-		instance_create_layer(x, y, "lay_gui_back", obj_btap_lobby);
+	case rm_mainMenu:
+		create_button(obj_btap_lobby, ANCHOR.BOTTOM_RIGHT, -.25, -.25);
 	
 	break;
 	
+	case rm_lobby:
+		create_button(obj_btap_mainMenu, ANCHOR.BOTTOM_LEFT, .25, -.25);
 	
+	break;	
 }

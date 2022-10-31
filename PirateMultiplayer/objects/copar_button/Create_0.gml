@@ -16,6 +16,8 @@ property = {
 	soundOnClick : snd_button_onclick,
 	soundOffClick : snd_button_offclick,
 	soundActivate : snd_button_activate,
+	
+	animation : B_ANI.NONE,
 }
 
 //Init variables
@@ -132,4 +134,12 @@ get_anchor = function() {
 			
 	}
 	
+}
+	
+set_pos = function(_anchor = ANCHOR.MIDDLE_CENTER, _x = 0, _y = 0) {
+//Set the position of the button
+	property.anchor = _anchor;
+	property.x = _x;
+	property.y = _y;
+
 }

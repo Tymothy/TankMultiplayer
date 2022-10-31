@@ -8,7 +8,7 @@
 // Inherit the parent event
 event_inherited();
 
-property.text = "Lobby";
+property.text = "Main Menu";
 property.anchor = ANCHOR.BOTTOM_LEFT;
 property.x = 0;
 property.y = -1;
@@ -21,5 +21,5 @@ property.onClickColor = c_red;
 create_update();
 
 activate_button = function() {
-	room_goto(rm_lobby);
+	room_goto(rm_mainMenu);
 }
