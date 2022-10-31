@@ -68,7 +68,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "Touch and Buttons",
-    "path": "folders/Objects/Touch and Buttons.yy",
+    "name": "Touch and Buttons Parents",
+    "path": "folders/Objects/Touch and Buttons Parents.yy",
   },
 }

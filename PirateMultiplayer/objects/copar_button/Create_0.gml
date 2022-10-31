@@ -27,7 +27,6 @@ gh = display_get_gui_height();
 gw = display_get_gui_width();
 tile = TILE_SIZE;
 
-
 anchorX = 0;
 anchorY = 0;
 realWidth = 0;
@@ -41,7 +40,8 @@ create_update = function() {
 }
 
 update = function() {
-	
+	gh = display_get_gui_height();
+	gw = display_get_gui_width();
 	realWidth = property.width * tile;
 	realHeight = property.height * tile;
 	get_anchor();

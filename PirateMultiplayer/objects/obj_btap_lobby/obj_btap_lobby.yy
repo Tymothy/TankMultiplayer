@@ -30,7 +30,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Tap",
-    "path": "folders/Objects/Touch and Buttons/Buttons/Tap.yy",
+    "name": "Buttons",
+    "path": "folders/Objects/GUI/Buttons.yy",
   },
 }

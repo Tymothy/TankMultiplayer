@@ -31,6 +31,6 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Multitouch",
-    "path": "folders/Objects/Touch and Buttons/Multitouch.yy",
+    "path": "folders/Objects/Touch and Buttons Parents/Multitouch.yy",
   },
 }
