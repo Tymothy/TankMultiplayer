@@ -21,12 +21,12 @@ xTo = xstart;
 yTo = ystart;
 
 
-if (instance_exists(obj_player))
+if (instance_exists(obj_self))
 {
-	xTo = obj_player.x;
-	yTo = obj_player.y;
-	xOld = obj_player.x
-	yOld = obj_player.y;
+	xTo = obj_self.x;
+	yTo = obj_self.y;
+	xOld = obj_self.x
+	yOld = obj_self.y;
 
 }
 else
@@ -37,7 +37,7 @@ else
 }
 //update object position with smooooooothness
 var q = 3
-if(!instance_exists(obj_player)) q = 25;
+if(!instance_exists(obj_self)) q = 25;
 x += (xTo-x)/q;
 y += (yTo-y)/q
 

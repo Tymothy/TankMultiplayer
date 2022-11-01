@@ -24,7 +24,8 @@ enum S_EVENT {
 	END_ROUND =			102,
 	
 	
-	
+	//ADMIN
+	LOGIN =				200,
 }
 
 //Client events (Server to Client)
@@ -37,6 +38,14 @@ enum C_EVENT {
 	DAMAGE =			5,
 }										
 
+enum GAME_STATUS {
+	IDLE =				0,
+	IN_LOBBY =			1,
+	STARTING =			2,
+	PLAYING =			3,
+	ENDING =			4,
+}
+
 #endregion
 
 #region functions called by game
@@ -47,8 +56,8 @@ function net_server_connect() {
 	return _ret;
 }
 
-function net_send_create_player() {
-	var _data = new net_create_self("Lucidi");
+function net_send_create_player(_name = "Guest") {
+	var _data = new net_create_self(_name);
 	net_server_send(_data);
 }
 
@@ -121,6 +130,22 @@ function net_damage_self(_attacker, _type, _damage) constructor {
 }
 
 #endregion
+
+#region Information about network
+function net_get_status() {
+	//Returns true if connected to server
+	//False if not connected
+	
+	if(instance_exists(obj_networkManager)) {
+		return obj_networkManager.connectionStatus;	
+	}
+	show_debug_message("ERROR: NETWORK MANAGER NOT PRESENT");
+	return false;
+}
+
+
+#endregion
+
 
 #region Helper functions
 function net_create_packet(_data) constructor {

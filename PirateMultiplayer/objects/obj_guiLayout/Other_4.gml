@@ -8,7 +8,8 @@ switch(room) {
 	break;
 	
 	case rm_lobby:
+		create_button(obj_hud_title_lobby, ANCHOR.TOP_CENTER, 0, .25);
 		create_button(obj_btap_mainMenu, ANCHOR.BOTTOM_LEFT, .25, -.25);
-	
+		create_button(obj_hud_networkStatus, ANCHOR.TOP_LEFT, .25, .25);
 	break;	
 }

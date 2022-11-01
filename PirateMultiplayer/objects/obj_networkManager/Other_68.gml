@@ -4,13 +4,13 @@ var _type = async_load[? "type"];
 switch(_type) {
 	case network_type_non_blocking_connect:
 		show_debug_message("Connected to server");
-		
+		connectionStatus = true;
 		
 	break;
 	
 	case network_type_disconnect:
-		show_debug_message("Disconnected to server");
-		
+		show_debug_message("Disconnected from server");
+		connectionStatus = false;
 	break;
 	
 	case network_type_data:
@@ -23,9 +23,12 @@ switch(_type) {
 				var inst = instance_create_layer(_data.x, _data.y, "lay_players", obj_self);
 				with (inst){
 					playerData.clientID = _data.clientID;
+					playerData.gameStatus = _data.gameStatus;
+					playerData.lobby = _data.lobby;
+					playerData.team = _data.team;
 					playerData.hp = _data.hp;
 					playerData.name = _data.name;
-					playerData.team = _data.team;
+					
 				}
 				event_notify(G_EVENT.CREATE_SELF);
 				show_debug_message("Creating player in game world");
@@ -101,6 +104,11 @@ switch(_type) {
 				event_notify(G_EVENT.DAMAGE);	
 				break;			
 			#endregion
+			
+			
+			
+			#endregion
+			
 			default:
 				show_message("Recevied data with an unknown event");
 			break;

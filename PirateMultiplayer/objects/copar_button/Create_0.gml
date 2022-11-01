@@ -11,7 +11,11 @@ property = {
 	//Possibly could be improved by adding a list element here to create like a dropdown?
 	activeColor : c_lime,
 	disabledColor : c_dkgray,
+	textColor : c_black,
+	font : fon_info_small,
 	
+	activeSprite : spr_btn_b_active,
+	inactiveSprite : spr_btn_b_inactive,
 	//Sounds
 	soundOnClick : snd_button_onclick,
 	soundOffClick : snd_button_offclick,

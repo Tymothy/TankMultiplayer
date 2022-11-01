@@ -3,8 +3,8 @@
 
 if(event_watch(G_EVENT.CREATE_SELF) || event_watch(G_EVENT.CREATE_OTHER)) {
 	//Wait for player to be created to create the vehicle
-	vehData = new create_vehicle(playerData.vehicle, playerData.team);
-	var _inst = instance_create_layer(x, y, "instances", obj_gun);
+	vehData = new create_vehicle();
+	var _inst = instance_create_layer(x, y, "lay_gun", obj_gun);
 	
 	attachInst(_inst);
 	

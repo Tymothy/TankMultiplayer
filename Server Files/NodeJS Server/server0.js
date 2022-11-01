@@ -36,6 +36,7 @@ const wss = new WebSocketServer.Server({ port: port})
 
 	playersData = []; //Players array to hold data sent to clients
 	attacksData = []; //Array to hold successful attacks against players
+
 	clientID = 0;
 	var timeStep = 0;
 
@@ -77,48 +78,6 @@ const wss = new WebSocketServer.Server({ port: port})
 	  }
 	}
 
-
-
-	// #region Game Functions
-	/*
-	function getWorldSpawnCoords(team){
-
-		let randY = Math.floor(Math.random() * 500 - 250);
-		let randX = Math.floor(Math.random() * 500 - 250);
-		switch(team){
-			case en.TEAM.RED:
-				var _ret = {
-					x : 400 + randX,
-					y: 400 + randY,
-				}
-			break;
-
-			case en.TEAM.BLUE:
-				var _ret = {
-					x : 800 + randX,
-					y: 400 + randY,
-				}
-			break;
-
-			case en.TEAM.GREEN:
-				var _ret = {
-					x : 400 + randX,
-					y:  800 + randY,
-				}
-			break;
-
-			case en.TEAM.YELLOW:
-				var _ret = {
-					x : 800+ randX,
-					y:  800+ randY,
-				}
-			break;
-
-		}
-
-		return _ret;
-	}
-*/
 	function assignTeam() {
 		var _ret = en.TEAM.BLUE;
 		return _ret;
@@ -139,6 +98,8 @@ const wss = new WebSocketServer.Server({ port: port})
 					event: _event,
 					timeStep : timeStep,
 					clientID: _data.clientID,
+					lobby : _data.lobby,
+					gameStatus : _data.gameStatus,
 					name: _data.name,
 					x: _data.x,
 					y: _data.y,
@@ -234,6 +195,7 @@ const wss = new WebSocketServer.Server({ port: port})
 		//serverTimeStep();
 		gl.logPlayerState();
 
+//Handle messages sent to server C_EVENT
 wss.on("connection", ws => {
 	//Runs when a message is sent to server
 		ws.on("message", data => {
@@ -252,7 +214,9 @@ wss.on("connection", ws => {
 				var curPlayer= {
 						clientID: generateClientID(),
 						name: data.name,
-						team : team,
+						team : -1,
+						lobby : -1,
+						gameStatus : en.GAME_STATUS.IDLE,
 						x: spawnCoords.x,
 						y: spawnCoords.y,
 						a: data.a,
@@ -262,6 +226,7 @@ wss.on("connection", ws => {
 						vx: 0,
 						vy: 0,
 						socketObject: ws,
+
 					};
 					playersData.push(curPlayer);
 

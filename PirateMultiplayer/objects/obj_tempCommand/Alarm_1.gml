@@ -1,5 +1,5 @@
 /// @description Connect to server
 
 
-net_send_create_player();
+//net_send_create_player();
 

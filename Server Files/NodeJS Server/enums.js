@@ -10,6 +10,7 @@ const S_EVENT = {
   SETUP_ROUND: 		100,
   START_ROUND:		101,
   END_ROUND:			102,
+
 }
 
 //Client events
@@ -20,6 +21,7 @@ const C_EVENT = {
   UPDATE_POSITION: 3,
   WEAPON_FIRE: 4,
   DAMAGE: 5,
+
 }
 
 const TEAM = {
@@ -29,6 +31,15 @@ const TEAM = {
   YELLOW: 3,
 }
 
-module.exports.S_EVENT =  S_EVENT;
-module.exports.C_EVENT =  C_EVENT;
-module.exports.TEAM =     TEAM;
+const GAME_STATUS = {
+  IDLE : 0,
+  IN_LOBBY : 1,
+  STARTING : 2,
+  PLAYING : 3,
+  ENDING : 4,
+}
+
+module.exports.S_EVENT =      S_EVENT;
+module.exports.C_EVENT =      C_EVENT;
+module.exports.TEAM =         TEAM;
+module.exports.GAME_STATUS =  GAME_STATUS;

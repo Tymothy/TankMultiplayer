@@ -11,8 +11,9 @@ function create_player() constructor{
 	clientID = -1;
 	name = "";
 	team = "";
+	lobby = -1;
+	gameStatus = GAME_STATUS.IDLE;
 	hp = 3;
-	vehicle = VEHICLE.LARGE;
 	mx = 0;
 	my = 0;
 }
