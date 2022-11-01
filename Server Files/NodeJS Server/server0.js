@@ -113,7 +113,6 @@ const wss = new WebSocketServer.Server({ port: port})
 
 				_ws.send(packet);
 			break;
-
 			case en.C_EVENT.CREATE_OTHER:
 				packet = JSON.stringify({
 					event: _event,
@@ -131,7 +130,6 @@ const wss = new WebSocketServer.Server({ port: port})
 
 				_ws.send(packet);
 			break;
-
 			case en.C_EVENT.DESTROY_OTHER:
 				packet = JSON.stringify({
 					event: _event,
@@ -141,7 +139,6 @@ const wss = new WebSocketServer.Server({ port: port})
 				});
 				_ws.send(packet);
 			break;
-
 			case en.C_EVENT.UPDATE_POSITION:
 				packet = JSON.stringify({
 					event: _event,
@@ -157,7 +154,6 @@ const wss = new WebSocketServer.Server({ port: port})
 				});
 				_ws.send(packet);
 			break;
-
 			case en.C_EVENT.WEAPON_FIRE:
 				packet = JSON.stringify({
 					event: _event,
@@ -172,7 +168,6 @@ const wss = new WebSocketServer.Server({ port: port})
 				});
 				_ws.send(packet);
 			break;
-
 			case en.C_EVENT.DAMAGE:
 			let item = getPlayer(_data.hurtID);
 				packet = JSON.stringify({
@@ -187,7 +182,6 @@ const wss = new WebSocketServer.Server({ port: port})
 				});
 				_ws.send(packet);
 			break;
-
 			case en.C_EVENT.READY:
 				//let item = getPlayer(_data.hurtID);
 
@@ -198,6 +192,14 @@ const wss = new WebSocketServer.Server({ port: port})
 						ready: _data.ready,
 					});
 					_ws.send(packet);
+			break;
+			case en.C_EVENT.GOTO_MAP:
+				//We want to send all the players to a specific map and give them
+				//Coords to spawn at
+
+
+
+
 			break;
 		}
 

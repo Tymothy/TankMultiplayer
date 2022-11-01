@@ -27,6 +27,7 @@ const C_EVENT = {
 
   //Admin
   READY:          200,
+  GOTO_MAP:       201,
 }
 
 const TEAM = {
