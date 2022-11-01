@@ -1,0 +1,6 @@
+Server takes players from lobby to game map
+
+
+Server counts down from 10 (seconds)
+
+

@@ -7,4 +7,3 @@ if (live_call()) return live_result;
 
 
 draw_sprite_ext(vehData.sprites.hull, 1, x, y, 1, 1, image_angle - 180, image_blend, image_alpha);
-

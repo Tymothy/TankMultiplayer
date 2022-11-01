@@ -8,5 +8,9 @@ switch (room) {
 		net_send_create_player();
 	break;
 	
+	case rm_mainMenu:
+		
+	break;
+	
 }
 

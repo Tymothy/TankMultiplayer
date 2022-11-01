@@ -24,6 +24,7 @@ switch(_type) {
 				with (inst){
 					playerData.clientID = _data.clientID;
 					playerData.gameStatus = _data.gameStatus;
+					playerData.ready = _data.ready;
 					playerData.lobby = _data.lobby;
 					playerData.team = _data.team;
 					playerData.hp = _data.hp;
@@ -104,7 +105,18 @@ switch(_type) {
 				event_notify(G_EVENT.DAMAGE);	
 				break;			
 			#endregion
-			
+			#region Ready
+			case C_EVENT.READY:
+				var _readyID = _data.clientID;
+				with(obj_player) {
+					if(playerData.clientID == _readyID) {
+						playerData.ready = _data.ready;	
+					}
+				}
+				event_notify(G_EVENT.READY);	
+				
+			break;
+			#endregion
 			
 			
 			#endregion

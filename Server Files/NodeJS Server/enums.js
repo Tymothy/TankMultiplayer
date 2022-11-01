@@ -11,6 +11,9 @@ const S_EVENT = {
   START_ROUND:		101,
   END_ROUND:			102,
 
+  //Admin
+  READY:          200,
+
 }
 
 //Client events
@@ -22,6 +25,8 @@ const C_EVENT = {
   WEAPON_FIRE: 4,
   DAMAGE: 5,
 
+  //Admin
+  READY:          200,
 }
 
 const TEAM = {

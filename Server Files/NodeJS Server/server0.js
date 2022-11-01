@@ -100,6 +100,7 @@ const wss = new WebSocketServer.Server({ port: port})
 					clientID: _data.clientID,
 					lobby : _data.lobby,
 					gameStatus : _data.gameStatus,
+					ready : _data.ready,
 					name: _data.name,
 					x: _data.x,
 					y: _data.y,
@@ -186,6 +187,18 @@ const wss = new WebSocketServer.Server({ port: port})
 				});
 				_ws.send(packet);
 			break;
+
+			case en.C_EVENT.READY:
+				//let item = getPlayer(_data.hurtID);
+
+					packet = JSON.stringify({
+						event: _event,
+						timeStep : timeStep,
+						clientID: _data.clientID,
+						ready: _data.ready,
+					});
+					_ws.send(packet);
+			break;
 		}
 
 	}
@@ -217,6 +230,7 @@ wss.on("connection", ws => {
 						team : -1,
 						lobby : -1,
 						gameStatus : en.GAME_STATUS.IDLE,
+						ready : false,
 						x: spawnCoords.x,
 						y: spawnCoords.y,
 						a: data.a,
@@ -320,6 +334,24 @@ wss.on("connection", ws => {
 						sendEvent(playersData[i].socketObject, en.C_EVENT.DAMAGE, attack);
 						console.log("Sending information to " + playersData[i].clientID + "that " + attack.hurtID + " was damaged by " + attack.attackerID);
 					}
+			break;
+
+			case en.S_EVENT.READY:
+			console.log("Ready packet sent by " + data.clientID);
+			let readyClient = 0;
+				for(let i = 0; i < playersData.length; i++) {
+						let item = playersData[i];
+						if(item.clientID == data.clientID) {
+							playersData[i].ready = data.ready;
+							readyClient = playersData[i];
+							console.log(playersData[i].name + " | Ready: " + playersData[i].ready );
+						}
+
+					}
+					for(let i = 0; i < playersData.length; i++) {
+						sendEvent(playersData[i].socketObject, en.C_EVENT.READY, readyClient);
+					}
+
 			break;
 
 			default:

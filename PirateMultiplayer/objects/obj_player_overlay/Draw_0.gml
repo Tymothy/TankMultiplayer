@@ -4,6 +4,7 @@ if(instance_exists(property.inst)) {
 	//Draw the name
 	var _name = property.inst.playerData.name;
 	var _hp = property.inst.playerData.hp;
+	var _ready = property.inst.playerData.ready;
 	
 	//Draw a white box to pop the name and health a bit
 	var _x1 = -100;
@@ -23,8 +24,11 @@ if(instance_exists(property.inst)) {
 	draw_text(x + property.nameX, y + property.nameY, string(_name));
 	
 	//Draw HP
-	draw_text(x + property.hpX, y + property.hpY, string(_hp));
-	
+	//draw_text(x + property.hpX, y + property.hpY, string(_hp));
+
+	//Draw Ready
+	draw_text(x + property.hpX, y + property.hpY, "Ready: " +string(_ready));
+
 	if(property.inst.fireCooldown > 0) {
 	draw_set_color(c_red);
 	draw_set_alpha(.5);

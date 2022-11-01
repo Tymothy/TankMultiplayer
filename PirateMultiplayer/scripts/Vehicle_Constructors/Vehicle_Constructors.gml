@@ -13,6 +13,7 @@ function create_player() constructor{
 	team = "";
 	lobby = -1;
 	gameStatus = GAME_STATUS.IDLE;
+	ready = false;
 	hp = 3;
 	mx = 0;
 	my = 0;
