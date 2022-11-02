@@ -1,0 +1,4 @@
+O:\Dev\GameMaker\Assets\IO\GMRoomPack\GMRoomPack_23/rooms/rr_*
+O:\Dev\GameMaker\Assets\IO\GMRoomPack\GMRoomPack_23/scripts/scr_rrs/scr_rrs.gml
+--watch
+--prettyprint
