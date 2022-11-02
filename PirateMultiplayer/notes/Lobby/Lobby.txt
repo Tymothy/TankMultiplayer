@@ -19,3 +19,11 @@ Technical
 ===LOBBY SETUP===
 Requirements
 	Players must decide if they want to host
+	
+	
+	
+=== LOBBY ===
+When players are in a lobby, the room should never change from that room.  This keeps the server from having to remake everyone.
+Instead, have the map instanstiate using the room pack.
+
+A future polish could be making a wave of tiles as the map appears and a teleport animation
