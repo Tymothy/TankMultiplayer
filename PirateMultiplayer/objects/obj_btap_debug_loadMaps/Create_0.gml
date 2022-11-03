@@ -21,5 +21,5 @@ property.onClickColor = c_red;
 create_update();
 
 activate_button = function() {
-	obj_mapManager.loadMap("meadow");
+	obj_mapManager.loadMap("map_01");
 }

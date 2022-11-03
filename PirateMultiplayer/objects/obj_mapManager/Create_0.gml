@@ -53,9 +53,7 @@ for(var i = 0; i < _size; i++){
 loadMap = function (_map) {
 	//Function receives the name of a map, found in the constructor create_map_keys
 	
-	//Can be improved by making each map it's own struct, which would require
-	//One more level down of gathering structs
-	var _mapToLoad = variable_struct_get(mapKeys, _map);
+	var _mapToLoad = mapKeys[$ _map][$ "roomName"];
 	if(_mapToLoad == undefined) show_message("Trying to load a map that does not exist!");
 	room_pack_load_map(packedRoomsJSON[? _mapToLoad]);
 	

@@ -48,23 +48,26 @@ function create_map_keys() constructor {
 	
 	//Can be improved by making each map it's own struct, which would require
 	//One more level down of gathering structs
-	meadow = "rm_pack_arena_01";
 	
-	/*
-	Example of how this can be improved in future
-	meadow = {
-		name = "rm_pack_arena_01";
-		maxPlayers = 4;
-		size = "small";
-		availableGameModes = {
-			MODES.CTF,
-			MODES.PVP,
-		};
+	//meadow = "rm_pack_arena_01";
+	
+	//This could be put into a JSON file in the future
+	
+	
+
+	map_01 = {
+		roomName :			"rm_pack_arena_01",
+		maxPlayers :	4,
+		size :			"small",
+		//availableGameModes = {
+		//	MODES.CTF,
+		//	MODES.PVP,
+		//};
 		
 		
 	}
 	
-	*/
+	
 	
 }
 
