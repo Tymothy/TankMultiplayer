@@ -1,9 +1,7 @@
 #region Networking
-//#macro SERVER_IP "54.245.7.200"
-#macro SERVER_IP "34.239.189.249/tanks"
-//#macro SERVER_IP server.
-#macro SERVER_PORT 80
-#macro SOCKET network_socket_ws
+#macro SERVER_IP "wss://cattailgames.com/tanks"
+#macro SERVER_PORT 443
+#macro SOCKET network_socket_wss
 #macro UPDATE_RATE 4 //Rate at which we send updates about player to server
 
 #endregion

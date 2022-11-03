@@ -1,38 +1,41 @@
 //Prep the server
-/*
+
 const WebSocketServer = require('ws');
 const http = require("http")
 const https = require("https")
 const fs = require("fs")
-var express = require("express")
-var app = express()
+//var express = require("express")
+//var app = express()
 
-const secure = false
+//const secure = false
 
 //Launch the server up
-var port = process.env.PORT || 10027;
-app.use(express.static(__dirname + "/"))
-if (!secure){
-    var httpserver = http.createServer(app)
-}else{
-    var options = {cert: fs.readFileSync('ssl/cattailgames.crt'),
-                   key: fs.readFileSync('ssl/cattailgames.key')}
-    var httpserver = https.createServer(options, app)
-}
+var port = process.env.PORT || 10028;
+//app.use(express.static(__dirname + "/"))
+//if (!secure){
+//    var httpserver = http.createServer(app)
+//}else{
+    var options = {cert: fs.readFileSync('/home/bitnami/gameServer/ssl/server.crt'),
+                   key: fs.readFileSync('/home/bitnami/gameServer/ssl/server.key')}
+    var httpserver = https.createServer(options, (req, res) => {
+			res.writeHead(200);
+			res.end('hello world\n');
+		})
+//}
 httpserver.listen(port)
 
 console.log(options);
 var wss = new WebSocketServer.Server({server: httpserver });
-*/
+
 //OLD CODE BELOW
 // Using websocket for HTML5 game
 //Import the required module
-const WebSocketServer = require('ws');
+//const WebSocketServer = require('ws');
 const gl = require('./gameLogic.js'); //gl is short for game logic
 const en = require('./enums.js'); //en short for enum
-const port = 10028;
+//const port = 10028;
 //Creating a new websocket server
-const wss = new WebSocketServer.Server({ port: port})
+//const wss = new WebSocketServer.Server({ port: port})
 
 	playersData = []; //Players array to hold data sent to clients
 	attacksData = []; //Array to hold successful attacks against players
@@ -212,6 +215,7 @@ const wss = new WebSocketServer.Server({ port: port})
 
 //Handle messages sent to server C_EVENT
 wss.on("connection", ws => {
+
 	//Runs when a message is sent to server
 		ws.on("message", data => {
 		var jsonData = JSON.parse(data);
