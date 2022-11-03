@@ -40,6 +40,34 @@ enum DIR {
 	PORT //Left of vehicle
 }
 
+
+function create_map_keys() constructor {
+	//Associate map names with the packed rooms names
+	//First value should match the name of the map
+	//Second value should match the associated room in the packed rooms folder.
+	
+	//Can be improved by making each map it's own struct, which would require
+	//One more level down of gathering structs
+	meadow = "rm_pack_arena_01";
+	
+	/*
+	Example of how this can be improved in future
+	meadow = {
+		name = "rm_pack_arena_01";
+		maxPlayers = 4;
+		size = "small";
+		availableGameModes = {
+			MODES.CTF,
+			MODES.PVP,
+		};
+		
+		
+	}
+	
+	*/
+	
+}
+
 //Types of cannon balls
 enum BALL {
 	NORMAL,	

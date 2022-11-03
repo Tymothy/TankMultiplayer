@@ -6,6 +6,11 @@
 
 #endregion
 
+#region File paths
+#macro PACKED_ROOMS_PATH working_directory + "packedMaps.JSON"
+
+#region
+
 //Direction
 #macro NO_DIRECTION -1
 #macro EAST 0
