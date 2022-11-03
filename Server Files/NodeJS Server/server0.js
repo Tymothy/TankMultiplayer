@@ -4,54 +4,105 @@ const WebSocketServer = require('ws');
 const http = require("http")
 const https = require("https")
 const fs = require("fs")
-//var express = require("express")
-//var app = express()
 
-//const secure = false
-
-//Launch the server up
+//Server runs on port 10028, but client communicates over 443.
+//NGINX webserver redirects the traffic here
 var port = process.env.PORT || 10028;
-//app.use(express.static(__dirname + "/"))
-//if (!secure){
-//    var httpserver = http.createServer(app)
-//}else{
     var options = {cert: fs.readFileSync('/home/bitnami/gameServer/ssl/server.crt'),
                    key: fs.readFileSync('/home/bitnami/gameServer/ssl/server.key')}
     var httpserver = https.createServer(options, (req, res) => {
 			res.writeHead(200);
 			res.end('hello world\n');
 		})
-//}
+
 httpserver.listen(port)
 
 console.log(options);
 var wss = new WebSocketServer.Server({server: httpserver });
 
-//OLD CODE BELOW
-// Using websocket for HTML5 game
-//Import the required module
-//const WebSocketServer = require('ws');
 const gl = require('./gameLogic.js'); //gl is short for game logic
 const en = require('./enums.js'); //en short for enum
-//const port = 10028;
-//Creating a new websocket server
-//const wss = new WebSocketServer.Server({ port: port})
 
+//Variables to use in game
 	playersData = []; //Players array to hold data sent to clients
 	attacksData = []; //Array to hold successful attacks against players
 
 	clientID = 0;
 	var timeStep = 0;
+  var gameState = en.GAME_STATUS.IDLE; //Init
 
   function serverTimeStep () {
 	  //Executes functions on regular intervals
-	  sendPositionUpdates();
-	  //console.log("Sending update" + Math.floor(Math.random() * 1000));
+    //Runs every 50 ms by default, which is 20 times a second
+
+    //Excutes every step
+    //Run every 5 seconds
+    if(timeStep % (20 * 5) == 0) {
+      console.log("===CURRENT SERVER INFO===");
+      console.log("Server game state: " + gameState);
+      console.log("==========================");
+
+
+      if(gl.getConnectedPlayerCount(playersData) <= 0) {
+        gameState = en.GAME_STATUS.IDLE;
+      }
+  }
+
+    switch (gameState) {
+      case en.GAME_STATUS.IDLE:
+      //Wait for someone to connect then go to lobby
+        if(gl.getConnectedPlayerCount(playersData) > 0) {
+          gameState = en.GAME_STATUS.IN_LOBBY;
+        }
+      break;
+      case en.GAME_STATUS.IN_LOBBY:
+	      sendPositionUpdates();
+        let readyStatus = checkReadyStatus();
+
+        if(readyStatus == true) {
+          gameState = en.GAME_STATUS.STARTING;
+
+        }
+
+        //Run every 5 seconds
+        if(timeStep % (20 * 5) == 0) {
+          gl.logPlayerState();
+      }
+      break;
+      case en.GAME_STATUS.STARTING:
+        sendPositionUpdates();
+        sendGameConfig();
+
+        gameState = en.GAME_STATUS.PLAYING;
+
+      break;
+      case en.GAME_STATUS.PLAYING:
+        sendPositionUpdates();
+
+        //Check for game end information
+
+
+        //Run every 5 seconds
+        if(timeStep % (20 * 5) == 0) {
+          gl.logPlayerState();
+      }
+      break;
+      case en.GAME_STATUS.ENDING:
+        sendPositionUpdates();
+
+
+
+      break;
+
+
+
+    }
+
+
 	  timeStep++;
 	  //setTimeout(serverTimeStep(), 50); //Steps every 50 ms, or 20 times a second
 
 	};
-
 	function generateClientID() {
 		clientID++
 		var _ret = clientID;
@@ -85,6 +136,51 @@ const en = require('./enums.js'); //en short for enum
 		var _ret = en.TEAM.BLUE;
 		return _ret;
 	}
+
+  function checkReadyStatus() {
+        let readyCount = 0;
+        	for(let i = 0; i < playersData.length; i++) {
+            let item = playersData[i];
+
+            if(item.ready == true){
+      				readyCount++;
+      			  }
+            }
+      //console.log(readyCount + " players are ready out of " + playersData.length);
+    if(readyCount == playersData.length) {
+      //All players are ready
+        return true;
+    }
+    else {
+      return false;
+    }
+
+  }
+  function getGameConfig() {
+    let gameConfig = {
+      map : "map_01",
+    }
+    return gameConfig;
+
+  }
+
+  function sendGameConfig() {
+      //Tell the players the game config
+          //Imediately send the fire event to all clients
+          let gameConfig = getGameConfig();
+          console.log("Sending game config:");
+          console.log(gameConfig);
+          for(let i = 0; i < playersData.length; i++) {
+            sendEvent(playersData[i].socketObject, en.C_EVENT.GAME_CONFIG, gameConfig);
+          }
+      //Players will find the spawn points on the map and tell the server where they are
+
+
+
+  }
+
+  setInterval(serverTimeStep, 50);
+		//serverTimeStep();
 
 	// #endregion
 
@@ -196,22 +292,20 @@ const en = require('./enums.js'); //en short for enum
 					});
 					_ws.send(packet);
 			break;
-			case en.C_EVENT.GOTO_MAP:
+			case en.C_EVENT.GAME_CONFIG:
 				//We want to send all the players to a specific map and give them
 				//Coords to spawn at
-
-
-
-
+        packet = JSON.stringify({
+          event: _event,
+          timeStep : timeStep,
+          map : _data.map,
+        });
+        _ws.send(packet);
 			break;
 		}
 
 	}
 
-
-	setInterval(serverTimeStep, 50);
-		//serverTimeStep();
-		gl.logPlayerState();
 
 //Handle messages sent to server C_EVENT
 wss.on("connection", ws => {

@@ -25,9 +25,15 @@ const C_EVENT = {
   WEAPON_FIRE: 4,
   DAMAGE: 5,
 
+  //Game logic
+  SETUP_ROUND: 		100,
+  START_ROUND:		101,
+  END_ROUND:			102,
+
   //Admin
   READY:          200,
   GOTO_MAP:       201,
+  GAME_CONFIG:    202,
 }
 
 const TEAM = {
@@ -38,11 +44,11 @@ const TEAM = {
 }
 
 const GAME_STATUS = {
-  IDLE : 0,
-  IN_LOBBY : 1,
-  STARTING : 2,
-  PLAYING : 3,
-  ENDING : 4,
+  IDLE : "IDLE",
+  IN_LOBBY : "IN_LOBBY",
+  STARTING : "STARTING",
+  PLAYING : "PLAYING",
+  ENDING : "ENDING",
 }
 
 module.exports.S_EVENT =      S_EVENT;

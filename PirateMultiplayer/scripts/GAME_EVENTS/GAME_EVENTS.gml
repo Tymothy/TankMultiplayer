@@ -6,6 +6,7 @@ enum G_EVENT {
 	DAMAGE,
 	
 	READY,
+	GAME_CONFIG,
 }
 
 function event_notify(_event) {

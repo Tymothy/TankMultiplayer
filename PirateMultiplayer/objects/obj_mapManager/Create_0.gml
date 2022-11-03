@@ -25,30 +25,16 @@ arenas = array_create(1, 0);
 
 for(var i = 0; i < _size; i++){
 	//Iterate through map, add keys to respective arrays
+	
+	/*
+	//Not used at the moment
 	if(string_count("arena", string(_key)) > 0) {
 		//Checked key is a spawn room
 		array_insert(arenas, 0, _key);
 	}
-	
-	//if(string_count("normal", string(_key)) > 0) {
-	//	//Checked key is a normal room
-	//	array_insert(normalRooms, 0, _key);
-	//}
-	
-	//if(string_count("empty", string(_key)) > 0) {
-	//	//Checked key is a normal room
-	//	array_insert(emptyRooms, 0, _key);
-	//}
+	*/
 	_key = ds_map_find_next(packedRoomsJSON, _key);
 }
-
-//Match the keys in arenas up with the enums so the server is synced
-
-
-//room_pack_load_map(packedRoomsJSON[? mapKeys.MAP_0]);
-//show_message(_jsonFile);
-
-// and when you're done:
 
 loadMap = function (_map) {
 	//Function receives the name of a map, found in the constructor create_map_keys

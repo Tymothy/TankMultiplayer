@@ -41,6 +41,7 @@ enum C_EVENT {
 	//ADMIN
 	READY =				200,
 	GOTO_MAP =		    201,	
+	GAME_CONFIG =		202,
 }										
 
 enum GAME_STATUS {

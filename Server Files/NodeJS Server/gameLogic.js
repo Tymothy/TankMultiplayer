@@ -49,8 +49,10 @@ module.exports.logPlayerState = function () {
     console.log(playersData[i].clientID, playersData[i].name, playersData[i].x, playersData[i].y, playersData[i].a);
   }
 
-  setTimeout(module.exports.logPlayerState, 5000);
+  //setTimeout(module.exports.logPlayerState, 5000);
 };
-
+module.exports.getConnectedPlayerCount = function (array) {
+  return array.length;
+}
 
 //module.exports = getWorldSpawnCoords;

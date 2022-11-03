@@ -105,7 +105,7 @@ switch(_type) {
 				event_notify(G_EVENT.DAMAGE);	
 				break;			
 			#endregion
-			#region Ready
+			#region READY
 			case C_EVENT.READY:
 				var _readyID = _data.clientID;
 				with(obj_player) {
@@ -117,7 +117,18 @@ switch(_type) {
 				
 			break;
 			#endregion
+			#region
+				case C_EVENT.GAME_CONFIG:
+					//Give the data straight to the game manager
+					obj_gameManager.setGameConfig(_data);	
+					
+					
+					event_notify(G_EVENT.GAME_CONFIG);
+				break;
+				
+				
 			
+			#endregion
 			
 			#endregion
 			
