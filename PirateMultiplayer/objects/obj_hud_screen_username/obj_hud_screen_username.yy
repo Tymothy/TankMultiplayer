@@ -1,7 +1,7 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_btap_lobby",
+  "name": "obj_hud_screen_username",
   "spriteId": null,
   "solid": false,
   "visible": true,
@@ -26,11 +26,12 @@
   "physicsShapePoints": [],
   "eventList": [
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,},
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":3,"collisionObjectId":null,},
   ],
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Navigation",
-    "path": "folders/Objects/GUI/Buttons/Navigation.yy",
+    "name": "Username",
+    "path": "folders/Objects/GUI/Buttons/Username.yy",
   },
 }

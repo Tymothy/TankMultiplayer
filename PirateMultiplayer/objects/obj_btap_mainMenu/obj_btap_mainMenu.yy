@@ -30,7 +30,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Buttons",
-    "path": "folders/Objects/GUI/Buttons.yy",
+    "name": "Navigation",
+    "path": "folders/Objects/GUI/Buttons/Navigation.yy",
   },
 }

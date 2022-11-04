@@ -4,7 +4,8 @@
 switch(room) {
 	case rm_mainMenu:
 		create_button(obj_btap_lobby, ANCHOR.BOTTOM_RIGHT, -.25, -.25);
-	
+		create_button(obj_btap_setUsername, ANCHOR.BOTTOM_CENTER, 0, -.25);
+		create_button(obj_hud_screen_username, ANCHOR.TOP_CENTER, 0, .5);
 	break;
 	
 	case rm_lobby:

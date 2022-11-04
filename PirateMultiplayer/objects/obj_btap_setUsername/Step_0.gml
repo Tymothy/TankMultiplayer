@@ -8,10 +8,6 @@
 // Inherit the parent event
 event_inherited();
 
-property.text = "Set Username";
-
-create_update();
-
-activate_button = function() {
-	
+if(inputObject != noone) {
+	//property.text = inputObject.viewString();
 }

@@ -5,7 +5,7 @@
 switch (room) {
 	case rm_lobby:
 		//Create the player in the lobby
-		net_send_create_player();
+		net_send_create_player(obj_playerData.username);
 	break;
 	
 	case rm_mainMenu:
