@@ -26,6 +26,8 @@ enum S_EVENT {
 	
 	//ADMIN
 	READY =				200,
+	
+	UPDATE_PLAYER =		203,
 }
 
 //Client events (Server to Client)
@@ -42,6 +44,7 @@ enum C_EVENT {
 	READY =				200,
 	GOTO_MAP =		    201,	
 	GAME_CONFIG =		202,
+	UPDATE_PLAYER =		203,
 }										
 
 enum GAME_STATUS {
@@ -88,6 +91,11 @@ function net_send_lobby_ready(_value) {
 	
 }
 
+function net_send_update_player(_obj) {
+	var _data = net_update_player(_obj);
+	net_server_send(_data);
+	
+}
 #endregion
 
 
@@ -145,6 +153,16 @@ function net_lobby_ready(_value) constructor {
 	event = S_EVENT.READY;
 	clientID = obj_self.playerData.clientID;
 	ready = _value;
+}
+
+function net_update_player(_data) {
+	//_data.event = S_EVENT.UPDATE_PLAYER;
+	//_data.clientID = obj_self.playerData.clientID;
+	
+	_data.event = S_EVENT.UPDATE_PLAYER;
+	_data.clientID = obj_self.playerData.clientID;
+	return _data;
+	
 }
 
 #endregion

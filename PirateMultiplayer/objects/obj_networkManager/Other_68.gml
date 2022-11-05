@@ -35,7 +35,7 @@ switch(_type) {
 				show_debug_message("Creating player in game world");
 			break;
 			#endregion
-			
+		
 			#region CREATE_OTHER
 			case C_EVENT.CREATE_OTHER:
 				with(instance_create_layer(_data.x, _data.y, "lay_players", obj_other)){
@@ -125,7 +125,13 @@ switch(_type) {
 					
 					event_notify(G_EVENT.GAME_CONFIG);
 				break;
-				
+			#region
+				case C_EVENT.UPDATE_PLAYER:
+					//Received an update for player data
+					//We don't know what we will receive, so just give the packet to obj_player to figure out
+					
+				break;
+			#endregion
 				
 			
 			#endregion

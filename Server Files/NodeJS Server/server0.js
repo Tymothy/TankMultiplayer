@@ -38,9 +38,9 @@ const en = require('./enums.js'); //en short for enum
     //Excutes every step
     //Run every 5 seconds
     if(timeStep % (20 * 5) == 0) {
-      console.log("===CURRENT SERVER INFO===");
-      console.log("Server game state: " + gameState);
-      console.log("==========================");
+      //console.log("===CURRENT SERVER INFO===");
+      //console.log("Server game state: " + gameState);
+      //console.log("==========================");
 
 
       if(gl.getConnectedPlayerCount(playersData) <= 0) {
@@ -302,6 +302,17 @@ const en = require('./enums.js'); //en short for enum
         });
         _ws.send(packet);
 			break;
+      case en.C_EVENT.UPDATE_PLAYER:
+      //Send a data object of whatever we want to update
+      _data['event'] = _event;
+
+        packet = JSON.stringify(
+          _data, //Everything in _data will be sent
+        );
+        console.log(packet);
+        _ws.send(packet);
+      break;
+
 		}
 
 	}
@@ -436,22 +447,49 @@ wss.on("connection", ws => {
 					}
 			break;
 
-			case en.S_EVENT.READY:
-			console.log("Ready packet sent by " + data.clientID);
-			let readyClient = 0;
+			case en.S_EVENT.UPDATE_PLAYER:
+			console.log("Player update sent by " + data.clientID);
+			let updateClient = {};
 				for(let i = 0; i < playersData.length; i++) {
 						let item = playersData[i];
 						if(item.clientID == data.clientID) {
-							playersData[i].ready = data.ready;
-							readyClient = playersData[i];
-							console.log(playersData[i].name + " | Ready: " + playersData[i].ready );
+              //Iterate through data packet and update what is present
+              for (var key in data){
+                //We also need to save the values in playersData[i] -- DONT FORGET
+                if(data.hasOwnProperty(key)) {
+                  console.log(key + " -> " + data[key]);
+                  console.log("Value of key is: " + key);
+                  console.log("Value of data[key] is: " + data[key]);
+                  //updateClient = {[key] : data[key]};
+                  //updateClient[key] = data[key];
+                  Object.defineProperty(updateClient, key, {
+                    value : data[key],
+                  })
+                  console.log("Value of updateClient is : "+ JSON.stringify(updateClient));
+                  //updateClient.[string(key)] = item[key];
+
+                  //updateClient now has exactly the only variables we want to send
+                }
+              }
+              /*
+              for (var key in item){
+                if(item.hasOwnProperty(key)) {
+                  console.log(key + " -> " + item[key]);
+
+                  updateClient = {[key] : item[key]}
+                  //updateClient.[string(key)] = item[key];
+                  console.log("Saved: " + updateClient[key]);
+                }
+              }
+              */
+
 						}
 
 					}
+          console.log("Update object: " + JSON.stringify(updateClient));
 					for(let i = 0; i < playersData.length; i++) {
-						sendEvent(playersData[i].socketObject, en.C_EVENT.READY, readyClient);
+						sendEvent(playersData[i].socketObject, en.C_EVENT.UPDATE_PLAYER, updateClient);
 					}
-
 			break;
 
 			default:

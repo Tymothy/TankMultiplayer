@@ -18,6 +18,7 @@
     {"id":{"name":"fon_info_medium","path":"fonts/fon_info_medium/fon_info_medium.yy",},"order":1,},
     {"id":{"name":"spr_gun_teal_07","path":"sprites/spr_gun_teal_07/spr_gun_teal_07.yy",},"order":7,},
     {"id":{"name":"spr_eff_exp","path":"sprites/spr_eff_exp/spr_eff_exp.yy",},"order":0,},
+    {"id":{"name":"obj_btog_playerUpdate","path":"objects/obj_btog_playerUpdate/obj_btog_playerUpdate.yy",},"order":7,},
     {"id":{"name":"spr_eff_exh_01","path":"sprites/spr_eff_exh_01/spr_eff_exh_01.yy",},"order":0,},
     {"id":{"name":"obj_btap_lobby","path":"objects/obj_btap_lobby/obj_btap_lobby.yy",},"order":1,},
     {"id":{"name":"spr_gun_brown_03","path":"sprites/spr_gun_brown_03/spr_gun_brown_03.yy",},"order":3,},

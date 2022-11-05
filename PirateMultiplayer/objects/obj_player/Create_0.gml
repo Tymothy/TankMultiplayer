@@ -40,3 +40,11 @@ attachInst = function (_inst) {
 		property.inst = other;
 	}
 }
+	
+receivePlayerData = function(_data) {
+	var _clientID = _data.clientID;		
+	if(_clientID == playerData.clientID) {
+		//Update playerdata for info we received	
+		
+	}
+}

@@ -14,6 +14,8 @@ const S_EVENT = {
   //Admin
   READY:          200,
 
+  UPDATE_PLAYER:  203,
+
 }
 
 //Client events
@@ -34,6 +36,7 @@ const C_EVENT = {
   READY:          200,
   GOTO_MAP:       201,
   GAME_CONFIG:    202,
+  UPDATE_PLAYER:  203,
 }
 
 const TEAM = {
