@@ -7,6 +7,7 @@ enum G_EVENT {
 	
 	READY,
 	GAME_CONFIG,
+	UPDATE_PLAYER,
 }
 
 function event_notify(_event) {

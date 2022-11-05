@@ -129,7 +129,11 @@ switch(_type) {
 				case C_EVENT.UPDATE_PLAYER:
 					//Received an update for player data
 					//We don't know what we will receive, so just give the packet to obj_player to figure out
-					
+					with(obj_player) {
+						receivePlayerData(_data);
+
+					}
+					event_notify(G_EVENT.UPDATE_PLAYER);
 				break;
 			#endregion
 				

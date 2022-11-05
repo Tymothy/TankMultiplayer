@@ -455,38 +455,24 @@ wss.on("connection", ws => {
 						if(item.clientID == data.clientID) {
               //Iterate through data packet and update what is present
               for (var key in data){
-                //We also need to save the values in playersData[i] -- DONT FORGET
                 if(data.hasOwnProperty(key)) {
                   console.log(key + " -> " + data[key]);
-                  console.log("Value of key is: " + key);
-                  console.log("Value of data[key] is: " + data[key]);
-                  //updateClient = {[key] : data[key]};
-                  //updateClient[key] = data[key];
-                  Object.defineProperty(updateClient, key, {
-                    value : data[key],
-                  })
+
+                  if(key != "event") {
+                    console.log("PlayersData["+playersData[i].clientID+"]."+key+" was " + playersData[i].key);
+                    playersData[i].key = data[key];
+                    updateClient[key] = data[key];
+                    console.log("PlayersData["+playersData[i].clientID+"]."+key+" is now " + playersData[i].key);
+                  }
+
                   console.log("Value of updateClient is : "+ JSON.stringify(updateClient));
-                  //updateClient.[string(key)] = item[key];
 
-                  //updateClient now has exactly the only variables we want to send
                 }
               }
-              /*
-              for (var key in item){
-                if(item.hasOwnProperty(key)) {
-                  console.log(key + " -> " + item[key]);
-
-                  updateClient = {[key] : item[key]}
-                  //updateClient.[string(key)] = item[key];
-                  console.log("Saved: " + updateClient[key]);
-                }
-              }
-              */
 
 						}
 
 					}
-          console.log("Update object: " + JSON.stringify(updateClient));
 					for(let i = 0; i < playersData.length; i++) {
 						sendEvent(playersData[i].socketObject, en.C_EVENT.UPDATE_PLAYER, updateClient);
 					}

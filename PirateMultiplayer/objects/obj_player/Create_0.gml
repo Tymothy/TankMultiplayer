@@ -42,9 +42,17 @@ attachInst = function (_inst) {
 }
 	
 receivePlayerData = function(_data) {
-	var _clientID = _data.clientID;		
+	var _clientID = _data.clientID;
+	var _array = variable_struct_get_names(_data);
 	if(_clientID == playerData.clientID) {
-		//Update playerdata for info we received	
+		//Update playerdata for info we received, only if it matches the object
+		for(var i = 0; i < array_length(_array); i++) {
+			//loop through array, updating variables
+			var _tmp =variable_struct_exists(playerData, _array[i]); 
+			if(_tmp == true) {
+				variable_struct_set(playerData, _array[i], _data[$ _array[i]]);
+			}
+		}
 		
 	}
 }
