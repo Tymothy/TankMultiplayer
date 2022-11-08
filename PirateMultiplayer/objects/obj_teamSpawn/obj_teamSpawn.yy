@@ -28,7 +28,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Markers",
-    "path": "folders/Objects/Markers.yy",
+    "name": "Spawning",
+    "path": "folders/Objects/Markers/Spawning.yy",
   },
 }

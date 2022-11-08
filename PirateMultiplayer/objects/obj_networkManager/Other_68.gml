@@ -105,19 +105,7 @@ switch(_type) {
 				event_notify(G_EVENT.DAMAGE);	
 				break;			
 			#endregion
-			#region READY
-			case C_EVENT.READY:
-				var _readyID = _data.clientID;
-				with(obj_player) {
-					if(playerData.clientID == _readyID) {
-						playerData.ready = _data.ready;	
-					}
-				}
-				event_notify(G_EVENT.READY);	
-				
-			break;
-			#endregion
-			#region
+			#region GAME_CONFIG
 				case C_EVENT.GAME_CONFIG:
 					//Give the data straight to the game manager
 					obj_gameManager.setGameConfig(_data);	
@@ -125,23 +113,27 @@ switch(_type) {
 					
 					event_notify(G_EVENT.GAME_CONFIG);
 				break;
-			#region
+			#endregion
+			#region UPDATE_PLAYER
 				case C_EVENT.UPDATE_PLAYER:
 					//Received an update for player data
 					//We don't know what we will receive, so just give the packet to obj_player to figure out
 					with(obj_player) {
 						receivePlayerData(_data);
-
 					}
 					event_notify(G_EVENT.UPDATE_PLAYER);
 				break;
 			#endregion
-				
-			
+			#region GAME_STATUS
+				case C_EVENT.GAME_STATUS:
+					//Give the data straight to the game manager
+					obj_gameManager.handleGameStatus(_data);	
+					
+					
+					event_notify(G_EVENT.GAME_STATUS);		
+				break;
 			#endregion
-			
-			#endregion
-			
+
 			default:
 				show_message("Recevied data with an unknown event");
 			break;

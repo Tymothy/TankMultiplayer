@@ -1,8 +1,7 @@
 enum TEAM{
-	BLUE,
-	BROWN,
-	GREEN,
-	TEAL,
+	RED = 0,
+	BLUE = 1,
+	
 }
 
 enum HULL {

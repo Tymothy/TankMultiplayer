@@ -25,7 +25,7 @@ enum S_EVENT {
 	
 	
 	//ADMIN
-	READY =				200,
+
 	
 	UPDATE_PLAYER =		203,
 }
@@ -39,12 +39,12 @@ enum C_EVENT {
 	WEAPON_FIRE =		4,
 	DAMAGE =			5,
 	
-	
 	//ADMIN
-	READY =				200,
+
 	GOTO_MAP =		    201,	
 	GAME_CONFIG =		202,
 	UPDATE_PLAYER =		203,
+	GAME_STATUS =		204,
 }										
 
 enum GAME_STATUS {
@@ -85,11 +85,6 @@ function net_send_damage_self(_attacker, _type, _damage) {
 	net_server_send(_data);	
 }
 
-function net_send_lobby_ready(_value) {
-	var _data = new net_lobby_ready(_value);
-	net_server_send(_data);
-	
-}
 
 function net_send_update_player(_obj) {
 	var _data = net_update_player(_obj);
@@ -149,11 +144,6 @@ function net_damage_self(_attacker, _type, _damage) constructor {
 	
 }
 
-function net_lobby_ready(_value) constructor {
-	event = S_EVENT.READY;
-	clientID = obj_self.playerData.clientID;
-	ready = _value;
-}
 
 function net_update_player(_data) {
 	//_data.event = S_EVENT.UPDATE_PLAYER;

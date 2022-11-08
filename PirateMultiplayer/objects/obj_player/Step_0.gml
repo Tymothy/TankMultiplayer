@@ -15,6 +15,8 @@ if(event_watch(G_EVENT.CREATE_SELF) || event_watch(G_EVENT.CREATE_OTHER)) {
 	//}
 }
 
+
+
 //Damage collision for projectile
 var _inst = instance_place(x, y, obj_projectile);
 if( _inst != noone) {	

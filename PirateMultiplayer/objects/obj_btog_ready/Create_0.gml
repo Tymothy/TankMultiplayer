@@ -16,12 +16,18 @@ conditions = function() {
 }
 
 activate_button = function() {
-	show_debug_message("Sending ready!");
-	net_send_lobby_ready(true);
+	var _obj = {
+		ready : true,	
+	}
+	property.text = "Ready";
+	net_send_update_player(_obj);
 
 }
 
 deactivate_button = function() {
-	show_debug_message("Sending not ready!");
-	net_send_lobby_ready(false);
+	var _obj = {
+		ready : false,	
+	}
+	property.text = "Not Ready";
+	net_send_update_player(_obj);
 }

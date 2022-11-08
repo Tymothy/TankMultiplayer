@@ -10,7 +10,7 @@ function create_player() constructor{
 	
 	clientID = -1;
 	name = "";
-	team = "";
+	team = TEAM.BLUE;
 	lobby = -1;
 	gameStatus = GAME_STATUS.IDLE;
 	ready = false;
@@ -26,7 +26,7 @@ function add_physics() constructor {
 		acceleration = new vector(0, 0);
 	}	
 	
-function create_vehicle(_team = TEAM.BROWN, _vehicle = HULL.A) constructor {
+function create_vehicle(_team = TEAM.BLUE, _vehicle = HULL.A) constructor {
 	sprites = new get_vehicle_sprites(_vehicle, _team);
 	
 	physics = new add_physics();
@@ -49,7 +49,7 @@ function create_vehicle(_team = TEAM.BROWN, _vehicle = HULL.A) constructor {
 }
 
 
-function get_vehicle_sprites(_team = TEAM.BROWN, _vehicle = HULL.A) constructor{
+function get_vehicle_sprites(_team = TEAM.BLUE, _vehicle = HULL.A) constructor{
 	switch(_team) {
 
 		
@@ -58,17 +58,17 @@ function get_vehicle_sprites(_team = TEAM.BROWN, _vehicle = HULL.A) constructor{
 			gun = spr_gun_blue;
 		break;
 		
-		case TEAM.GREEN:
-			hull = spr_hull_green;	
-			gun = spr_gun_green;
-		break;
+		//case TEAM.GREEN:
+		//	hull = spr_hull_green;	
+		//	gun = spr_gun_green;
+		//break;
 
-		case TEAM.TEAL:
-			hull = spr_hull_teal;
-			gun = spr_gun_teal;
-		break;
+		//case TEAM.TEAL:
+		//	hull = spr_hull_teal;
+		//	gun = spr_gun_teal;
+		//break;
 		
-		case TEAM.BROWN:
+		case TEAM.RED:
 			hull = spr_hull_brown;
 			gun = spr_gun_brown;
 		break;

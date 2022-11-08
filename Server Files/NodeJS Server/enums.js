@@ -12,7 +12,7 @@ const S_EVENT = {
   END_ROUND:			102,
 
   //Admin
-  READY:          200,
+
 
   UPDATE_PLAYER:  203,
 
@@ -28,22 +28,18 @@ const C_EVENT = {
   DAMAGE: 5,
 
   //Game logic
-  SETUP_ROUND: 		100,
-  START_ROUND:		101,
-  END_ROUND:			102,
 
   //Admin
-  READY:          200,
+
   GOTO_MAP:       201,
   GAME_CONFIG:    202,
   UPDATE_PLAYER:  203,
+  GAME_STATUS:    204,
 }
 
 const TEAM = {
   RED : 0,
   BLUE: 1,
-  GREEN: 2,
-  YELLOW: 3,
 }
 
 const GAME_STATUS = {

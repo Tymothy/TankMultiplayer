@@ -5,9 +5,11 @@ enum G_EVENT {
 	WEAPON_FIRE,
 	DAMAGE,
 	
-	READY,
+
 	GAME_CONFIG,
 	UPDATE_PLAYER,
+	
+	GAME_STATUS,
 }
 
 function event_notify(_event) {

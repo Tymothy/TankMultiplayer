@@ -31,16 +31,26 @@ const en = require('./enums.js'); //en short for enum
 	var timeStep = 0;
   var gameState = en.GAME_STATUS.IDLE; //Init
 
+//Contains the server state machine
   function serverTimeStep () {
-	  //Executes functions on regular intervals
+	//Executes functions on regular intervals
     //Runs every 50 ms by default, which is 20 times a second
 
     //Excutes every step
-    //Run every 5 seconds
-    if(timeStep % (20 * 5) == 0) {
-      //console.log("===CURRENT SERVER INFO===");
-      //console.log("Server game state: " + gameState);
-      //console.log("==========================");
+    //Run every 15 seconds
+    if(timeStep % (20 * 15) == 0) {
+      console.log("===CURRENT SERVER INFO===");
+      console.log("Server game state: " + gameState);
+
+      //Print playersData
+      for(let i = 0; i < playersData.length; i++) {
+        //console.log(playersData[i]); //Prints websocket info which isn't ideal
+        console.log("Client ID: " + playersData[i].clientID);
+        console.log("Ready:" + playersData[i].ready);
+        console.log("Team: " + playersData[i].team);
+      }
+
+      console.log("==========================");
 
 
       if(gl.getConnectedPlayerCount(playersData) <= 0) {
@@ -66,12 +76,13 @@ const en = require('./enums.js'); //en short for enum
 
         //Run every 5 seconds
         if(timeStep % (20 * 5) == 0) {
-          gl.logPlayerState();
+          //gl.logPlayerState();
       }
       break;
       case en.GAME_STATUS.STARTING:
         sendPositionUpdates();
         sendGameConfig();
+		      sendStartRound();
 
         gameState = en.GAME_STATUS.PLAYING;
 
@@ -84,7 +95,7 @@ const en = require('./enums.js'); //en short for enum
 
         //Run every 5 seconds
         if(timeStep % (20 * 5) == 0) {
-          gl.logPlayerState();
+          //gl.logPlayerState();
       }
       break;
       case en.GAME_STATUS.ENDING:
@@ -93,8 +104,6 @@ const en = require('./enums.js'); //en short for enum
 
 
       break;
-
-
 
     }
 
@@ -120,7 +129,7 @@ const en = require('./enums.js'); //en short for enum
 		}
 
 	}
-	//Functions internal to gameLogic.  Not allowed to be called directly outside of this script
+
 	function sendPositionUpdates(){
 	  for(let i = 0; i < playersData.length; i++) { //Players we are sending data to
 	    for(let j = 0; j < playersData.length; j++) { //Players we are sending data about
@@ -163,6 +172,29 @@ const en = require('./enums.js'); //en short for enum
     return gameConfig;
 
   }
+  function getCountOnTeam(_team) {
+	 let count = 0;
+	for(let i = 0; i < playersData.length; i++) {
+		if(playersData[i].team == _team){
+			count++;
+		}
+	}
+	return count;
+  }
+  function getSpawnNumbering(_team) {
+	  //Count number of players on TEAM
+	  let count = getCountOnTeam(_team);
+
+	  //Create a random array the size of the team, starting at 1
+	  let array =[];
+	  for(let i = 0; i < count; i++) {
+		    array.push(i + 1);
+	  }
+    console.log("Array(Pre): " + array);
+	  array = gl.shuffle(array);
+    console.log("Array(Post): " + array);
+    return array;
+  }
 
   function sendGameConfig() {
       //Tell the players the game config
@@ -175,6 +207,38 @@ const en = require('./enums.js'); //en short for enum
           }
       //Players will find the spawn points on the map and tell the server where they are
 
+  }
+
+  function sendStartRound() {
+    let obj = {};
+
+    obj.gameStatus = en.GAME_STATUS.STARTING;
+
+    //Spawning info
+	  let redSpNum = getSpawnNumbering(en.TEAM.RED);
+	  let blueSpNum = getSpawnNumbering(en.TEAM.BLUE);
+	  let redCount = 0;
+	  let blueCount = 0;
+
+    console.log("Red Spawn Numbering: " + redSpNum);
+    console.log("Blue Spawn Numbering: " + blueSpNum);
+	  for(let i = 0; i < playersData.length; i ++) {
+
+	  //Set spawn number
+  	  switch (playersData[i].team) {
+  		  case en.TEAM.RED:
+  		    obj.spawnNum = redSpNum[redCount];
+  		    redCount++;
+  		    break;
+
+  		  case en.TEAM.BLUE:
+          obj.spawnNum = blueSpNum[blueCount];
+  		    blueCount++;
+  		    break;
+  	  }
+        console.log("Sending GAME_STATUS with object " + obj);
+		    sendEvent(playersData[i].socketObject, en.C_EVENT.GAME_STATUS, JSON.parse(obj));
+	  }
 
 
   }
@@ -280,17 +344,6 @@ const en = require('./enums.js'); //en short for enum
 
 				});
 				_ws.send(packet);
-			break;
-			case en.C_EVENT.READY:
-				//let item = getPlayer(_data.hurtID);
-
-					packet = JSON.stringify({
-						event: _event,
-						timeStep : timeStep,
-						clientID: _data.clientID,
-						ready: _data.ready,
-					});
-					_ws.send(packet);
 			break;
 			case en.C_EVENT.GAME_CONFIG:
 				//We want to send all the players to a specific map and give them
@@ -448,7 +501,7 @@ wss.on("connection", ws => {
 			break;
 
 			case en.S_EVENT.UPDATE_PLAYER:
-			console.log("Player update sent by " + data.clientID);
+		//	console.log("Player update sent by " + data.clientID);
 			let updateClient = {};
 				for(let i = 0; i < playersData.length; i++) {
 						let item = playersData[i];
@@ -456,16 +509,16 @@ wss.on("connection", ws => {
               //Iterate through data packet and update what is present
               for (var key in data){
                 if(data.hasOwnProperty(key)) {
-                  console.log(key + " -> " + data[key]);
+                  //console.log(key + " -> " + data[key]);
 
                   if(key != "event") {
-                    console.log("PlayersData["+playersData[i].clientID+"]."+key+" was " + playersData[i].key);
-                    playersData[i].key = data[key];
+                    //console.log("PlayersData["+playersData[i].clientID+"]."+key+" was " + playersData[i].key);
+                    playersData[i][key] = data[key];
                     updateClient[key] = data[key];
-                    console.log("PlayersData["+playersData[i].clientID+"]."+key+" is now " + playersData[i].key);
+                  //  console.log("PlayersData["+playersData[i].clientID+"]."+key+" is now " + playersData[i].key);
                   }
 
-                  console.log("Value of updateClient is : "+ JSON.stringify(updateClient));
+                //  console.log("Value of updateClient is : "+ JSON.stringify(updateClient));
 
                 }
               }

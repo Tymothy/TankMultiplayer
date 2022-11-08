@@ -13,7 +13,8 @@ switch(room) {
 		create_button(obj_btap_mainMenu, ANCHOR.BOTTOM_LEFT, .25, -.25);
 		create_button(obj_hud_networkStatus, ANCHOR.TOP_LEFT, .25, .25);
 		create_button(obj_btog_ready, ANCHOR.MIDDLE_RIGHT, -.25, 0);
-		create_button(obj_btog_playerUpdate, ANCHOR.MIDDLE_RIGHT, -.25, 1);
+		//create_button(obj_btog_playerUpdate, ANCHOR.MIDDLE_RIGHT, -.25, 1);
+		create_button(obj_btap_changeTeams, ANCHOR.MIDDLE_RIGHT, -.25, 1);
 		
 		
 		//Debug buttons
