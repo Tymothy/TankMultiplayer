@@ -391,7 +391,7 @@ wss.on("connection", ws => {
 				var curPlayer= {
 						clientID: generateClientID(),
 						name: data.name,
-						team : -1,
+						team : team,
 						lobby : -1,
 						gameStatus : en.GAME_STATUS.IDLE,
 						ready : false,
