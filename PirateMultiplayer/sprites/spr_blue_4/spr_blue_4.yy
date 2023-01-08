@@ -2,6 +2,9 @@
   "resourceType": "GMSprite",
   "resourceVersion": "1.0",
   "name": "spr_blue_4",
+  "ConfigValues": {
+    "test": {"textureGroupId":"{\"name\":\"Default\",\"path\":\"texturegroups/Default\"}",},
+  },
   "bboxMode": 0,
   "collisionKind": 1,
   "type": 0,

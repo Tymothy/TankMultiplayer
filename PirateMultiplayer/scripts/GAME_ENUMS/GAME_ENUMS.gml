@@ -55,8 +55,8 @@ function create_map_keys() constructor {
 	
 
 	map_01 = {
-		roomName :			"rm_pack_arena_01",
-		maxPlayers :	4,
+		roomName :		"rm_pack_arena_01",
+		maxPlayers :	"4",
 		size :			"small",
 		//availableGameModes = {
 		//	MODES.CTF,

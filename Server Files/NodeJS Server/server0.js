@@ -91,7 +91,10 @@ const en = require('./enums.js'); //en short for enum
         sendPositionUpdates();
 
         //Check for game end information
-
+        if(gl.getConnectedPlayerCount(playersData) < 1) {
+            //No players connected, go to IDLE
+            gameState = en.GAME_STATUS.IDLE;
+        }
 
         //Run every 5 seconds
         if(timeStep % (20 * 5) == 0) {
@@ -237,7 +240,8 @@ const en = require('./enums.js'); //en short for enum
   		    break;
   	  }
         console.log("Sending GAME_STATUS with object " + obj);
-		    sendEvent(playersData[i].socketObject, en.C_EVENT.GAME_STATUS, JSON.parse(obj));
+		    //sendEvent(playersData[i].socketObject, en.C_EVENT.GAME_STATUS, JSON.parse(obj));
+        sendEvent(playersData[i].socketObject, en.C_EVENT.GAME_STATUS, obj);
 	  }
 
 
@@ -362,10 +366,21 @@ const en = require('./enums.js'); //en short for enum
         packet = JSON.stringify(
           _data, //Everything in _data will be sent
         );
-        console.log(packet);
+        //console.log(packet);
         _ws.send(packet);
       break;
 
+      case en.C_EVENT.GAME_STATUS:
+        _data['event'] = _event;
+        packet = JSON.stringify(
+          _data, //Everything in _data will be sent
+        );
+        _ws.send(packet);
+      break;
+
+      default:
+        console.log("SendEvent called with unhandled event: " + _event);
+      break;
 		}
 
 	}

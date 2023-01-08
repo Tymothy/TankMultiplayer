@@ -2,6 +2,9 @@
   "resourceType": "GMSprite",
   "resourceVersion": "1.0",
   "name": "spr_btn_b_active",
+  "ConfigValues": {
+    "test": {"textureGroupId":"{\"name\":\"Default\",\"path\":\"texturegroups/Default\"}",},
+  },
   "bboxMode": 0,
   "collisionKind": 1,
   "type": 0,

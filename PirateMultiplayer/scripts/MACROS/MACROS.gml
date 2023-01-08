@@ -45,6 +45,7 @@
 //Config variables
 #macro ADMIN 0
 #macro LOGGING 0
+#macro SHOW_MSG 0
 #macro VISUAL_DEBUG 0
 #macro UNLOCK_ALL 0
 #macro CONFIGURATION 0
@@ -55,10 +56,11 @@
 
 #macro test:ADMIN 1
 #macro test:LOGGING 1
+#macro test:SHOW_MSG 1
 #macro test:VISUAL_DEBUG 1
 #macro test:UNLOCK_ALL 1
 #macro test:CONFIGURATION 1 
-#macro test:live_enabled 1 // flip this value to 0 to disable GMLive!
+#macro test:live_enabled 0 // flip this value to 0 to disable GMLive!
 #macro test:ZOOM 1
 #macro test:DOOR_UNLOCK 0
 #macro test:TEST 1
