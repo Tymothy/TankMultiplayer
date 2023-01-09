@@ -60,7 +60,7 @@ if(_configReady){
 			}
 }
 else {
-	if(alarmCounterFlag < 10 * gamespeed_fps) {
+	if(alarmCounterFlag < (10 * gamespeed_fps)) {
 		alarm[0] = 1; //Continue running this code until config is received.
 		alarmCounterFlag++;
 	}

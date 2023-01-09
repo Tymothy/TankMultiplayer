@@ -38,16 +38,11 @@ for(var i = 0; i < _size; i++){
 
 loadMap = function (_map) {
 	//Function receives the name of a map, found in the constructor create_map_keys
-	//if(SHOW_MSG) show_message("Value of Map Keys: " + string(variable_struct_get_names(mapKeys)));
-	/*
-		TODO: This line is breaking when there are multiple players.
-	*/
-	if(LOGGING) show_debug_message("Map: " + string(_map)); //Issue, map is null/und
-	if(LOGGING) show_debug_message("Right before mapKeys finds _roomName");
+
 	var _mapToLoad = mapKeys[$ _map][$ "roomName"];
-	if(LOGGING) show_debug_message("Value of mapToLoad: " + string(_mapToLoad));
+	//if(LOGGING) show_debug_message("Value of mapToLoad: " + string(_mapToLoad));
 	if(_mapToLoad == undefined) show_message("Trying to load a map that does not exist!");
-	if(LOGGING) show_debug_message("Value of packedRoomsJSON: " + json_encode(packedRoomsJSON));
+	//if(LOGGING) show_debug_message("Value of packedRoomsJSON: " + json_encode(packedRoomsJSON));
 	room_pack_load_map(packedRoomsJSON[? _mapToLoad]);
 	
 	
