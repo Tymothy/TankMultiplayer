@@ -3,7 +3,6 @@
 <title>GMLive.gml cheat sheet</title>
 <meta name="viewport" content="width=device-width" />
 <meta name="livenode" content="#doc" />
-<meta property="theme-color" content="<section><header>FFF037</header><article></article></section>" />
 <meta property="og:type" content="article" />
 <meta property="og:locale" content="en_us" />
 <meta property="og:site_name" content="YellowAfterlife" />
@@ -264,11 +263,6 @@ pre.gmlmd .fd { color: #804 } /* field */
 	background-color: #422;
 }</style>
 <style type="text/css" id="night_css">#night { display: none }
-label[for="night"] {
-	color: blue;
-	text-decoration: underline;
-	cursor: pointer;
-}
 #night:checked + .main {
 	background-color: #424242;
 }
@@ -365,30 +359,12 @@ For questions/support, use <a href="https://yellowafterlife.itch.io/gamemaker-li
 or <a href="mailto://yellowafterlife@hotmail.com">send me an email</a>.  <br/>
 An up-to-date version of this document can always be found <a href="https://yal.cc/r/17/gmlive">online</a>.</section><section class="display-controls">
 Click on sections to expand/collapse them.<br>Quick display controls:
-<a href="#" onclick="opt_none(); return false">Categories</a>
-&middot; <a href="#" onclick="opt_list(); return false">Sections</a>
-&middot; <a href="#" onclick="opt_all(); return false">Everything</a>
-&middot; <label for="night">Toggle night mode</label><br/>
+<a href="javascript:void(0)" onclick="opt_none(); return false">Categories</a>
+&middot; <a href="javascript:void(0)" onclick="opt_list(); return false">Sections</a>
+&middot; <a href="javascript:void(0)" onclick="opt_all(); return false">Everything</a>
+&middot; <a href="javascript:void(0)"><label for="night">Toggle night mode</label></a><br/>
 </section><section id="doc">
-<!--<doc--><p><p>
-
-<style>
-.main { background-color: #899FC6 }
-.page { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
-#night:checked + .main { background-color: #405070 }
-#night:checked + .main .page { background-color: #1A202D }
-</style>
-
-
-
-
-
-
-
-
-
-
-</p><section><header id="use1"><a href="#use1" title="(permalink)">Using GMLive.gml in GMS1</a></header><article><section><header id="gms1-setup"><a href="#gms1-setup" title="(permalink)">Initial setup</a></header><article><p>
+<!--<doc--><p><section><header id="use1"><a href="#use1" title="(permalink)">Using GMLive.gml in GMS1</a></header><article><section><header id="gms1-setup"><a href="#gms1-setup" title="(permalink)">Initial setup</a></header><article><p>
 		Setting up is as following: </p><ul>
 			<li>	Make sure that you are running an up-to-date version of GameMaker: Studio.<br/>
 				You can find links to all versions at <a href="https://www.yoyogames.com/downloads/gm-studio/release-notes-studio.html">official website</a>.
@@ -488,8 +464,9 @@ Click on sections to expand/collapse them.<br>Quick display controls:
 		</li><li>	Add <a href="#api-live">live function calls</a> to scripts and events of interest.<br/>
 			Note that the event must be GML-type (not a DND space with a GML block)
 		</li><li>	Run the game.
-		</li><li>	Change the "live" scripts/events as you see fit and see the changes in-game
-			(if everything was done correctly).
+		</li><li>	Change the "live" scripts/events as you see fit, save the file/project
+			(<b>this is important</b>) and see the changes in-game
+			(if everything was done correctly).  <br/>
 			gmlive-server's window will report status updates.
 		</li></ul></article></section><section><header id="gms2-start-mac"><a href="#gms2-start-mac" title="(permalink)">Starting up (Mac/Linux)</a></header><article><ul>
 			<li>	Open your project directory using menu:Help ➜ Show Project In Finder/File Manager<br/>
@@ -507,8 +484,9 @@ Click on sections to expand/collapse them.<br>Quick display controls:
 		</li><li>	Add <a href="#api-live">live function calls</a> to scripts and events of interest.<br/>
 			Note that the event must be GML-type (not a DND space with a GML block)
 		</li><li>	Run the game.
-		</li><li>	Change the "live" scripts/events as you see fit and see the changes in-game
-			(if everything was done correctly).
+		</li><li>	Change the "live" scripts/events as you see fit, save the file/project
+			(<b>this is important</b>) and see the changes in-game
+			(if everything was done correctly).  <br/>
 			gmlive-server's window will report status updates.
 		</li></ul></article></section><section><header id="gms2-export"><a href="#gms2-export" title="(permalink)">Exporting</a></header><article><p>
 		Usually you do not want non-development builds
@@ -611,7 +589,7 @@ Click on sections to expand/collapse them.<br>Quick display controls:
 </pre><p>
 		If your script takes a varying number of arguments, see <a href="#live_call_ext">live_call_ext</a>.
 	</p></article></section><section><header id="live_call_ext"><a href="#live_call_ext" title="(permalink)">live_call_ext(argument_array)</a></header><article><p>
-		Same as <a href="#live_call">live_call</a>, but allows to pass arguments as an array instead of a fixed list. You would usually use it like the following:
+		Same as <a href="#live_call">live_call</a>, but takes arguments in an array instead of a list. You would usually use it like the following:
 		</p><pre class="gmlmd">
 <span class="kw">var</span> <span class="lv">argument_arr</span> <span class="op">=</span> <span class="sf">array_create</span><span class="op">(</span><span class="sv">argument_count</span><span class="op">)</span><span class="op">;</span>
 <span class="kw">for</span> <span class="op">(</span><span class="kw">var</span> <span class="lv">i</span> <span class="op">=</span> <span class="nu">0</span><span class="op">;</span> <span class="lv">i</span> <span class="op">&lt;</span> <span class="sv">argument_count</span><span class="op">;</span> <span class="lv">i</span><span class="op">++</span><span class="op">)</span> <span class="cb">{</span>
@@ -620,6 +598,14 @@ Click on sections to expand/collapse them.<br>Quick display controls:
 <span class="kw">if</span> <span class="op">(</span><a class="sf" href="#live_call_ext">live_call_ext</a><span class="op">(</span><span class="lv">argument_arr</span><span class="op">)</span><span class="op">)</span> <span class="kw">return</span> <a class="sv" href="#live_result">live_result</a><span class="op">;</span>
 </pre><p>
 		(unfortunately, GM macros do not currently allow to use <code>argument[]</code> / <code>argument_count</code> inside of them, but you can add the code as a "snippet" in GM)
+	</p></article></section><section><header id="live_auto_call"><a href="#live_auto_call" title="(permalink)">live_auto_call</a></header><article><p>
+		In 2.3 version of GMLive, this macro is equivalent to packing up arguments
+		and calling <a href="#live_call_ext">live_call_ext</a> (as shown above).
+		So, instead of one or other <code>if (live_call...</code> snippet, you can just do
+		</p><pre class="gmlmd">
+<a class="sv" href="#live_auto_call">live_auto_call</a><span class="op">;</span>
+</pre><p>
+		and that's it.
 	</p></article></section><section><header id="live_defcall"><a href="#live_defcall" title="(permalink)">live_defcall(...arguments, default_value)</a></header><article><p>
 		Same as <a href="#live_call">live_call</a> but returns <code>default_value</code> instead of <code>0</code> if execution fails.
 		</p><p>
@@ -1010,6 +996,9 @@ neko gmlive-server.n
 		As a workaround, you can make a script that calls the function, and then call that script
 		(this is also what GMLive does for built-in GM functions).
 	</p></article></section><section><header id="lim-array-copy"><a href="#lim-array-copy" title="(permalink)">Copy-on-write behaviour in arrays</a></header><article><p>
+		<b>NOTE:</b> As of GM2022, copy-on-write has been deprecated and is turned off by default
+		in new projects.
+		</p><p>
 		GML itself has a <a href="http://docs2.yoyogames.com/source/_build/3_scripting/3_gml_overview/10_arrays.html">particular feature</a>
 		(see "Advanced Array Functionality") that has it so that passing an array as an argument
 		to a script, and then changing it via <code>arr[index] = value</code>
@@ -1020,24 +1009,6 @@ neko gmlive-server.n
 		and only does "create-on-write" (replacing a value with a new array if it isn't yet).
 		</p><p>
 		If this doesn't make immediate sense, it is unlikely that you rely on this feature anywhere.
-	</p></article></section><section><header id="lim-weird-macros"><a href="#lim-weird-macros" title="(permalink)">Partial expressions in macros</a></header><article><p>
-		GML itself, for what can be considered interesting reasons, allows to put pretty much
-		anything into a macro, <i>except</i> for the <code>argument</code> variables.
-		</p><p>
-		This means that you can technically have a macro called <code>ohno</code> with value <code>1 return "oh no"</code>, and do
-		</p><pre class="gmlmd">
-<span class="kw">var</span> <span class="lv">r</span> <span class="op">=</span> <span class="sv">ohno</span><span class="op">;</span>
-<span class="kw">return</span> <span class="st">"ok"</span><span class="op">;</span>
-</pre><p>
-		and that would actually return "oh no" from the script while looking like a regular variable assignment.
-		</p><p>
-		GMS2 further expands on macro support, allowing to put entire blocks of code inside of a macros if you much desire.
-		</p><p>
-		GMLive currently sticks with "pure" macros,
-		meaning that macro value should be a single expression or statement.
-		</p><p>
-		If you have "unusual" macros in the project,
-		GMLive will still work, but you will not be able to use them in "live" code.
 	</p></article></section><section><header id="lim-api"><a href="#lim-api" title="(permalink)">API compatibility</a></header><article><p>
 		Since GMLive reasonably needs to reference every function and constant
 		yet there is no way to go over constants nor get information about function arguments

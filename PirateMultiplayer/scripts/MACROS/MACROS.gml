@@ -60,7 +60,7 @@
 #macro test:VISUAL_DEBUG 1
 #macro test:UNLOCK_ALL 1
 #macro test:CONFIGURATION 1 
-#macro test:live_enabled 0 // flip this value to 0 to disable GMLive!
+#macro test:live_enabled 1 // flip this value to 0 to disable GMLive!
 #macro test:ZOOM 1
 #macro test:DOOR_UNLOCK 0
 #macro test:TEST 1
