@@ -1,4 +1,2 @@
-O:\Dev\GameMaker\Assets\IO\GMRoomPack\GMRoomPack_23/rooms/rr_*
-O:\Dev\GameMaker\Assets\IO\GMRoomPack\GMRoomPack_23/scripts/scr_rrs/scr_rrs.gml
---watch
---prettyprint
+D:/Game Dev/GMS2 Projects Source Code/PirateMultiplayer/PirateMultiplayer/rooms/rm_pack*
+D:/Game Dev/GMS2 Projects Source Code/PirateMultiplayer/PirateMultiplayer/datafiles/packedMaps.JSON

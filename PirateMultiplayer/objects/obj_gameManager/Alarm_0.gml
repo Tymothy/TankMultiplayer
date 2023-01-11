@@ -60,12 +60,13 @@ if(_configReady){
 			}
 }
 else {
-	if(alarmCounterFlag < (10 * gamespeed_fps)) {
+	if(alarmCounterFlag < (500)) {
 		alarm[0] = 1; //Continue running this code until config is received.
 		alarmCounterFlag++;
+		show_debug_message("alarmCounter flag: : " + string(alarmCounterFlag));
 	}
 	else {
-		show_message("Unable to start round after 10 seconds of waiting.");	
+		show_message("Unable to start round, config not received.");	
 	}
 }
 

@@ -85,6 +85,7 @@
     {"id":{"name":"obj_networkManager","path":"objects/obj_networkManager/obj_networkManager.yy",},"order":1,},
     {"id":{"name":"spr_eff_tireTrack_02","path":"sprites/spr_eff_tireTrack_02/spr_eff_tireTrack_02.yy",},"order":6,},
     {"id":{"name":"spr_loading_bar","path":"sprites/spr_loading_bar/spr_loading_bar.yy",},"order":10,},
+    {"id":{"name":"order_layer_depth","path":"scripts/order_layer_depth/order_layer_depth.yy",},"order":13,},
     {"id":{"name":"spr_blue_6","path":"sprites/spr_blue_6/spr_blue_6.yy",},"order":7,},
     {"id":{"name":"gridScripts","path":"scripts/gridScripts/gridScripts.yy",},"order":2,},
     {"id":{"name":"spr_projectile","path":"sprites/spr_projectile/spr_projectile.yy",},"order":5,},
@@ -324,6 +325,7 @@
     {"id":{"name":"GMLive_token","path":"scripts/GMLive_token/GMLive_token.yy",},"order":7,},
     {"id":{"name":"spr_window01","path":"sprites/spr_window01/spr_window01.yy",},"order":2,},
     {"id":{"name":"obj_gmlive","path":"objects/obj_gmlive/obj_gmlive.yy",},"order":3,},
+    {"id":{"name":"Layer Depths","path":"notes/Layer Depths/Layer Depths.yy",},"order":3,},
     {"id":{"name":"rm_init","path":"rooms/rm_init/rm_init.yy",},"order":0,},
   ],
   "Options": [

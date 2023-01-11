@@ -1,0 +1,37 @@
+Layers
+
+Top
+	Invisible
+		-1000	lay_markers
+		-900	lay_controllers
+		
+	GUI
+		-800	lay_gui_top
+		-700	lay_gui_middle
+		-600	lay_gui_back
+		
+	PlayArea
+		-500	lay_playerInfo
+		-400	lay_targets
+		-300	lay_gun
+		-200	lay_projectiles
+		0		lay_players
+		
+	Map
+		200		lay_map_prop_02
+		300		lay_map_prop_01
+		400		lay_walls
+		500		lay_props
+		600		lay_building_2
+		700		lay_building_1
+		800		lay_collision_half
+		900		lay_collison_full
+		1000	lay_ground
+		
+	BG
+		1100	lay_bg_top
+		1200	lay_bg_mid
+		1300	lay_bg_back
+		1400	lay_bg_error
+
+Bottom

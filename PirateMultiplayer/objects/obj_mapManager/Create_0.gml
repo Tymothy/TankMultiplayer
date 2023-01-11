@@ -44,7 +44,41 @@ loadMap = function (_map) {
 	if(_mapToLoad == undefined) show_message("Trying to load a map that does not exist!");
 	//if(LOGGING) show_debug_message("Value of packedRoomsJSON: " + json_encode(packedRoomsJSON));
 	room_pack_load_map(packedRoomsJSON[? _mapToLoad]);
-	
+	order_layer_depth(lay_depth);
 	
 }
 
+//Create layer struct for use for layer depths
+lay_depth = {
+	lay_markers :		-1000,
+	lay_controllers :	-900,
+	
+	//gui
+	lay_gui_top :		-800,
+	lay_gui_middle :	-700,
+	lay_gui_back :		-600,
+	
+	//playarea
+	lay_playerinfo :	-500,
+	lay_targets :		-400,
+	lay_gun :			-300,
+	lay_projectiles :	-200,
+	lay_players :		0,
+	
+	//map
+	lay_map_prop_02 :	200,
+	lay_map_prop_01 :	300,
+	lay_walls :			400,
+	lay_props :			500,
+	lay_building_2 :	600,
+	lay_building_1 :	700,
+	lay_collision_half: 800,
+	lay_collision_full: 900,
+	lay_ground :		1000,
+	
+	//bg
+	lay_bg_top :		1100,
+	lay_bg_mid :		1200,
+	lay_bg_back :		1300,
+	lay_bg_error :		1400,
+}
