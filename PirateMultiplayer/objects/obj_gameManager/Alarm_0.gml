@@ -17,47 +17,72 @@ if(_configReady){
 		obj_mapManager.loadMap(config.map);
 		
 		
-			var _teamSpawn;
-			var _teamSpawnInst;
+			var _team;
 			var _spawnInst;
 			var _inst;
 			
-			//Determine team spawn point
-			switch(obj_self.playerData.team) {
-				case TEAM.RED:
-					_teamSpawn = obj_teamSpawn_red;
-					break;
-					
-				case TEAM.BLUE:
-					_teamSpawn = obj_teamSpawn_blue;
-					break;
-			}			
+			/*
+			TODO: CHANGE MARKERS TO USE DIRECT SPAWN POINTS ONLY
+			EACH SPAWN POINT WILL BE SET TO BLUE OR RED
 			
-			//Find spawnInst
-			_teamSpawnInst = instance_nearest(obj_self.x, obj_self.y, _teamSpawn);
-			switch(_spawnNum) {
-				case 1:
-					_spawnInst = obj_teamSpawn_1;
-				break;
+			
+			*/
+			
+			//Determine team spawn point
+			_team = get_spawn_team(obj_self);
+			switch (_team) {
+				case TEAM.RED:
+					switch(_spawnNum) {
+						case 1:
+							_spawnInst = obj_spawn_red_1;
+						break;
 				
-				case 2:
-					_spawnInst = obj_teamSpawn_2;
-				break;
+						case 2:
+							_spawnInst = obj_spawn_red_2;
+						break;
 				
-				case 3:
-					_spawnInst = obj_teamSpawn_3;
-				break;
+						case 3:
+							_spawnInst = obj_spawn_red_3;
+						break;
 				
-				case 4:
-					_spawnInst = obj_teamSpawn_4;
-				break;
+						case 4:
+							_spawnInst = obj_spawn_red_4;
+						break;
 				
-				default:
-					show_message("ERROR: Unknown spawn location!");
-					_spawnInst = obj_teamSpawn_1;
-				break;
+						default:
+							show_message("ERROR: Unknown spawn location!");
+						break;
+					}
+					break;
 				
+				case TEAM.BLUE:
+					switch(_spawnNum) {
+						case 1:
+							_spawnInst = obj_spawn_blue_1;
+						break;
+				
+						case 2:
+							_spawnInst = obj_spawn_blue_2;
+						break;
+				
+						case 3:
+							_spawnInst = obj_spawn_blue_3;
+						break;
+				
+						case 4:
+							_spawnInst = obj_spawn_blue_4;
+						break;
+				
+						default:
+							show_message("ERROR: Unknown spawn location!");
+						break;
+					}					
 			}
+			
+			//Tell obj_self to move to spawn point
+			set_self_x(_spawnInst.x);
+			set_self_y(_spawnInst.y);
+			
 }
 else {
 	if(alarmCounterFlag < (500)) {

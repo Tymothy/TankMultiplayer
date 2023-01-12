@@ -2,9 +2,6 @@
   "resourceType": "GMSprite",
   "resourceVersion": "1.0",
   "name": "spr_blue_4",
-  "ConfigValues": {
-    "test": {"textureGroupId":"{\"name\":\"Default\",\"path\":\"texturegroups/Default\"}",},
-  },
   "bboxMode": 0,
   "collisionKind": 1,
   "type": 0,
@@ -31,7 +28,7 @@
   "gridX": 0,
   "gridY": 0,
   "frames": [
-    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"b1762045-147f-4b4b-9c5b-edacbbf5ff05",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"a014aa63-33a5-41d1-802f-50a3f1edaccb",},
   ],
   "sequence": {
     "resourceType": "GMSequence",
@@ -48,7 +45,7 @@
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MomentsEventKeyframe>",},
     "tracks": [
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","spriteId":null,"keyframes":{"Keyframes":[
-            {"id":"918bd2cf-4de7-48a2-8c0b-1ee6e991c242","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"b1762045-147f-4b4b-9c5b-edacbbf5ff05","path":"sprites/spr_blue_4/spr_blue_4.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
+            {"id":"20a64cf9-066e-408f-9549-940775238ece","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"a014aa63-33a5-41d1-802f-50a3f1edaccb","path":"sprites/spr_blue_4/spr_blue_4.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
           ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"modifiers":[],},
     ],
     "visibleRange": null,
@@ -67,11 +64,11 @@
     "eventStubScript": null,
   },
   "layers": [
-    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"58d315a4-b177-43a5-88f9-59ed7ae1d274","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default",},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"894ef741-a994-4d4f-887a-fc6f49d0cddc","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default",},
   ],
   "nineSlice": null,
   "parent": {
-    "name": "Numbering",
-    "path": "folders/Sprites/Markers/Numbering.yy",
+    "name": "Blue",
+    "path": "folders/Sprites/Markers/Spawning/Blue.yy",
   },
 }

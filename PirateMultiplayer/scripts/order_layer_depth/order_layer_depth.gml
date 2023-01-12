@@ -7,7 +7,7 @@ function <NAME>(_var1, _var2, _var3...) {
 function order_layer_depth(_layerStruct){
 	/// @desc Given a struct containing layer names and depths, set all found layers to that depth
 	/// @arg layerStruct
-	var _ll = true;
+	var _ll = false;
 	var str = "";
 	if(_ll) show_debug_message("===Local logging for order_layer_depth===");
 	

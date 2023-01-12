@@ -71,7 +71,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "Markers",
-    "path": "folders/Sprites/Markers.yy",
+    "name": "Blue",
+    "path": "folders/Sprites/Markers/Spawning/Blue.yy",
   },
 }

@@ -27,7 +27,7 @@ watchEvent = function(_event) {
 
 findEvent = function(_event, _seconds = 10) {
 	//Find a given event that has happend within the last given seconds.  10 seconds by default.
-	var _framesToCheck = global.frameCounter - (_seconds * gamespeed_fps);
+	var _framesToCheck = global.frameCounter - (_seconds * 60);
 	for(var i = array_length(eventArray) - 1 ; i >= 0; i--) {
 	//Go through the array backwards, retrieving most recent events first
 	//searches for events that occured on last frame
