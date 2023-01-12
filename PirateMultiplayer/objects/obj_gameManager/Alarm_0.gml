@@ -76,7 +76,11 @@ if(_configReady){
 						default:
 							show_message("ERROR: Unknown spawn location!");
 						break;
-					}					
+					}
+					break;
+					default:
+						show_message("Team is not a known team!");
+					break;
 			}
 			
 			//Tell obj_self to move to spawn point

@@ -67,10 +67,10 @@ switch(_type) {
 				with(obj_other) {					
 						//If the packet received was older that one we already got
 						//Discard it					
-						//if(playerData.clientID == _clientID){
+						if(playerData.clientID == _clientID){
 								if(aliveFrames > 2) updatePos(_data);
 								//y = lerp(y, _data.y, .2)wad;
-							//}
+							}
 
 				}					
 				break;
