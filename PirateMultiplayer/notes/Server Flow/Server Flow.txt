@@ -2,3 +2,13 @@
 Player starts up game and goes to main menu
 Player selects a username at main menu
 Player decides if they want to host a game, or
+
+
+
+===PLAYER OPTIONS===
+
+1. Main Menu (Setup like Fall Guys)
+	a. Play Game
+	b. Settings
+	
+	

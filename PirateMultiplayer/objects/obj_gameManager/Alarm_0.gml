@@ -21,12 +21,6 @@ if(_configReady){
 			var _spawnInst;
 			var _inst;
 			
-			/*
-			TODO: CHANGE MARKERS TO USE DIRECT SPAWN POINTS ONLY
-			EACH SPAWN POINT WILL BE SET TO BLUE OR RED
-			
-			
-			*/
 			
 			//Determine team spawn point
 			_team = get_spawn_team(obj_self);

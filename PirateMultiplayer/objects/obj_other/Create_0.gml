@@ -146,4 +146,4 @@ updatePos = function(_data) {
 	}
 	//if(net.newServerStep % 10 == 0) show_debug_message(string(net.xArray));
 }
-alarm[1] = 100;
+//alarm[1] = 100; //Uncomment to have interpolation arrays printed to console
